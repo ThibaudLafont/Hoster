@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="ui basic segment">
+        <h1>Upload</h1>
+
+        <!-- Form -->
+        <form method="post" action="/upload" enctype="multipart/form-data">
+            <input name="name" type="text" placeholder="Nom">
+            <input name="alt" type="text" placeholder="Description">
+            <input name="image" type="file">
+            <button type="submit">Uploader</button>
+        </form>
+
+        <!-- Uploaded images -->
+        <table class="ui celled striped table">
+            <thead>
+            <tr>
+                <th>Preview</th>
+                <th>Nom</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for image in images %}
+                <tr>
+                    <td class="collapsing"><img src="{{ image.src }}" alt="" style="width: 250px"></td>
+                    <td>{{ image.name }}</td>
+                    <td>{{ image.alt }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

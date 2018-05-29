@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Hoster{% endblock %}</title>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <!-- Semantic UI stylesheet -->
+        <link rel="stylesheet" href="/node_modules/semantic-ui/dist/semantic.min.css">
+        <!-- Specific stylesheets -->
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <!-- Body -->
+        {% block body %}{% endblock %}
+
+        <!-- JQuery -->
+        <script
+                src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+        <!-- Semantic script -->
+        <script src="/node_modules/semantic-ui/dist/semantic.min.js"></script>
+        <!-- Specific JS scripts -->
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
