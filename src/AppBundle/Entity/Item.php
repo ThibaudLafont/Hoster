@@ -2,11 +2,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Media
  *
  * @ORM\MappedSuperclass()
+ * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener"})
  */
 abstract class Item
 {
@@ -30,6 +32,12 @@ abstract class Item
      * @ORM\Column(name="alt", type="string")
      */
     private $alt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(name="create_at", type="datetime")
+     */
+    private $createAt;
 
     // Traits
     use Hydrate;
@@ -72,6 +80,22 @@ abstract class Item
     public function setAlt(string $alt): void
     {
         $this->alt = $alt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreateAt(): \DateTime
+    {
+        return $this->createAt;
+    }
+
+    /**
+     * @param \DateTime $createAt
+     */
+    public function setCreateAt(\DateTime $createAt): void
+    {
+        $this->createAt = $createAt;
     }
 
 }
