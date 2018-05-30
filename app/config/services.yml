@@ -23,7 +23,7 @@ services:
         exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
 
     Intervention\Image\ImageManager:
-    AppBundle\Service\Sluggifier:
+    AppBundle\Service\Slugifier:
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
@@ -40,7 +40,7 @@ services:
     AppBundle\Service\ImageHandler:
         arguments:
             $uploader: '@AppBundle\Service\Uploader'
-            $sluggifier: '@AppBundle\Service\Sluggifier'
+            $slugifier: '@AppBundle\Service\Slugifier'
             $webUploadDir: '%web_image_dir%'
 
     # add more services, or override services that need manual wiring

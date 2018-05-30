@@ -14,7 +14,7 @@ class ImageHandler
     /**
      * @var Sluggifier
      */
-    private $sluggifier;
+    private $slugifier;
 
     /**
      * @var string
@@ -23,12 +23,12 @@ class ImageHandler
 
     public function __construct(
         Uploader $uploader,
-        Sluggifier $sluggifier,
+        Slugifier $slugifier,
         string $webUploadDir
     )
     {
         $this->setUploader($uploader);
-        $this->setSluggifier($sluggifier);
+        $this->setSlugifier($slugifier);
         $this->setImageDir($webUploadDir);
     }
 
@@ -37,7 +37,7 @@ class ImageHandler
         // Define extension
         $ext = LocalImageExtension::getValue($files['type']['image']);
         // Define Slug
-        $slug = $this->getSluggifier()->sluggify($name);
+        $slug = $this->getSlugifier()->slugify($name);
 
         // Save Image
         $this->getUploader()->save(
@@ -79,19 +79,19 @@ class ImageHandler
     }
 
     /**
-     * @return Sluggifier
+     * @return Slugifier
      */
-    public function getSluggifier(): Sluggifier
+    public function getSlugifier(): Slugifier
     {
-        return $this->sluggifier;
+        return $this->slugifier;
     }
 
     /**
-     * @param Sluggifier $sluggifier
+     * @param Slugifier $slugifier
      */
-    public function setSluggifier(Sluggifier $sluggifier): void
+    public function setSlugifier(Slugifier $slugifier): void
     {
-        $this->sluggifier = $sluggifier;
+        $this->slugifier = $slugifier;
     }
 
     /**

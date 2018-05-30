@@ -1,9 +1,15 @@
 <?php
 namespace AppBundle\Service;
 
-class Sluggifier
+class Slugifier
 {
-    public function sluggify($text)
+    /**
+     * Slugify a string chain
+     *
+     * @param $text
+     * @return null|string|string[]
+     */
+    public function slugify($text)
     {
         $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
