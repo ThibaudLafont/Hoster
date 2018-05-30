@@ -25,16 +25,19 @@ class ImageHandler
     public function upload(string $name, string $alt, array $files)
     {
         // Define extension
-        $ext = LocalImageExtension::getValue($files['type']);
+        $ext = LocalImageExtension::getValue($files['type']['image']);
+        // Define Slug
+        $slug = $this->getSluggifier()->sluggify($name);
 
         // Save Image
-        $this->getUploader()->save($files['tmp_name'], $ext);
+        $this->getUploader()->save(
+            $files['tmp_name']['image'], $slug, $ext);
 
         // Entity creation
         return $this->createImage([
             'name' => $name,
-            'slug' => $this->getSluggifier()->sluggify($name),
-            'filename' => explode('/', $files['tmp_name'])[2],
+            'slug' => $slug,
+            'filename' => explode('/', $files['tmp_name']['image'])[2],
             'extension' => $ext,
             'alt' => $alt,
             'dirPath' => '/uploads/medias/images/'

@@ -5,12 +5,8 @@
         <h1>Upload</h1>
 
         <!-- Form -->
-        <form method="post" action="/upload" enctype="multipart/form-data">
-            <input name="name" type="text" placeholder="Nom">
-            <input name="alt" type="text" placeholder="Description">
-            <input name="image" type="file">
-            <button type="submit">Uploader</button>
-        </form>
+        {% form_theme form 'form_table_layout.html.twig' %}
+        {{ form(form) }}
 
         <!-- Uploaded images -->
         <table class="ui celled striped table">
@@ -19,14 +15,20 @@
                 <th>Preview</th>
                 <th>Nom</th>
                 <th>Description</th>
+                <th>Infos</th>
             </tr>
             </thead>
             <tbody>
             {% for image in images %}
                 <tr>
-                    <td class="collapsing"><img src="{{ image.src }}" alt="" style="width: 250px"></td>
+                    <td class="collapsing">
+                        <a href="{{ image.src }}" target="_blank">
+                            <img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">
+                        </a>
+                    </td>
                     <td>{{ image.name }}</td>
                     <td>{{ image.alt }}</td>
+                    <td>Infos</td>
                 </tr>
             {% endfor %}
             </tbody>

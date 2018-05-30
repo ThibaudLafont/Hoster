@@ -4,6 +4,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Local\Image;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -13,24 +16,26 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // Get files
-        $files = glob('/var/www/html/web/uploads/medias/images/*.jpg');
-
         // Get images
         $em = $this->getDoctrine()->getManager();
         $images = $em->getRepository(Image::class)->findAll();
-//        foreach ($files as $image) {
-//            $images[] = "/uploads/medias/images/"
-//                . pathinfo($image, PATHINFO_FILENAME)
-//                . '.'
-//                . pathinfo($image, PATHINFO_EXTENSION)
-//            ;
-//        }
+
+        // Build form
+        $form = $this->createFormBuilder()
+            ->setAction('/upload')
+            ->add('name', TextType::class)
+            ->add('alt', TextType::class)
+            ->add('image', FileType::class)
+            ->add('Uploader', SubmitType::class)
+            ->getForm();
 
         // Render
         return $this->render(
             'default/form.html.twig',
-            ['images' => $images]
+            [
+                'images' => $images,
+                'form'   => $form->createView()
+            ]
         );
     }
 

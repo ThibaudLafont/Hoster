@@ -15,12 +15,6 @@ class Image extends Item
 {
     /**
      * @var string
-     * @ORM\Column(name="filename", type="string")
-     */
-    private $filename;
-
-    /**
-     * @var string
      * @ORM\Column(name="slug", type="string")
      */
     private $slug;
@@ -41,8 +35,18 @@ class Image extends Item
     {
         return
             $this->getDirPath()  .
-            $this->getFilename() .
-            '.' . $this->getExtension();
+            $this->getSlug() .
+            '.' . $this->getExtension()
+        ;
+    }
+
+    public function getThumbSrc()
+    {
+        return
+            $this->getDirPath() . 'thumbnails/' .
+            $this->getSlug() .
+            '.' . $this->getExtension()
+            ;
     }
 
     /**
@@ -82,22 +86,6 @@ class Image extends Item
     public function setDirPath(string $dirPath): void
     {
         $this->dirPath = $dirPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilename(): string
-    {
-        return $this->filename;
-    }
-
-    /**
-     * @param string $filename
-     */
-    public function setFilename(string $filename): void
-    {
-        $this->filename = $filename;
     }
 
     /**

@@ -24,13 +24,13 @@ class UploadController extends Controller
     public function uploadAction() {
         // Check if FILE is defined
         if(
-            isset($_FILES['image']['tmp_name']) &&
-            !empty($_FILES['image']['tmp_name'])
+            isset($_FILES['form']['tmp_name']) &&
+            !empty($_FILES['form']['tmp_name'])
         ) {
             // Get ImageManager
             $ih = $this->getIh();
             // Upload
-            $img = $ih->upload($_POST['name'], $_POST['alt'], $_FILES['image']);
+            $img = $ih->upload($_POST['form']['name'], $_POST['form']['alt'], $_FILES['form']);
 
             // Persist new entity
             $em = $this->getDoctrine()->getManager();

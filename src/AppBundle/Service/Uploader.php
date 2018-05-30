@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
+use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 
 class Uploader
@@ -21,21 +22,52 @@ class Uploader
 
     /**
      * Save new image
-     * @param mixed  $img
+     * @param string $imgPath
+     * @param string $slug
      * @param string $ext
      */
-    public function save($img, $ext)
+    public function save(string $imgPath, string $slug, string $ext)
     {
         // Make Image
         $manager = $this->getManager();
-        $image = $manager->make($img);
+        $image = $manager->make($imgPath);
 
-        // Save Image
+        // Save Image in 1600
+        $this->saveImage(
+            $image,
+            $slug,
+            $ext,
+            1600,
+            '/var/www/html/web/uploads/medias/images/'
+        );
+
+        // Save Thumbnail
+        $this->saveImage(
+            $image,
+            $slug,
+            $ext,
+            250,
+            '/var/www/html/web/uploads/medias/images/thumbnails/'
+        );
+
+        $image->destroy();
+    }
+
+    private function saveImage(Image $image, string $name, string $ext, int $width, string $dirPath)
+    {
         $image
             ->interlace(true)
-            ->save('/var/www/html/web/uploads/medias/images/'
-                . $image->filename
-                . '.' . $ext)
+            ->resize(
+                $width, null,
+                function($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                }
+            )
+            ->save($dirPath
+                . $name
+                . '.' . $ext
+            )
         ;
     }
 
