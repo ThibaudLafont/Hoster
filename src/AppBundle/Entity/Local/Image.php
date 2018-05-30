@@ -31,6 +31,35 @@ class Image extends Item
      */
     private $dirPath;
 
+    /**
+     * @return int
+     */
+    public function getWidth(): int
+    {
+        return getimagesize(
+            '/var/www/html/web'.$this->getSrc()
+        )[0];
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeight(): int
+    {
+        return getimagesize(
+            '/var/www/html/web'.$this->getSrc()
+        )[1];
+    }
+
+    public function filesize()
+    {
+        return
+            round(
+                (filesize('/var/www/html/web'.$this->getSrc()) / 1024),
+                2
+            ) . ' Ko';
+    }
+
     public function getSrc()
     {
         return

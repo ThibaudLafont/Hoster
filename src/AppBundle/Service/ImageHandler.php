@@ -31,7 +31,8 @@ class ImageHandler
 
         // Save Image
         $this->getUploader()->save(
-            $files['tmp_name']['image'], $slug, $ext);
+            $files['tmp_name']['image'], $slug, $ext
+        );
 
         // Entity creation
         return $this->createImage([
