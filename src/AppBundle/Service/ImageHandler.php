@@ -16,10 +16,20 @@ class ImageHandler
      */
     private $sluggifier;
 
-    public function __construct(Uploader $uploader, Sluggifier $sluggifier)
+    /**
+     * @var string
+     */
+    private $imageDir;
+
+    public function __construct(
+        Uploader $uploader,
+        Sluggifier $sluggifier,
+        string $webUploadDir
+    )
     {
         $this->setUploader($uploader);
         $this->setSluggifier($sluggifier);
+        $this->setImageDir($webUploadDir);
     }
 
     public function upload(string $name, string $alt, array $files)
@@ -41,7 +51,7 @@ class ImageHandler
             'filename' => explode('/', $files['tmp_name']['image'])[2],
             'extension' => $ext,
             'alt' => $alt,
-            'dirPath' => '/uploads/medias/images/'
+            'dirPath' => $this->getImageDir()
         ]);
     }
 
@@ -82,6 +92,22 @@ class ImageHandler
     public function setSluggifier(Sluggifier $sluggifier): void
     {
         $this->sluggifier = $sluggifier;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageDir(): string
+    {
+        return $this->imageDir;
+    }
+
+    /**
+     * @param string $imageDir
+     */
+    public function setImageDir(string $imageDir): void
+    {
+        $this->imageDir = $imageDir;
     }
 
 }

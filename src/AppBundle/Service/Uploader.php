@@ -12,12 +12,19 @@ class Uploader
     private $manager;
 
     /**
+     * @var string
+     */
+    private $rootImageDir;
+
+    /**
      * Uploader constructor.
      * @param ImageManager $manager
+     * @param string $rootUploadDir
      */
-    public function __construct(ImageManager $manager)
+    public function __construct(ImageManager $manager, string $rootUploadDir)
     {
         $this->setManager($manager);
+        $this->setRootImageDir($rootUploadDir);
     }
 
     /**
@@ -38,7 +45,7 @@ class Uploader
             $slug,
             $ext,
             1600,
-            '/var/www/html/web/uploads/medias/images/'
+            $this->getRootImageDir()
         );
 
         // Save Thumbnail
@@ -47,7 +54,7 @@ class Uploader
             $slug,
             $ext,
             250,
-            '/var/www/html/web/uploads/medias/images/thumbnails/'
+            $this->getRootImageDir() . 'thumbnails/'
         );
 
         $image->destroy();
@@ -85,6 +92,22 @@ class Uploader
     public function setManager(ImageManager $manager)
     {
         $this->manager = $manager;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootImageDir(): string
+    {
+        return $this->rootImageDir;
+    }
+
+    /**
+     * @param string $rootImageDir
+     */
+    public function setRootImageDir(string $rootImageDir): void
+    {
+        $this->rootImageDir = $rootImageDir;
     }
 
 }

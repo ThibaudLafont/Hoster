@@ -35,11 +35,13 @@ services:
     AppBundle\Service\Uploader:
         arguments:
             $manager: '@Intervention\Image\ImageManager'
+            $rootUploadDir: '%root_image_dir%'
 
     AppBundle\Service\ImageHandler:
         arguments:
             $uploader: '@AppBundle\Service\Uploader'
             $sluggifier: '@AppBundle\Service\Sluggifier'
+            $webUploadDir: '%web_image_dir%'
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
