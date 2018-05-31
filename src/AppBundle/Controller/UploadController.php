@@ -5,8 +5,10 @@ use AppBundle\Entity\Local\Image;
 use AppBundle\Form\Type\ImageUpload;
 use AppBundle\Service\ImageHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class UploadController extends Controller
 {
@@ -27,32 +29,57 @@ class UploadController extends Controller
         // Form
         $form = $this->createForm(ImageUpload::class);
         $form->handleRequest($request);
-        // Check if FILE is defined
-        if(
-            $form->isSubmitted()
-//            isset($_FILES['form']['tmp_name']) &&
-//            !empty($_FILES['form']['tmp_name'])
-        ) {
-            // Get Datas
-            $data = $form->getData();
 
-            // Get ImageManager
-            $ih = $this->getIh();
-            // Upload
-            $img = $ih->upload(
-                $data['name'],
-                $data['alt'],
-                $data['image']
-            );
-
-            // Persist new entity
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($img);
-            $em->flush();
+        // Check if form was submitted
+        if($form->isSubmitted()) {
+            $this->handleUploadFormSubmit($form);
         }
 
         // Render
         return $this->redirect('/');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/ajax-upload", name="ajax_upload")
+     */
+    public function ajaxUploadAction(Request $request)
+    {
+        // Form
+        $form = $this->createForm(ImageUpload::class);
+        $form->handleRequest($request);
+
+        // Check if FILE is defined
+        if($form->isSubmitted()) {
+            // Handle upload
+            $this->handleUploadFormSubmit($form);
+            // Return 200 success response
+            return new Response('Uploadé', 500, ['Access-Control-Allow-Origin' => '*']);
+        }
+
+        // Else return 400
+        return new Response('Problème d\'uplaod', 400, ['Access-Control-Allow-Origin' => '*']);
+    }
+
+    private function handleUploadFormSubmit(FormInterface $form)
+    {
+        // Get Datas
+        $data = $form->getData();
+
+        // Get ImageManager
+        $ih = $this->getIh();
+        // Upload
+        $img = $ih->upload(
+            $data['name'],
+            $data['alt'],
+            $data['image']
+        );
+
+        // Persist new entity
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($img);
+        $em->flush();
     }
 
     /**
