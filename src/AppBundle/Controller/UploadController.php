@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Local\Image;
+use AppBundle\Form\Type\ImageUpload;
 use AppBundle\Service\ImageHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,19 +23,26 @@ class UploadController extends Controller
     /**
      * @Route("/upload", name="upload")
      */
-    public function uploadAction() {
+    public function uploadAction(Request $request) {
+        // Form
+        $form = $this->createForm(ImageUpload::class);
+        $form->handleRequest($request);
         // Check if FILE is defined
         if(
-            isset($_FILES['form']['tmp_name']) &&
-            !empty($_FILES['form']['tmp_name'])
+            $form->isSubmitted()
+//            isset($_FILES['form']['tmp_name']) &&
+//            !empty($_FILES['form']['tmp_name'])
         ) {
+            // Get Datas
+            $data = $form->getData();
+
             // Get ImageManager
             $ih = $this->getIh();
             // Upload
             $img = $ih->upload(
-                $_POST['form']['name'],
-                $_POST['form']['alt'],
-                $_FILES['form']
+                $data['name'],
+                $data['alt'],
+                $data['image']
             );
 
             // Persist new entity

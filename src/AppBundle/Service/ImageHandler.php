@@ -3,6 +3,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Local\Image;
 use AppBundle\Enumeration\Entity\LocalImageExtension;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageHandler
 {
@@ -32,23 +33,22 @@ class ImageHandler
         $this->setImageDir($webUploadDir);
     }
 
-    public function upload(string $name, string $alt, array $files)
+    public function upload(string $name, string $alt, UploadedFile $file)
     {
         // Define extension
-        $ext = LocalImageExtension::getValue($files['type']['image']);
+        $ext = LocalImageExtension::getValue($file->getMimeType());
         // Define Slug
         $slug = $this->getSlugifier()->slugify($name);
 
         // Save Image
         $this->getUploader()->save(
-            $files['tmp_name']['image'], $slug, $ext
+            $file->getRealPath(), $slug, $ext
         );
 
         // Entity creation
         return $this->createImage([
             'name' => $name,
             'slug' => $slug,
-            'filename' => explode('/', $files['tmp_name']['image'])[2],
             'extension' => $ext,
             'alt' => $alt,
             'dirPath' => $this->getImageDir()

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\Local\Image;
+use AppBundle\Form\Type\ImageUpload;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,13 +22,14 @@ class DefaultController extends Controller
         $images = $em->getRepository(Image::class)->findAll();
 
         // Build form
-        $form = $this->createFormBuilder()
-            ->setAction('/upload')
-            ->add('name', TextType::class)
-            ->add('alt', TextType::class)
-            ->add('image', FileType::class)
-            ->add('Uploader', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(ImageUpload::class);
+//        $form = $this->createFormBuilder()
+//            ->setAction('/upload')
+//            ->add('name', TextType::class)
+//            ->add('alt', TextType::class)
+//            ->add('image', FileType::class)
+//            ->add('Uploader', SubmitType::class)
+//            ->getForm();
 
         // Render
         return $this->render(
