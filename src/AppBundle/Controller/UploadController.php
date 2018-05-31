@@ -53,9 +53,16 @@ class UploadController extends Controller
         // Check if FILE is defined
         if($form->isSubmitted()) {
             // Handle upload
-            $this->handleUploadFormSubmit($form);
-            // Return 200 success response
-            return new Response('Uploadé', 500, ['Access-Control-Allow-Origin' => '*']);
+            $image = $this->handleUploadFormSubmit($form);
+            // Build Response
+            $response = new Response();
+            $response->setContent(json_encode([
+                'url' => $image->getSrc()
+            ]));
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+//            return new Response('Uploadé', 500, ['Access-Control-Allow-Origin' => '*']);
         }
 
         // Else return 400
@@ -80,6 +87,8 @@ class UploadController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($img);
         $em->flush();
+
+        return $img;
     }
 
     /**
