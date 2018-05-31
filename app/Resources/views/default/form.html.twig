@@ -25,13 +25,25 @@
                         <a href="{{ image.src }}" target="_blank">
                             <img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">
                         </a>
+                        <form action="/delete/{{ image.id }}" style="float: left">
+                            <button type="submit" class="ui red icon button">
+                                <i class="ui icon trash"></i>
+                            </button>
+                        </form>
+                        {#<form action="/edit/{{ image.id }}">#}
+                            {#<button class="ui green icon button">#}
+                                {#<i class="ui icon edit"></i>#}
+                            {#</button>#}
+                        {#</form>#}
                     </td>
                     <td>{{ image.name }}</td>
                     <td>{{ image.alt }}</td>
-                    <td>Créé le: {{ image.createAt|date }}<br/>
+                    <td>
+                        <p>Créé le: {{ image.createAt|date }}<br/>
                         Type de fichier: {{ image.extension }}<br/>
                         Dimensions: {{ image.width }} x {{ image.height }}<br/>
                         Taille du fichier: {{ image.filesize }}
+                        </p>
                     </td>
                 </tr>
             {% endfor %}

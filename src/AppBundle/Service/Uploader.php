@@ -60,6 +60,14 @@ class Uploader
         $image->destroy();
     }
 
+    public function delete(string $filename)
+    {
+        // Delete original pic
+        unlink($this->getRootImageDir() . $filename);
+        // Delete thumbnail
+        unlink($this->getRootImageDir() . 'thumbnails/' . $filename);
+    }
+
     private function saveImage(Image $image, string $name, string $ext, int $width, string $dirPath)
     {
         $image

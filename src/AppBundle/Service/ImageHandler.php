@@ -55,6 +55,14 @@ class ImageHandler
         ]);
     }
 
+    public function delete(Image $image)
+    {
+        // Ask to Uploader deletion
+        $this->getUploader()->delete(
+            $image->getSlug() . '.' . $image->getExtension()
+        );
+    }
+
     private function createImage(array $data)
     {
         $entity = new Image();

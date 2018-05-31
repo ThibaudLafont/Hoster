@@ -53,11 +53,17 @@ class Image extends Item
 
     public function filesize()
     {
-        return
+        // Convert size in Ko
+        $size =
             round(
-                (filesize('/var/www/html/web'.$this->getSrc()) / 1024),
+                (filesize('/var/www/html/web'.$this->getSrc()) / 1000),
                 2
-            ) . ' Ko';
+            );
+
+        // Clear cache
+        clearstatcache();
+        // Return result
+        return $size . ' Kb';
     }
 
     public function getSrc()

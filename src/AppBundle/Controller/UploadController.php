@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Local\Image;
 use AppBundle\Service\ImageHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,11 @@ class UploadController extends Controller
             // Get ImageManager
             $ih = $this->getIh();
             // Upload
-            $img = $ih->upload($_POST['form']['name'], $_POST['form']['alt'], $_FILES['form']);
+            $img = $ih->upload(
+                $_POST['form']['name'],
+                $_POST['form']['alt'],
+                $_FILES['form']
+            );
 
             // Persist new entity
             $em = $this->getDoctrine()->getManager();
@@ -41,6 +46,29 @@ class UploadController extends Controller
         // Render
         return $this->redirect('/');
     }
+
+    /**
+     * @param $id
+     * @Route("/delete/{id}", name="delete")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        // Get Image
+        $em = $this->getDoctrine()->getManager();
+        $image = $em->getRepository(Image::class)->find($id);
+
+        // Delete file
+        $this->getIh()->delete($image);
+
+        // Delete Entity
+        $em->remove($image);
+        $em->flush();
+
+        // Render
+        return $this->redirect('/');
+    }
+
     /**
      * @return ImageHandler
      */
