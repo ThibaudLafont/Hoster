@@ -38,12 +38,10 @@
                     </td>
                     <td>{{ image.name }}</td>
                     <td>{{ image.alt }}</td>
-                    <td>
-                        <p>Créé le: {{ image.createAt|date }}<br/>
+                    <td>Créé le: {{ image.createAt|date }}<br/>
                         Type de fichier: {{ image.extension }}<br/>
                         Dimensions: {{ image.width }} x {{ image.height }}<br/>
                         Taille du fichier: {{ image.filesize }}
-                        </p>
                     </td>
                 </tr>
             {% endfor %}
