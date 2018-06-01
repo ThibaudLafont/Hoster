@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\Distant\Dailymotion;
 use AppBundle\Entity\Distant\Youtube;
 use AppBundle\Entity\Item;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -13,7 +14,7 @@ class DailymotionListener
     /**
      * @param $vid
      */
-    public function prePersist(Youtube $vid)
+    public function prePersist(Dailymotion $vid)
     {
         // Extract code & assign to entity
         $vid->setCode(
@@ -22,10 +23,10 @@ class DailymotionListener
     }
 
     /**
-     * @param Youtube $vid
+     * @param Dailymotion $vid
      * @param PreUpdateEventArgs $event
      */
-    public function preUpdate(Youtube $vid, PreUpdateEventArgs $event)
+    public function preUpdate(Dailymotion $vid, PreUpdateEventArgs $event)
     {
         if($event->hasChangedField('url')) {
             // Extract code & assign to entity

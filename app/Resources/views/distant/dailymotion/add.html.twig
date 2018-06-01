@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="ui basic segment">
-        <h1>Youtube Upload</h1>
+        <h1>Dailymotion Upload</h1>
 
         <!-- Form -->
         {% form_theme form 'form_table_layout.html.twig' %}
@@ -25,12 +25,12 @@
                         <a href="{{ vid.url }}" target="_blank">
                             <img class="ui small image" src="{{ vid.coverImage }}" alt="Cover of {{ vid.name }}">
                         </a>
-                        <form action="/delete/youtube/{{ vid.id }}" style="float: left">
+                        <form action="/delete/dailymotion/{{ vid.id }}" style="float: left">
                             <button type="submit" class="ui red icon button">
                                 <i class="ui icon trash"></i>
                             </button>
                         </form>
-                        <form action="/edit/youtube/{{ vid.id }}">
+                        <form action="/edit/dailymotion/{{ vid.id }}">
                             <button class="ui green icon button">
                                 <i class="ui icon edit"></i>
                             </button>
@@ -39,8 +39,8 @@
                     <td>{{ vid.name }}</td>
                     <td>{{ vid.alt }}</td>
                     <td>Créé le: {{ vid.createAt|date }}<br/>
-                        Type de fichier: Vidéo Youtube<br/>
-                        Code vidéo : {{ vid.code }}
+                        Type de fichier: Vidéo Dailymotion<br/>
+                        Code: {{ vid.code }}
                     </td>
                 </tr>
             {% endfor %}

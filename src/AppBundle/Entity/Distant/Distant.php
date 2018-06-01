@@ -11,27 +11,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Distant extends Item
 {
-
     /**
      * @var string
-     * @ORM\Column(name="url", type="string")
+     *
+     * @ORM\Column(name="code", type="string")
      */
-    private $url;
+    private $code;
 
     /**
      * @return string
      */
-    public function getUrl()
+    public function getCode()
     {
-        return $this->url;
+        return $this->code;
     }
 
     /**
-     * @param string $url
+     * @param string $code
      */
-    public function setUrl(string $url): void
+    public function setCode(string $code): void
     {
-        $this->url = $url;
+        $this->code = $code;
     }
 
 }

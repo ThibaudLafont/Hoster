@@ -4,14 +4,14 @@ namespace AppBundle\Entity\Distant;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Youtube
+ * Class Dailymotion
  * @package AppBundle\Entity\Distant
  *
  * @ORM\Entity()
- * @ORM\Table(name="distant_youtube")
- * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\YoutubeListener"})
+ * @ORM\Table(name="distant_dailymotion")
+ * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\DailymotionListener"})
  */
-class Youtube extends Distant
+class Dailymotion extends Distant
 {
     /**
      * @var string
@@ -37,14 +37,12 @@ class Youtube extends Distant
 
     public function getCoverImage()
     {
-        return 'https://img.youtube.com/vi/' .
-            $this->getCode() .
-            '/hqdefault.jpg';
+        return 'https://www.dailymotion.com/thumbnail/video/' . $this->getCode();
     }
 
     public function getEmbedSrc()
     {
-        return 'https://www.youtube.com/embed/' . $this->getCode();
+        return 'https://www.dailymotion.com/video/' . $this->getCode();
     }
 
 }
