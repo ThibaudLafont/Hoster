@@ -13,8 +13,27 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <!-- Body -->
-        {% block body %}{% endblock %}
+        <section class="ui sidebar inverted vertical menu">
+            <a href="/add/image" class="item">
+                Images
+            </a>
+            <a href="/add/youtube" class="item">
+                Youtube
+            </a>
+            <a href="/add/dailymotion" class="item">
+                Dailymotion
+            </a>
+            <a href="/add/vimeo" class="item">
+                Vimeo
+            </a>
+        </section>
+        <section class="pusher">
+            <button id="menu-button" class="ui icon right attached button">
+                <i class="ui angle right icon"></i>
+            </button>
+            <!-- Body -->
+            {% block body %}{% endblock %}
+        </section>
 
         <!-- JQuery -->
         <script
@@ -23,6 +42,12 @@
                 crossorigin="anonymous"></script>
         <!-- Semantic script -->
         <script src="/node_modules/semantic-ui/dist/semantic.min.js"></script>
+        <script>
+            $('#menu-button').click(function(){
+                    $('.ui.sidebar').sidebar('toggle')
+
+            });
+        </script>
         <!-- Specific JS scripts -->
         {% block javascripts %}{% endblock %}
     </body>
