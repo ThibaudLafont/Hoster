@@ -53,7 +53,7 @@ abstract class Item
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -69,7 +69,7 @@ abstract class Item
     /**
      * @return string
      */
-    public function getAlt(): string
+    public function getAlt()
     {
         return $this->alt;
     }

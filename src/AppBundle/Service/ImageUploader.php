@@ -57,7 +57,23 @@ class ImageUploader
             $this->getRootImageDir() . 'thumbnails/'
         );
 
+        // Destroy image
         $image->destroy();
+    }
+
+    public function rename(string $oldFilename, string $newFilename)
+    {
+        // Rename main image
+        rename(
+            $this->getRootImageDir() . $oldFilename,
+            $this->getRootImageDir() . $newFilename
+        );
+
+        // Rename thumbnail
+        rename(
+            $this->getRootImageDir() . 'thumbnails/' . $oldFilename,
+            $this->getRootImageDir() . 'thumbnails/' . $newFilename
+        );
     }
 
     public function delete(string $filename)

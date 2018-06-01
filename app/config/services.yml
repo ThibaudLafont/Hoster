@@ -37,11 +37,18 @@ services:
             $manager: '@Intervention\Image\ImageManager'
             $rootUploadDir: '%root_image_dir%'
 
-    AppBundle\Service\ImageHandler:
-        arguments:
-            $uploader: '@AppBundle\Service\ImageUploader'
-            $slugifier: '@AppBundle\Service\Slugifier'
-            $webUploadDir: '%web_image_dir%'
+    item.listener:
+        class: AppBundle\EventListener\ItemListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
+    image.listener:
+        class: AppBundle\EventListener\ImageListener
+        arguments: ['@AppBundle\Service\ImageUploader', '%web_image_dir%']
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

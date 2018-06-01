@@ -2,11 +2,16 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Local\Image;
+use AppBundle\EventSubscriber\ImageSubscriber;
+use AppBundle\Service\Slugifier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageUpload extends AbstractType
@@ -17,8 +22,9 @@ class ImageUpload extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Form build
         $builder
-            ->setAction('/add/image')
+            ->addEventSubscriber(new ImageSubscriber(new Slugifier()))
             ->add(
                 'name',
                 TextType::class
@@ -28,13 +34,8 @@ class ImageUpload extends AbstractType
                 TextType::class
             )
             ->add(
-                'image',
-                FileType::class,
-                ['mapped' => false]
-            )
-            ->add(
-                'Uploader',
-                SubmitType::class
+                'slug',
+                HiddenType::class
             );
     }
 

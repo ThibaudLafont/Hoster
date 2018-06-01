@@ -5,7 +5,6 @@ use AppBundle\Entity\Local\Image;
 use AppBundle\Form\Type\ImageUpload;
 use AppBundle\Service\ImageHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,36 +12,39 @@ use Symfony\Component\HttpFoundation\Response;
 class ImageController extends Controller
 {
     /**
-     * @var ImageHandler
-     */
-    private $ih;
-
-    /**
-     * @param ImageHandler $ih
-     */
-    public function __construct(ImageHandler $ih)
-    {
-        $this->setIh($ih);
-    }
-
-    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/add/image", name="image_upload")
      */
     public function uploadAction(Request $request) {
+        // Get images
+        $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository(Image::class)->findAll();
+
         // Form
         $form = $this->createForm(ImageUpload::class);
         $form->handleRequest($request);
 
         // Check if form was submitted
-        if($form->isSubmitted()) {
-            $this->handleUploadFormSubmit($form);
+        if($form->isSubmitted() && $form->isValid()) {
+            // Persist entity
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
+
+            // Return to image_upload
+            return $this->redirectToRoute('image_upload');
         }
 
         // Render
-        return $this->redirectToRoute('image_add');
+        return $this->render(
+            'image/add.html.twig',
+            [
+                'images' => $images,
+                'form'   => $form->createView()
+            ]
+        );
     }
 
     /**
@@ -58,9 +60,11 @@ class ImageController extends Controller
         $form->handleRequest($request);
 
         // Check if FILE is defined
-        if($form->isSubmitted()) {
-            // Handle upload
-            $image = $this->handleUploadFormSubmit($form);
+        if($form->isSubmitted() && $form->isValid()) {
+            // Persist entity
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
 
             // Build Response
             $response = new Response();
@@ -93,13 +97,10 @@ class ImageController extends Controller
         $form = $this->createForm(ImageUpload::class, $image);
         $form->handleRequest($request);
 
-        // Check if form was submitted
-        if($form->isSubmitted()) {
-
-            // Rename file though listener
-
-            // Edits Entity
-
+        //Name Check if form was submitted
+        if($form->isSubmitted() && $form->isValid()) {
+            // Update Entity (launch Listener)
+            $this->getDoctrine()->getManager()->flush();
         }
 
         // Render
@@ -121,60 +122,12 @@ class ImageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $image = $em->getRepository(Image::class)->find($id);
 
-        // Delete file
-        $this->getIh()->delete($image);
-
         // Delete Entity
         $em->remove($image);
         $em->flush();
 
         // Render
         return $this->redirectToRoute('image_add');
-    }
-
-    /**
-     * Perform upload & persist entity to DB
-     *
-     * @param FormInterface $form
-     * @return Image
-     */
-    private function handleUploadFormSubmit(FormInterface $form)
-    {
-        // Get Datas
-        $data = $form->getData();
-
-        // Get ImageManager
-        $ih = $this->getIh();
-        // Upload
-        $img = $ih->upload(
-            $data['name'],
-            $data['alt'],
-            $data['image']
-        );
-
-        // Persist new entity
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($img);
-        $em->flush();
-
-        // return entity
-        return $img;
-    }
-
-    /**
-     * @return ImageHandler
-     */
-    public function getIh(): ImageHandler
-    {
-        return $this->ih;
-    }
-
-    /**
-     * @param ImageHandler $ih
-     */
-    public function setIh(ImageHandler $ih): void
-    {
-        $this->ih = $ih;
     }
 
 }
