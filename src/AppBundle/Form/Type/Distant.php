@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Youtube extends AbstractType
+class Distant extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,7 +17,6 @@ class Youtube extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/add/youtube')
             ->add(
                 'name',
                 TextType::class
@@ -38,5 +37,8 @@ class Youtube extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+//        $resolver->setDefaults([
+//            'data_class' =>
+//        ]);
     }
 }

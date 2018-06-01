@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Local\Image;
+use \AppBundle\Form\Type\Image as ImageType;
 use AppBundle\Form\Type\ImageUpload;
 use AppBundle\Service\ImageHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,13 +18,13 @@ class ImageController extends Controller
      *
      * @Route("/add/image", name="image_upload")
      */
-    public function uploadAction(Request $request) {
+    public function addAction(Request $request) {
         // Get images
         $em = $this->getDoctrine()->getManager();
         $images = $em->getRepository(Image::class)->findAll();
 
         // Form
-        $form = $this->createForm(ImageUpload::class);
+        $form = $this->createForm(ImageType::class);
         $form->handleRequest($request);
 
         // Check if form was submitted
@@ -53,10 +54,10 @@ class ImageController extends Controller
      *
      * @Route("/add/image/ajax", name="image_ajax_upload")
      */
-    public function ajaxUploadAction(Request $request)
+    public function ajaxAddAction(Request $request)
     {
         // Form
-        $form = $this->createForm(ImageUpload::class);
+        $form = $this->createForm(ImageType::class);
         $form->handleRequest($request);
 
         // Check if FILE is defined
@@ -94,7 +95,7 @@ class ImageController extends Controller
         $image = $em->getRepository(Image::class)->find($id);
 
         // Form
-        $form = $this->createForm(ImageUpload::class, $image);
+        $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
         //Name Check if form was submitted
