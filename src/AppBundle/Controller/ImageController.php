@@ -127,7 +127,7 @@ class ImageController extends Controller
         $em->flush();
 
         // Render
-        return $this->redirectToRoute('image_add');
+        return $this->redirectToRoute('image_upload');
     }
 
 }
