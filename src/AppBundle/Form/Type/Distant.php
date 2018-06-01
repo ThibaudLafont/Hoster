@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Form\Type;
 
+use AppBundle\EventSubscriber\YoutubeSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,6 +18,7 @@ class Distant extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->addEventSubscriber(new YoutubeSubscriber())
             ->add(
                 'name',
                 TextType::class
@@ -26,12 +28,8 @@ class Distant extends AbstractType
                 TextType::class
             )
             ->add(
-                'src',
+                'url',
                 TextType::class
-            )
-            ->add(
-                'Ajouter',
-                SubmitType::class
             );
     }
 

@@ -5,8 +5,8 @@
         <h1>Youtube Upload</h1>
 
         <!-- Form -->
-        {#{% form_theme form 'form_table_layout.html.twig' %}#}
-        {#{{ form(form) }}#}
+        {% form_theme form 'form_table_layout.html.twig' %}
+        {{ form(form) }}
 
         <!-- Uploaded images -->
         <table class="ui celled striped table">
@@ -19,27 +19,33 @@
             </tr>
             </thead>
             <tbody>
-            {#{% for distant in distants %}#}
-                {#<tr>#}
-                    {#<td class="collapsing">#}
-                        {#<a href="{{ image.src }}" target="_blank">#}
-                            {#<img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">#}
-                        {#</a>#}
-                        {#<form action="/delete/{{ image.id }}" style="float: left">#}
-                            {#<button type="submit" class="ui red icon button">#}
-                                {#<i class="ui icon trash"></i>#}
-                            {#</button>#}
-                        {#</form>#}
-                    {#</td>#}
-                    {#<td>{{ image.name }}</td>#}
-                    {#<td>{{ image.alt }}</td>#}
-                    {#<td>Créé le: {{ image.createAt|date }}<br/>#}
-                        {#Type de fichier: {{ image.extension }}<br/>#}
+            {% for vid in vids %}
+                <tr>
+                    <td class="collapsing">
+                        <a href="{{ vid.url }}" target="_blank">
+                            <img class="ui small image" src="{{ vid.coverImage }}" alt="Cover of {{ vid.name }}">
+                        </a>
+                        <form action="/delete/youtube/{{ vid.id }}" style="float: left">
+                            <button type="submit" class="ui red icon button">
+                                <i class="ui icon trash"></i>
+                            </button>
+                        </form>
+                        <form action="/edit/youtube/{{ vid.id }}">
+                            <button class="ui green icon button">
+                                <i class="ui icon edit"></i>
+                            </button>
+                        </form>
+                    </td>
+                    <td>{{ vid.name }}</td>
+                    <td>{{ vid.alt }}</td>
+                    <td>Créé le: {{ vid.createAt|date }}<br/>
+                        Type de fichier: Vidéo Youtube<br/>
+                        Code vidéo : {{ vid.code }}
                         {#Dimensions: {{ image.width }} x {{ image.height }}<br/>#}
                         {#Taille du fichier: {{ image.filesize }}#}
-                    {#</td>#}
-                {#</tr>#}
-            {#{% endfor %}#}
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </section>
