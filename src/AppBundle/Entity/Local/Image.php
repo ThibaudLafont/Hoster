@@ -33,7 +33,7 @@ class Image extends Item
      *     detectCorrupted=true,
      *     corruptedMessage="Le fichier est corrompu"
      * )
-     * @Assert\NotNull(message="Le fichier est obligatoire")
+     * @Assert\NotNull(message="Le fichier est obligatoire", groups={"create"})
      */
     private $file;
 

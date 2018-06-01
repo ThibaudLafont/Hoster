@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\Local\Image;
+use AppBundle\Entity\Local\Image as ImageEntity;
 use AppBundle\EventSubscriber\ImageSubscriber;
 use AppBundle\Service\Slugifier;
 use Symfony\Component\Form\AbstractType;
@@ -12,9 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImageUpload extends AbstractType
+class Image extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -42,7 +43,16 @@ class ImageUpload extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Image::class
+            'data_class' => ImageEntity::class,
+            'validation_groups' => function (FormInterface $form) {
+                $data = $form->getData();
+
+                if (is_null($data->getId())) {
+                    return array('create');
+                }
+
+                return array('Default');
+            }
         ]);
     }
 }
