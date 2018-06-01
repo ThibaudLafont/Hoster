@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Media
@@ -24,12 +25,14 @@ abstract class Item
     /**
      * @var string
      * @ORM\Column(name="name", type="string")
+     * @Assert\NotBlank(message="Le nom est obligatoire")
      */
     private $name;
 
     /**
      * @var string
      * @ORM\Column(name="alt", type="string")
+     * @Assert\NotNull(message="La description est obligatoire")
      */
     private $alt;
 

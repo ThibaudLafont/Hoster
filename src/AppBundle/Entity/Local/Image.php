@@ -6,6 +6,7 @@ use AppBundle\Enumeration\Entity\LocalImageExtension;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -19,6 +20,20 @@ class Image extends Item
 {
     /**
      * @var UploadedFile
+     * @Assert\Image(
+     *     maxSize="1M",
+     *     maxSizeMessage="Le fichier est trop lourd ({{ size }} {{ suffix }}), la taille maximale autorisée est {{ limit }} {{ suffix }}",
+     *     uploadFormSizeErrorMessage="Le fichier fourni est trop lourd",
+     *     mimeTypes={"image/jpeg", "image/jpg", "image/png"},
+     *     mimeTypesMessage="{{ type }} n'est pas supporté, veuillez uploader une des types suivants: {{ types }}",
+     *     uploadErrorMessage="Problème durant l'upload",
+     *     notReadableMessage="Fichier illisible",
+     *     uploadIniSizeErrorMessage="Le fichier fourni est trop lourd",
+     *     notFoundMessage="Fichier introuvable",
+     *     detectCorrupted=true,
+     *     corruptedMessage="Le fichier est corrompu"
+     * )
+     * @Assert\NotNull(message="Le fichier est obligatoire")
      */
     private $file;
 
