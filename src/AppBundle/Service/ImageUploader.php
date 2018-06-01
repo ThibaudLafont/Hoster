@@ -4,7 +4,7 @@ namespace AppBundle\Service;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 
-class Uploader
+class ImageUploader
 {
     /**
      * @var ImageManager
@@ -63,9 +63,14 @@ class Uploader
     public function delete(string $filename)
     {
         // Delete original pic
-        unlink($this->getRootImageDir() . $filename);
+        if(file_exists($this->getRootImageDir() . $filename)) {
+            unlink($this->getRootImageDir() . $filename);
+        }
+
         // Delete thumbnail
-        unlink($this->getRootImageDir() . 'thumbnails/' . $filename);
+        if(file_exists($this->getRootImageDir() . 'thumbnails/' . $filename)) {
+            unlink($this->getRootImageDir() . 'thumbnails/' . $filename);
+        }
     }
 
     private function saveImage(Image $image, string $name, string $ext, int $width, string $dirPath)

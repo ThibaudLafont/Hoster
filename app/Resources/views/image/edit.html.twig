@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="ui basic segment">
+        <h1>Image Edit - {{ image.name }}</h1>
+
+        <!-- Preview -->
+        <h4>Preview</h4>
+        <img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">
+
+        <!-- Infos -->
+        <h4>Infos</h4>
+        <p>{% include 'image/_image_infos.html.twig' %}</p>
+
+        <!-- Form -->
+        <h4>Form</h4>
+        {% form_theme form 'form_table_layout.html.twig' %}
+        {{ form(form) }}
+
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

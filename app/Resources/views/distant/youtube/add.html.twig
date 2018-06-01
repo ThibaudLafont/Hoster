@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="ui basic segment">
+        <h1>Image Upload</h1>
+
+        <!-- Form -->
+        {% form_theme form 'form_table_layout.html.twig' %}
+        {{ form(form) }}
+
+        <!-- Uploaded images -->
+        <table class="ui celled striped table">
+            <thead>
+            <tr>
+                <th>Preview</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Infos</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for image in images %}
+                <tr>
+                    <td class="collapsing">
+                        <a href="{{ image.src }}" target="_blank">
+                            <img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">
+                        </a>
+                        <form action="/delete/{{ image.id }}" style="float: left">
+                            <button type="submit" class="ui red icon button">
+                                <i class="ui icon trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                    <td>{{ image.name }}</td>
+                    <td>{{ image.alt }}</td>
+                    <td>Créé le: {{ image.createAt|date }}<br/>
+                        Type de fichier: {{ image.extension }}<br/>
+                        Dimensions: {{ image.width }} x {{ image.height }}<br/>
+                        Taille du fichier: {{ image.filesize }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

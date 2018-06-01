@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="ui basic segment">
-        <h1>Upload</h1>
+        <h1>Image Upload</h1>
 
         <!-- Form -->
         {% form_theme form 'form_table_layout.html.twig' %}
@@ -30,18 +30,16 @@
                                 <i class="ui icon trash"></i>
                             </button>
                         </form>
-                        {#<form action="/edit/{{ image.id }}">#}
-                            {#<button class="ui green icon button">#}
-                                {#<i class="ui icon edit"></i>#}
-                            {#</button>#}
-                        {#</form>#}
+                        <form action="/edit/image/{{ image.id }}">
+                            <button class="ui green icon button">
+                                <i class="ui icon edit"></i>
+                            </button>
+                        </form>
                     </td>
                     <td>{{ image.name }}</td>
                     <td>{{ image.alt }}</td>
-                    <td>Créé le: {{ image.createAt|date }}<br/>
-                        Type de fichier: {{ image.extension }}<br/>
-                        Dimensions: {{ image.width }} x {{ image.height }}<br/>
-                        Taille du fichier: {{ image.filesize }}
+                    <td>
+                        {% include 'image/_image_infos.html.twig' %}
                     </td>
                 </tr>
             {% endfor %}

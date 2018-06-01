@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\Local\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -9,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImageUpload extends AbstractType
+class Youtube extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,7 +17,7 @@ class ImageUpload extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/add/image')
+            ->setAction('/add/youtube')
             ->add(
                 'name',
                 TextType::class
@@ -28,20 +27,16 @@ class ImageUpload extends AbstractType
                 TextType::class
             )
             ->add(
-                'image',
-                FileType::class,
-                ['mapped' => false]
+                'src',
+                TextType::class
             )
             ->add(
-                'Uploader',
+                'Ajouter',
                 SubmitType::class
             );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Image::class
-        ]);
     }
 }

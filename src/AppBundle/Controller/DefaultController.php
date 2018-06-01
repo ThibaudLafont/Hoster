@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/image", name="image_add")
      */
-    public function indexAction(Request $request)
+    public function addImageAction(Request $request)
     {
         // Get images
         $em = $this->getDoctrine()->getManager();
@@ -23,17 +23,29 @@ class DefaultController extends Controller
 
         // Build form
         $form = $this->createForm(ImageUpload::class);
-//        $form = $this->createFormBuilder()
-//            ->setAction('/upload')
-//            ->add('name', TextType::class)
-//            ->add('alt', TextType::class)
-//            ->add('image', FileType::class)
-//            ->add('Uploader', SubmitType::class)
-//            ->getForm();
 
         // Render
         return $this->render(
-            'default/form.html.twig',
+            'image/add.html.twig',
+            [
+                'images' => $images,
+                'form'   => $form->createView()
+            ]
+        );
+    }
+
+    public function addYoutubeAction(Request $request)
+    {
+        // Get images
+        $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository(Image::class)->findAll();
+
+        // Build form
+        $form = $this->createForm(ImageUpload::class);
+
+        // Render
+        return $this->render(
+            'distant/youtube/add.html.twig',
             [
                 'images' => $images,
                 'form'   => $form->createView()

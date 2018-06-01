@@ -23,7 +23,7 @@ class ImageHandler
     private $imageDir;
 
     public function __construct(
-        Uploader $uploader,
+        ImageUploader $uploader,
         Slugifier $slugifier,
         string $webUploadDir
     )
@@ -71,17 +71,17 @@ class ImageHandler
     }
 
     /**
-     * @return Uploader
+     * @return ImageUploader
      */
-    public function getUploader(): Uploader
+    public function getUploader(): ImageUploader
     {
         return $this->uploader;
     }
 
     /**
-     * @param Uploader $uploader
+     * @param ImageUploader $uploader
      */
-    public function setUploader(Uploader $uploader): void
+    public function setUploader(ImageUploader $uploader): void
     {
         $this->uploader = $uploader;
     }

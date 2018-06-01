@@ -32,14 +32,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    AppBundle\Service\Uploader:
+    AppBundle\Service\ImageUploader:
         arguments:
             $manager: '@Intervention\Image\ImageManager'
             $rootUploadDir: '%root_image_dir%'
 
     AppBundle\Service\ImageHandler:
         arguments:
-            $uploader: '@AppBundle\Service\Uploader'
+            $uploader: '@AppBundle\Service\ImageUploader'
             $slugifier: '@AppBundle\Service\Slugifier'
             $webUploadDir: '%web_image_dir%'
 
