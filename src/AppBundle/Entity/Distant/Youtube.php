@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Distant;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Youtube
@@ -13,27 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Youtube extends Distant
 {
-    /**
-     * @var string
-     * @ORM\Column(name="url", type="string")
-     */
-    private $url;
-
-    /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param string $url
-     */
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
-    }
 
     public function getCoverImage()
     {
@@ -47,4 +27,15 @@ class Youtube extends Distant
         return 'https://www.youtube.com/embed/' . $this->getCode();
     }
 
+    /**
+     * @return bool|int
+     *
+     * @Assert\IsTrue(message="L'url fournie ne dirige pas vers Youtube")
+     */
+    function isFromCorrectHost()
+    {
+        $return = strpos($this->getUrl(), 'youtube') > 0;
+        if(!$return) $return = strpos($this->getUrl(), 'youtu.be') > 0;
+        return $return;
+    }
 }

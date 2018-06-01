@@ -3,20 +3,53 @@ namespace AppBundle\Entity\Distant;
 
 use AppBundle\Entity\Item;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Media
  *
  * @ORM\MappedSuperclass()
+ * @UniqueEntity("name", message="Nom déjà pris")
  */
 abstract class Distant extends Item
 {
+    /**
+     * @var string
+     * @ORM\Column(name="url", type="string")
+     * @Assert\Url(
+     *     checkDNS="ANY",
+     *     dnsMessage="L'url fournie est invalide"
+     * )
+     */
+    private $url;
+
     /**
      * @var string
      *
      * @ORM\Column(name="code", type="string")
      */
     private $code;
+
+    abstract function getCoverImage();
+    abstract function getEmbedSrc();
+    abstract function isFromCorrectHost();
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
+    }
 
     /**
      * @return string

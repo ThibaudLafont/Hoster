@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Distant;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Dailymotion
@@ -13,28 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dailymotion extends Distant
 {
-    /**
-     * @var string
-     * @ORM\Column(name="url", type="string")
-     */
-    private $url;
-
-    /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param string $url
-     */
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
-    }
-
     public function getCoverImage()
     {
         return 'https://www.dailymotion.com/thumbnail/video/' . $this->getCode();
@@ -43,6 +22,18 @@ class Dailymotion extends Distant
     public function getEmbedSrc()
     {
         return 'https://www.dailymotion.com/video/' . $this->getCode();
+    }
+
+    /**
+     * @return bool|int
+     *
+     * @Assert\IsTrue(message="L'url fournie ne dirige pas vers Dailymotion")
+     */
+    function isFromCorrectHost()
+    {
+        $return = strpos($this->getUrl(), 'dailymotion') > 0;
+        if(!$return) $return = strpos($this->getUrl(), 'dai.ly') > 0;
+        return $return;
     }
 
 }
