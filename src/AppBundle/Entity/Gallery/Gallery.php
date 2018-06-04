@@ -5,6 +5,7 @@ use AppBundle\Entity\Gallery\Item\DailymotionItem;
 use AppBundle\Entity\Gallery\Item\ImageItem;
 use AppBundle\Entity\Gallery\Item\VimeoItem;
 use AppBundle\Entity\Gallery\Item\YoutubeItem;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,7 +39,8 @@ class Gallery
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Gallery\Item\YoutubeItem",
-     *     mappedBy="gallery"
+     *     mappedBy="gallery",
+     *     cascade= {"persist"}
      * )
      */
     private $youtubeItems;
@@ -48,7 +50,8 @@ class Gallery
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Gallery\Item\DailymotionItem",
-     *     mappedBy="gallery"
+     *     mappedBy="gallery",
+     *     cascade= {"persist"}
      * )
      */
     private $dailymotionItems;
@@ -57,8 +60,9 @@ class Gallery
      * @var VimeoItem
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Gallery\Item\DailymotionItem",
-     *     mappedBy="gallery"
+     *     targetEntity="\AppBundle\Entity\Gallery\Item\VimeoItem",
+     *     mappedBy="gallery",
+     *     cascade= {"persist"}
      * )
      */
     private $vimeoItems;
@@ -68,10 +72,24 @@ class Gallery
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Gallery\Item\ImageItem",
-     *     mappedBy="gallery"
+     *     mappedBy="gallery",
+     *     cascade= {"persist"}
      * )
      */
     private $imageItems;
+
+    /**
+     * @var Media
+     */
+    private $medias;
+
+    public function __construct()
+    {
+        $this->youtubeItems = new ArrayCollection();
+        $this->imageItems = new ArrayCollection();
+        $this->dailymotionItems = new ArrayCollection();
+        $this->vimeoItems = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -113,6 +131,12 @@ class Gallery
         $this->youtubeItems = $youtubeItems;
     }
 
+    public function addYoutubeItem(YoutubeItem $youtubeItem): void
+    {
+        $this->youtubeItems->add($youtubeItem);
+        $youtubeItem->setGallery($this);
+    }
+
     /**
      * @return DailymotionItem
      */
@@ -127,6 +151,12 @@ class Gallery
     public function setDailymotionItems($dailymotionItems): void
     {
         $this->dailymotionItems = $dailymotionItems;
+    }
+
+    public function addDailymotionItem(DailymotionItem $dailymotionItem): void
+    {
+        $this->dailymotionItems->add($dailymotionItem);
+        $dailymotionItem->setGallery($this);
     }
 
     /**
@@ -145,6 +175,12 @@ class Gallery
         $this->vimeoItems = $vimeoItems;
     }
 
+    public function addVimeoItem(VimeoItem $vimeoItem): void
+    {
+        $this->vimeoItems->add($vimeoItem);
+        $vimeoItem->setGallery($this);
+    }
+
     /**
      * @return ImageItem
      */
@@ -159,6 +195,28 @@ class Gallery
     public function setImageItems($imageItems): void
     {
         $this->imageItems = $imageItems;
+    }
+
+    public function addImageItem(ImageItem $imageItem): void
+    {
+        $this->imageItems->add($imageItem);
+        $imageItem->setGallery($this);
+    }
+
+    /**
+     * @return Media
+     */
+    public function getMedias()
+    {
+        return $this->medias;
+    }
+
+    /**
+     * @param Media $medias
+     */
+    public function setMedias($medias): void
+    {
+        $this->medias = $medias;
     }
 
 }

@@ -6,13 +6,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class YoutubeSerializer extends Serializer
 {
-    protected function getEntities()
+    public function getEntities()
     {
         return $this->getEm()->getRepository(Youtube::class)
             ->findAll();
     }
 
-    protected function getEntity(int $id)
+    public function getEntity(int $id)
     {
         return $this->getEm()->getRepository(Youtube::class)
             ->find($id);

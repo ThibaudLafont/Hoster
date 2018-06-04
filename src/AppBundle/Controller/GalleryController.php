@@ -24,11 +24,10 @@ class GalleryController extends Controller
 
         // Check if form was submitted
         if($form->isSubmitted() && $form->isValid()) {
-            echo '<pre>'; var_dump($form->getData()); die;
             // Persist entity
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($form->getData());
-//            $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
 
             // Return to image_upload
             return $this->redirectToRoute('gallery_add');

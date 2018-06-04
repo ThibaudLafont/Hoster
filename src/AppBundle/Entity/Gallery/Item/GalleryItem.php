@@ -20,12 +20,12 @@ abstract class GalleryItem
      */
     private $id;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="position", type="integer")
-     */
-    private $position;
+//    /**
+//     * @var int
+//     *
+//     * @ORM\Column(name="position", type="integer")
+//     */
+//    private $position;
 
     /**
      * @return int
@@ -35,20 +35,20 @@ abstract class GalleryItem
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
-    public function getPosition(): int
-    {
-        return $this->position;
-    }
-
-    /**
-     * @param int $position
-     */
-    public function setPosition(int $position): void
-    {
-        $this->position = $position;
-    }
+//    /**
+//     * @return int
+//     */
+//    public function getPosition(): int
+//    {
+//        return $this->position;
+//    }
+//
+//    /**
+//     * @param int $position
+//     */
+//    public function setPosition(int $position): void
+//    {
+//        $this->position = $position;
+//    }
 
 }

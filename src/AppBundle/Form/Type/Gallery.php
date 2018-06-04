@@ -5,6 +5,7 @@ use AppBundle\Entity\Distant\Youtube;
 use AppBundle\Entity\Gallery\Item\YoutubeItem;
 use AppBundle\Entity\Gallery\Media;
 use AppBundle\Entity\Item;
+use AppBundle\EventSubscriber\GallerySubscriber;
 use AppBundle\Serializer\MediaSerializer;
 use AppBundle\Serializer\YoutubeSerializer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,12 +18,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Gallery extends AbstractType
 {
+    /**
+     * @var MediaSerializer
+     */
+    private $mediaSerializer;
 
-    private $youtube;
+    /**
+     * @var GallerySubscriber
+     */
+    private $gallerySubscriber;
 
-    public function __construct(MediaSerializer $youtube)
+    public function __construct(MediaSerializer $mediaSerializer, GallerySubscriber $gallerySubscriber)
     {
-        $this->setYoutube($youtube);
+        $this->setMediaSerializer($mediaSerializer);
+        $this->setGallerySubscriber($gallerySubscriber);
     }
 
     /**
@@ -33,19 +42,19 @@ class Gallery extends AbstractType
     {
         // Form build
         $builder
+            ->addEventSubscriber($this->getGallerySubscriber())
             ->add(
                 'title',
                 TextType::class
             )
             ->add(
-                'youtubeItems',
+                'medias',
                 ChoiceType::class,
                 [
-                    'choices' => $this->getYoutube()->getMediaEntities(),
-                    'choice_label' => function($media, $key, $value) {
-                        /** @var Category $category */
-                        return $media->getName();
-                    },
+                    'choices' => $this->getMediaSerializer()->getMediaEntities(),
+                    'choice_label' => 'name',
+                    'multiple' => true,
+                    'expanded' => true
                 ]
             )
             ->add(
@@ -57,22 +66,39 @@ class Gallery extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'data_class' => \AppBundle\Entity\Gallery\Gallery::class,
         ]);
     }
 
     /**
-     * @return mixed
+     * @return MediaSerializer
      */
-    public function getYoutube()
+    public function getMediaSerializer(): MediaSerializer
     {
-        return $this->youtube;
+        return $this->mediaSerializer;
     }
 
     /**
-     * @param mixed $youtube
+     * @param MediaSerializer $mediaSerializer
      */
-    public function setYoutube($youtube): void
+    public function setMediaSerializer(MediaSerializer $mediaSerializer): void
     {
-        $this->youtube = $youtube;
+        $this->mediaSerializer = $mediaSerializer;
+    }
+
+    /**
+     * @return GallerySubscriber
+     */
+    public function getGallerySubscriber(): GallerySubscriber
+    {
+        return $this->gallerySubscriber;
+    }
+
+    /**
+     * @param GallerySubscriber $gallerySubscriber
+     */
+    public function setGallerySubscriber(GallerySubscriber $gallerySubscriber): void
+    {
+        $this->gallerySubscriber = $gallerySubscriber;
     }
 }
