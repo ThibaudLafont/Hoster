@@ -1,27 +1,26 @@
 <?php
 namespace AppBundle\Serializer;
 
-use AppBundle\Entity\Distant\Youtube;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Entity\Distant\Dailymotion;
 
-class YoutubeSerializer extends Serializer
+class DailymotionSerializer extends Serializer
 {
     protected function getEntities()
     {
-        return $this->getEm()->getRepository(Youtube::class)
+        return $this->getEm()->getRepository(Dailymotion::class)
             ->findAll();
     }
 
     protected function getEntity(int $id)
     {
-        return $this->getEm()->getRepository(Youtube::class)
+        return $this->getEm()->getRepository(Dailymotion::class)
             ->find($id);
     }
 
-    protected function normalizeEntity(Youtube $entity)
+    protected function normalizeEntity(Dailymotion $entity)
     {
         return [
-            'type' => 'youtube',
+            'type' => 'dailymotion',
             'id'   => $entity->getId(),
             'name' => $entity->getName(),
             'thumbnail'  => $entity->getCoverImage()

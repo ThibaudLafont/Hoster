@@ -24,7 +24,7 @@ class GalleryController extends Controller
 
         // Check if form was submitted
         if($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->getData()); die;
+            echo '<pre>'; var_dump($form->getData()); die;
             // Persist entity
 //            $em = $this->getDoctrine()->getManager();
 //            $em->persist($form->getData());

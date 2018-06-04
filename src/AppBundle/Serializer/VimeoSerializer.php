@@ -1,27 +1,26 @@
 <?php
 namespace AppBundle\Serializer;
 
-use AppBundle\Entity\Distant\Youtube;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Entity\Distant\Vimeo;
 
-class YoutubeSerializer extends Serializer
+class VimeoSerializer extends Serializer
 {
     protected function getEntities()
     {
-        return $this->getEm()->getRepository(Youtube::class)
+        return $this->getEm()->getRepository(Vimeo::class)
             ->findAll();
     }
 
     protected function getEntity(int $id)
     {
-        return $this->getEm()->getRepository(Youtube::class)
+        return $this->getEm()->getRepository(Vimeo::class)
             ->find($id);
     }
 
-    protected function normalizeEntity(Youtube $entity)
+    protected function normalizeEntity(Vimeo $entity)
     {
         return [
-            'type' => 'youtube',
+            'type' => 'vimeo',
             'id'   => $entity->getId(),
             'name' => $entity->getName(),
             'thumbnail'  => $entity->getCoverImage()
