@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package AppBundle\Entity\Distant
  *
  * @ORM\Entity()
- * @ORM\Table(name="distant_youtube")
+ * @ORM\Table(name="media_distant_youtube")
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\YoutubeListener"})
  */
 class Youtube extends Distant

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Image
  *
  * @ORM\Entity()
- * @ORM\Table(name="local_image")
+ * @ORM\Table(name="media_local_image")
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\ImageListener"})
  * @UniqueEntity("slug", message="Nom déjà pris")
  */

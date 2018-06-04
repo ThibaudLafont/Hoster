@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package AppBundle\Entity\Distant
  *
  * @ORM\Entity()
- * @ORM\Table(name="distant_dailymotion")
+ * @ORM\Table(name="media_distant_dailymotion")
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\DailymotionListener"})
  */
 class Dailymotion extends Distant

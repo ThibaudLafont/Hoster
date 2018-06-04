@@ -2,11 +2,13 @@
 namespace AppBundle\Entity\Gallery;
 
 use AppBundle\Entity\Gallery\Item\DailymotionItem;
+use AppBundle\Entity\Gallery\Item\ImageItem;
 use AppBundle\Entity\Gallery\Item\VimeoItem;
 use AppBundle\Entity\Gallery\Item\YoutubeItem;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+use AppBundle\Form\Type\Gallery;
  * Class Gallery
  * @package AppBundle\Entity\Gallery
  *
@@ -23,6 +25,13 @@ class Gallery
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string")
+     */
+    private $title;
 
     /**
      * @var YoutubeItem
@@ -55,7 +64,7 @@ class Gallery
     private $vimeoItems;
 
     /**
-     * @var VimeoItem
+     * @var ImageItem
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Gallery\Item\ImageItem",
@@ -73,17 +82,33 @@ class Gallery
     }
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
      * @return YoutubeItem
      */
-    public function getYoutubeItems(): YoutubeItem
+    public function getYoutubeItems()
     {
         return $this->youtubeItems;
     }
 
     /**
-     * @param YoutubeItem $youtubeItems
+     * @param $youtubeItems
      */
-    public function setYoutubeItems(YoutubeItem $youtubeItems): void
+    public function setYoutubeItems($youtubeItems): void
     {
         $this->youtubeItems = $youtubeItems;
     }
@@ -91,15 +116,15 @@ class Gallery
     /**
      * @return DailymotionItem
      */
-    public function getDailymotionItems(): DailymotionItem
+    public function getDailymotionItems()
     {
         return $this->dailymotionItems;
     }
 
     /**
-     * @param DailymotionItem $dailymotionItems
+     * @param $dailymotionItems
      */
-    public function setDailymotionItems(DailymotionItem $dailymotionItems): void
+    public function setDailymotionItems($dailymotionItems): void
     {
         $this->dailymotionItems = $dailymotionItems;
     }
@@ -107,17 +132,33 @@ class Gallery
     /**
      * @return VimeoItem
      */
-    public function getVimeoItems(): VimeoItem
+    public function getVimeoItems()
     {
         return $this->vimeoItems;
     }
 
     /**
-     * @param VimeoItem $vimeoItems
+     * @param $vimeoItems
      */
-    public function setVimeoItems(VimeoItem $vimeoItems): void
+    public function setVimeoItems($vimeoItems): void
     {
         $this->vimeoItems = $vimeoItems;
+    }
+
+    /**
+     * @return ImageItem
+     */
+    public function getImageItems()
+    {
+        return $this->imageItems;
+    }
+
+    /**
+     * @param $imageItems
+     */
+    public function setImageItems($imageItems): void
+    {
+        $this->imageItems = $imageItems;
     }
 
 }
