@@ -21,7 +21,7 @@ class Dailymotion extends Distant
 
     public function getEmbedSrc()
     {
-        return 'https://www.dailymotion.com/video/' . $this->getCode();
+        return '//www.dailymotion.com/embed/video/' . $this->getCode();
     }
 
     /**
