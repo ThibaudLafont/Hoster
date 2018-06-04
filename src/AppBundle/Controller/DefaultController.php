@@ -1,13 +1,10 @@
 <?php
-
 namespace AppBundle\Controller;
+
 use AppBundle\Entity\Local\Image;
 use AppBundle\Form\Type\ImageUpload;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller

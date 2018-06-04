@@ -2,7 +2,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Distant\Youtube;
-use AppBundle\Entity\Local\Image;
 use AppBundle\Form\Type\Distant;
 use AppBundle\Form\Type\ImageUpload;
 use AppBundle\Service\ImageHandler;

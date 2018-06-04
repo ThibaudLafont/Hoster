@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package AppBundle\Entity\Distant
  *
  * @ORM\Entity()
- * @ORM\Table(name="vimeo_youtube")
+ * @ORM\Table(name="distant_vimeo")
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\VimeoListener"})
  */
 class Vimeo extends Distant
