@@ -3,6 +3,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Distant\Youtube;
 use AppBundle\Entity\Gallery\Item\YoutubeItem;
+use AppBundle\Entity\Item;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
