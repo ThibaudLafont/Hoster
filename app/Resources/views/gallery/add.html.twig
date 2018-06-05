@@ -6,17 +6,70 @@
 
         <h4>Form</h4>
         <!-- Form -->
-        {% form_theme form 'form_table_layout.html.twig' %}
-        {% for media in form.medias %}
-            {% set index = form.vars.value %}
-            {% set entity = form.medias.vars.choices[index].data %}
-            {{ entity.id }}
-        {% endfor %}
-        {{ form(form.medias) }}
-        {{ form(form) }}
+        {#{% form_theme form 'form_table_layout.html.twig' %}#}
+        {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+
+            {{ form(form.title) }}
+
+            <div class="ui six stackable cards">
+                {% for media in form.medias %}
+                    {% set index = media.vars.value %}
+                    {% set entity = form.medias.vars.choices[index].data %}
+                    {% if entity.embedSrc is defined %}
+                        {% set src = entity.coverImage %}
+                        {#<img class="ui small rounded image" src="{{ entity.coverImage }}">#}
+                    {% elseif entity.thumbSrc is defined %}
+                        {% set src = entity.thumbSrc %}
+                        {#<img class="ui small rounded image" src="{{ entity.thumbSrc }}" alt="{{ entity.alt }}">#}
+                    {% endif %}
+                    <div class="ui fluid card">
+                        <!-- Top part of card -->
+                        <div class="image"
+                             style="
+                                width: 205px;
+                                height: 140px;
+                                background-image: url('{{ src }}');
+                                background-size: cover;
+                                background-position: center;">
+                        </div>
+                        <!-- Checkbox -->
+                        {{ form_widget(media) }}
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <h2 class="ui inverted icon header">
+                                    <i class="check icon"></i>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {#{{ form(form.medias) }}#}
+            {#{{ form(form) }}#}
+
+        {{ form_end(form) }}
 
     </section>
 {% endblock %}
 
 {% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('.ui.card').click(function(e){
+            // Toggle Dimmer
+            $(this).dimmer('toggle');
+
+            // Store checkbox
+            var checkbox = $(this).children('input[type="checkbox"]');
+
+            // Toggle checkbox
+            if(checkbox.attr('checked') === 'checked') {
+                checkbox.removeAttr('checked');
+            } else {
+                checkbox.attr('checked', true);
+            }
+        })
+    </script>
 {% endblock %}
