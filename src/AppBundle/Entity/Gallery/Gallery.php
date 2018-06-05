@@ -1,10 +1,6 @@
 <?php
 namespace AppBundle\Entity\Gallery;
 
-use AppBundle\Entity\Gallery\Item\DailymotionItem;
-use AppBundle\Entity\Gallery\Item\ImageItem;
-use AppBundle\Entity\Gallery\Item\VimeoItem;
-use AppBundle\Entity\Gallery\Item\YoutubeItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,48 +31,15 @@ class Gallery
     private $title;
 
     /**
-     * @var YoutubeItem
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Gallery\Item\YoutubeItem",
+     *     targetEntity="Item",
      *     mappedBy="gallery",
-     *     cascade= {"persist"}
+     *     cascade={"persist"}
      * )
      */
-    private $youtubeItems;
-
-    /**
-     * @var DailymotionItem
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Gallery\Item\DailymotionItem",
-     *     mappedBy="gallery",
-     *     cascade= {"persist"}
-     * )
-     */
-    private $dailymotionItems;
-
-    /**
-     * @var VimeoItem
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Gallery\Item\VimeoItem",
-     *     mappedBy="gallery",
-     *     cascade= {"persist"}
-     * )
-     */
-    private $vimeoItems;
-
-    /**
-     * @var ImageItem
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Gallery\Item\ImageItem",
-     *     mappedBy="gallery",
-     *     cascade= {"persist"}
-     * )
-     */
-    private $imageItems;
+    private $items;
 
     /**
      * @var Media
@@ -85,10 +48,8 @@ class Gallery
 
     public function __construct()
     {
-        $this->youtubeItems = new ArrayCollection();
-        $this->imageItems = new ArrayCollection();
-        $this->dailymotionItems = new ArrayCollection();
-        $this->vimeoItems = new ArrayCollection();
+        $this->medias = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -116,94 +77,6 @@ class Gallery
     }
 
     /**
-     * @return YoutubeItem
-     */
-    public function getYoutubeItems()
-    {
-        return $this->youtubeItems;
-    }
-
-    /**
-     * @param $youtubeItems
-     */
-    public function setYoutubeItems($youtubeItems): void
-    {
-        $this->youtubeItems = $youtubeItems;
-    }
-
-    public function addYoutubeItem(YoutubeItem $youtubeItem): void
-    {
-        $this->youtubeItems->add($youtubeItem);
-        $youtubeItem->setGallery($this);
-    }
-
-    /**
-     * @return DailymotionItem
-     */
-    public function getDailymotionItems()
-    {
-        return $this->dailymotionItems;
-    }
-
-    /**
-     * @param $dailymotionItems
-     */
-    public function setDailymotionItems($dailymotionItems): void
-    {
-        $this->dailymotionItems = $dailymotionItems;
-    }
-
-    public function addDailymotionItem(DailymotionItem $dailymotionItem): void
-    {
-        $this->dailymotionItems->add($dailymotionItem);
-        $dailymotionItem->setGallery($this);
-    }
-
-    /**
-     * @return VimeoItem
-     */
-    public function getVimeoItems()
-    {
-        return $this->vimeoItems;
-    }
-
-    /**
-     * @param $vimeoItems
-     */
-    public function setVimeoItems($vimeoItems): void
-    {
-        $this->vimeoItems = $vimeoItems;
-    }
-
-    public function addVimeoItem(VimeoItem $vimeoItem): void
-    {
-        $this->vimeoItems->add($vimeoItem);
-        $vimeoItem->setGallery($this);
-    }
-
-    /**
-     * @return ImageItem
-     */
-    public function getImageItems()
-    {
-        return $this->imageItems;
-    }
-
-    /**
-     * @param $imageItems
-     */
-    public function setImageItems($imageItems): void
-    {
-        $this->imageItems = $imageItems;
-    }
-
-    public function addImageItem(ImageItem $imageItem): void
-    {
-        $this->imageItems->add($imageItem);
-        $imageItem->setGallery($this);
-    }
-
-    /**
      * @return Media
      */
     public function getMedias()
@@ -217,6 +90,28 @@ class Gallery
     public function setMedias($medias): void
     {
         $this->medias = $medias;
+    }
+
+    /**
+     * @return Item
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param Item $items
+     */
+    public function setItems($items): void
+    {
+        $this->items = $items;
+    }
+
+    public function addItem(Item $item)
+    {
+        $this->items->add($item);
+        $item->setGallery($this);
     }
 
 }

@@ -1,6 +1,8 @@
 <?php
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Gallery\Item;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "image" = "AppBundle\Entity\Local\Image",
  *     "vimeo" = "AppBundle\Entity\Distant\Vimeo",
  *     "youtube" = "AppBundle\Entity\Distant\Youtube",
- *     "dailymotion" = "AppBundle\Entity\Distant\Dailymotion",
+ *     "dailymotion" = "AppBundle\Entity\Distant\Dailymotion"
  * })
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener"})
  */
@@ -43,6 +45,16 @@ class Media
      * @ORM\Column(name="create_at", type="datetime")
      */
     protected $createAt;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Gallery\Item",
+     *     mappedBy="media"
+     * )
+     */
+    protected $items;
 
     // Traits
     use Hydrate;
@@ -85,6 +97,27 @@ class Media
     public function setCreateAt(\DateTime $createAt): void
     {
         $this->createAt = $createAt;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getItems(): ArrayCollection
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param ArrayCollection $items
+     */
+    public function setItems(ArrayCollection $items): void
+    {
+        $this->items = $items;
+    }
+
+    public function addItem(Item $item)
+    {
+        $this->items->add($item);
     }
 
 }

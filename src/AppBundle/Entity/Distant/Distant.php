@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Media
  *
- * @ORM\MappedSuperclass()
  * @UniqueEntity("name", message="Nom déjà pris")
  */
 abstract class Distant extends Media
@@ -23,14 +22,14 @@ abstract class Distant extends Media
      *     dnsMessage="L'url fournie est invalide"
      * )
      */
-    private $url;
+    protected $url;
 
     /**
      * @var string
      *
      * @ORM\Column(name="code", type="string")
      */
-    private $code;
+    protected $code;
 
     abstract function getCoverImage();
     abstract function getEmbedSrc();

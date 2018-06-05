@@ -42,6 +42,7 @@ class Gallery extends AbstractType
     {
         // Form build
         $builder
+            ->addEventSubscriber(new GallerySubscriber())
             ->add(
                 'title',
                 TextType::class
