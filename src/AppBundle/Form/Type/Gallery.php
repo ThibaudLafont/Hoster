@@ -58,7 +58,7 @@ class Gallery extends AbstractType
                 ]
             )
             ->add(
-                'Créer',
+                'submit',
                 SubmitType::class
             );
     }

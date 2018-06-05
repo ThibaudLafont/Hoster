@@ -4,48 +4,68 @@
     <section class="ui basic segment">
         <h1>Ajouter une galerie</h1>
 
-        <h4>Form</h4>
         <!-- Form -->
-        {#{% form_theme form 'form_table_layout.html.twig' %}#}
-        {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+        {{ form_start(form, {'attr': {'class': 'ui form', 'action': '/add/gallery'}}) }}
 
-            {{ form(form.title) }}
+            <!-- Title -->
+            <div class="ui field">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+            </div>
 
-            <div class="ui six stackable cards">
-                {% for media in form.medias %}
-                    {% set index = media.vars.value %}
-                    {% set entity = form.medias.vars.choices[index].data %}
-                    {% if entity.embedSrc is defined %}
-                        {% set src = entity.coverImage %}
-                        {#<img class="ui small rounded image" src="{{ entity.coverImage }}">#}
-                    {% elseif entity.thumbSrc is defined %}
-                        {% set src = entity.thumbSrc %}
-                        {#<img class="ui small rounded image" src="{{ entity.thumbSrc }}" alt="{{ entity.alt }}">#}
-                    {% endif %}
-                    <div class="ui fluid card">
-                        <!-- Top part of card -->
-                        <div class="image"
-                             style="
-                                width: 205px;
-                                height: 140px;
-                                background-image: url('{{ src }}');
-                                background-size: cover;
-                                background-position: center;">
-                        </div>
-                        <!-- Checkbox -->
-                        {{ form_widget(media) }}
-                        <div class="ui dimmer">
+            <!-- Medias -->
+            <div class="ui field">
+                {{ form_label(form.medias) }}
+                <div class="ui six stackable cards">
+                    {% for media in form.medias %}
+                        <!-- Get entity data -->
+                        {% set index = media.vars.value %}
+                        {% set entity = form.medias.vars.choices[index].data %}
+
+                        <!-- Define image src -->
+                        {% if entity.embedSrc is defined %}
+                            {% set src = entity.coverImage %}
+                            {% set icon = 'ui video icon' %}
+                        {% elseif entity.thumbSrc is defined %}
+                            {% set src = entity.thumbSrc %}
+                            {% set icon = 'ui camera icon' %}
+                        {% endif %}
+
+                        <!-- Media item -->
+                        <div class="ui fluid card gallery-item">
+                            <!-- Top part of card -->
+                            <div class="image"
+                                 style="background-image: url('{{ src }}');">
+
+                                <div class="ui checkbox">
+                                    <!-- Checkbox -->
+                                    {{ form_widget(media) }}
+                                </div>
+                            </div>
+                            
                             <div class="content">
-                                <h2 class="ui inverted icon header">
-                                    <i class="check icon"></i>
-                                </h2>
+                                <h5 class="header">
+                                    <i class="{{ icon }}"></i>
+                                    {{ entity.name }}
+                                </h5>
+                            </div>
+
+                            <!-- Dimmer -->
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <h2 class="ui inverted icon header">
+                                        <i class="check icon"></i>
+                                    </h2>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-            {#{{ form(form.medias) }}#}
-            {#{{ form(form) }}#}
+
+            {#<div class="ui submit button">#}
+                {{ form_row(form.submit, {'attr': {'class': 'ui submit button'}}) }}
+            {#</div>#}
 
         {{ form_end(form) }}
 
@@ -57,19 +77,34 @@
 
 {% block javascripts %}
     <script>
-        $('.ui.card').click(function(e){
-            // Toggle Dimmer
-            $(this).dimmer('toggle');
-
-            // Store checkbox
-            var checkbox = $(this).children('input[type="checkbox"]');
-
+        function toggleCheckbox(elt)
+        {
             // Toggle checkbox
-            if(checkbox.attr('checked') === 'checked') {
-                checkbox.removeAttr('checked');
-            } else {
-                checkbox.attr('checked', true);
+            if(elt.hasClass('checked')) { // If is checked
+
+                // Ui checkbox
+                elt.removeClass('checked');
+                // Input checkbox
+                elt.children('input').removeAttr('checked');
+
+            } else {                      // If non-checked
+
+                // Ui checkbox
+                elt.addClass('checked');
+                // Input checkbox
+                elt.children('input').attr('checked', true);
+
             }
+        }
+
+        // init checkboxes
+        $('.ui.checkbox').checkbox();
+
+        $('.ui.card').click(function(e) {
+            // Store checkbox
+            var checkbox = $(this).children('.image').children('.ui.checkbox');
+            // Toggle
+            toggleCheckbox(checkbox)
         })
     </script>
 {% endblock %}
