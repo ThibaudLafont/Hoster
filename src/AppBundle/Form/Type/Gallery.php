@@ -11,6 +11,7 @@ use AppBundle\Serializer\YoutubeSerializer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -55,6 +56,12 @@ class Gallery extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => true,
                     'expanded' => true
+                ]
+            )
+            ->add(
+                'items',
+                CollectionType::class, [
+                    'entry_type' => \AppBundle\Form\Type\Item::class
                 ]
             )
             ->add(

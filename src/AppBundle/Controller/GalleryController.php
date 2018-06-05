@@ -30,7 +30,7 @@ class GalleryController extends Controller
             $em->flush();
 
             // Return to image_upload
-            return $this->redirectToRoute('gallery_add');
+            return $this->redirectToRoute('gallery_list');
         }
 
         return $this->render(
@@ -63,14 +63,22 @@ class GalleryController extends Controller
     public function editAction(Request $request, int $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $gallery = $em->getRepository(GalleryEntity::class)
             ->find($id);
 
-        return $this->render("gallery/edit.html.twig", ['gallery' => $gallery]);
+        // Form
+        $form = $this->createForm(Gallery::class, $gallery);
+        $form->handleRequest($request);
 
-        echo '<pre>'; var_dump($gallery->getItems()); die;
+        // Check if form was submitted
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
 
+            // Return to image_upload
+            return $this->redirectToRoute('gallery_list');
+        }
+
+        return $this->render("gallery/edit.html.twig", ['form' => $form->createView(), 'gallery' => $gallery]);
     }
 
 }
