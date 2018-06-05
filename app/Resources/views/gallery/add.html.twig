@@ -7,6 +7,12 @@
         <h4>Form</h4>
         <!-- Form -->
         {% form_theme form 'form_table_layout.html.twig' %}
+        {% for media in form.medias %}
+            {% set index = form.vars.value %}
+            {% set entity = form.medias.vars.choices[index].data %}
+            {{ entity.id }}
+        {% endfor %}
+        {{ form(form.medias) }}
         {{ form(form) }}
 
     </section>
