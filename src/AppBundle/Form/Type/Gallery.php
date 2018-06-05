@@ -49,9 +49,9 @@ class Gallery extends AbstractType
             )
             ->add(
                 'medias',
-                ChoiceType::class,
+                EntityType::class,
                 [
-                    'choices' => $this->getMediaSerializer()->getMediaEntities(),
+                    'class' => "AppBundle:Item",
                     'choice_label' => 'name',
                     'multiple' => true,
                     'expanded' => true

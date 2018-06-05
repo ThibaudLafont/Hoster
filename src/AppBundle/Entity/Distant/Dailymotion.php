@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Dailymotion extends Distant
 {
+
     public function getCoverImage()
     {
         return 'https://www.dailymotion.com/thumbnail/video/' . $this->getCode();
