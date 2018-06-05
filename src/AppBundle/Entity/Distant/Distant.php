@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Distant;
 
 use AppBundle\Entity\Item;
+use AppBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\MappedSuperclass()
  * @UniqueEntity("name", message="Nom déjà pris")
  */
-abstract class Distant extends Item
+abstract class Distant extends Media
 {
     /**
      * @var string

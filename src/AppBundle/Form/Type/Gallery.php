@@ -42,7 +42,6 @@ class Gallery extends AbstractType
     {
         // Form build
         $builder
-            ->addEventSubscriber($this->getGallerySubscriber())
             ->add(
                 'title',
                 TextType::class
@@ -51,7 +50,7 @@ class Gallery extends AbstractType
                 'medias',
                 EntityType::class,
                 [
-                    'class' => "AppBundle:Item",
+                    'class' => "AppBundle:Media",
                     'choice_label' => 'name',
                     'multiple' => true,
                     'expanded' => true

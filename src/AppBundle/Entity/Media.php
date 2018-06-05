@@ -1,7 +1,26 @@
 <?php
 namespace AppBundle\Entity;
 
-abstract class Media
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Class Media
+ * @package AppBundle\Entity
+ *
+ * @ORM\Entity()
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "media"="Media",
+ *     "image" = "AppBundle\Entity\Local\Image",
+ *     "vimeo" = "AppBundle\Entity\Distant\Vimeo",
+ *     "youtube" = "AppBundle\Entity\Distant\Youtube",
+ *     "dailymotion" = "AppBundle\Entity\Distant\Dailymotion",
+ * })
+ * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener"})
+ */
+class Media
 {
     /**
      * @var int
@@ -10,20 +29,20 @@ abstract class Media
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      * @ORM\Column(name="name", type="string")
      * @Assert\NotBlank(message="Le nom est obligatoire")
      */
-    private $name;
+    protected $name;
 
     /**
      * @var DateTime
      * @ORM\Column(name="create_at", type="datetime")
      */
-    private $createAt;
+    protected $createAt;
 
     // Traits
     use Hydrate;

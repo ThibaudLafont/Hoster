@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\ImageListener"})
  * @UniqueEntity("slug", message="Nom déjà pris")
  */
-class Image extends Item
+class Image extends Local
 {
     /**
      * @var UploadedFile
@@ -39,21 +39,10 @@ class Image extends Item
 
     /**
      * @var string
-     * @ORM\Column(name="slug", type="string")
+     * @ORM\Column(name="alt", type="string")
+     * @Assert\NotNull(message="La description est obligatoire")
      */
-    private $slug;
-
-    /**
-     * @var string
-     * @ORM\Column(name="extension", type="string")
-     */
-    private $extension;
-
-    /**
-     * @var string
-     * @ORM\Column(name="dir_path", type="string")
-     */
-    private $dirPath;
+    private $alt;
 
     /**
      * @return int
@@ -90,32 +79,11 @@ class Image extends Item
         return $size . ' Kb';
     }
 
-    public function getSrc()
-    {
-        return
-            $this->getDirPath()  .
-            $this->getFilename();
-        ;
-    }
-
     public function getThumbSrc()
     {
         return
             $this->getDirPath() . 'thumbnails/' .
             $this->getFilename();
-    }
-
-    public function getFilename()
-    {
-        return $this->getSlug() . '.' . $this->getExtension();
-    }
-
-    /**
-     * @return string
-     */
-    public function getExtension(): string
-    {
-        return $this->extension;
     }
 
     /**
@@ -124,45 +92,13 @@ class Image extends Item
     public function setExtension(string $extension): void
     {
         if (
-            !in_array($extension, ['jpg', 'jpeg', 'png'])
+        !in_array($extension, ['jpg', 'jpeg', 'png'])
         ) {
             throw new \InvalidArgumentException("Invalid Local Image extension");
         }
 
         // Assign extension
         $this->extension = $extension;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDirPath(): string
-    {
-        return $this->dirPath;
-    }
-
-    /**
-     * @param string $dirPath
-     */
-    public function setDirPath(string $dirPath): void
-    {
-        $this->dirPath = $dirPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     */
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
     }
 
     /**
@@ -179,6 +115,22 @@ class Image extends Item
     public function setFile(UploadedFile $file): void
     {
         $this->file = $file;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @param string $alt
+     */
+    public function setAlt(string $alt): void
+    {
+        $this->alt = $alt;
     }
 
 }

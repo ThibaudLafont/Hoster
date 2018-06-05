@@ -24,10 +24,6 @@ class Distant extends AbstractType
                 TextType::class
             )
             ->add(
-                'alt',
-                TextType::class
-            )
-            ->add(
                 'url',
                 TextType::class
             );
