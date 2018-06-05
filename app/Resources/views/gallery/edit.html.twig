@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ gallery.title }}</h1>
+    {% for item in gallery.items %}
+        <div>
+            {{ item.media.name }}<br/>
+            {% if item.media.url is defined %}
+                <iframe src="{{ item.media.embedSrc }}" frameborder="0"></iframe>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

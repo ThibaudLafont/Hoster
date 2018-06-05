@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="ui basic segment">
+        <h1>Les galeries</h1>
+
+        <a href="/add/gallery" class="ui primary button">Ajouter une galerie</a>
+
+        <!-- Galleries -->
+        <table class="ui celled striped table">
+            <thead>
+            <tr>
+                <th>Preview</th>
+                <th>Nom</th>
+                <th>Infos</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for gallery in galleries %}
+                <tr>
+                    <td>img<br/><a href="/edit/gallery/{{ gallery.id }}" class="ui green icon button"><i class="ui edit icon"></i></a></td>
+                    <td>{{ gallery.title }}</td>
+                    <td>{{ gallery.itemsNbre }} éléments</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

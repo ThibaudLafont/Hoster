@@ -25,7 +25,8 @@ class Item
      * @var Gallery
      *
      * @ORM\ManyToOne(
-     *     targetEntity="Gallery"
+     *     targetEntity="Gallery",
+     *     inversedBy="items"
      * )
      */
     private $gallery;
@@ -34,7 +35,8 @@ class Item
      * @var \AppBundle\Entity\Media
      *
      * @ORM\ManyToOne(
-     *     targetEntity="\AppBundle\Entity\Media"
+     *     targetEntity="\AppBundle\Entity\Media",
+     *     inversedBy="items"
      * )
      */
     private $media;

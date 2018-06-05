@@ -5,7 +5,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-use AppBundle\Form\Type\Gallery;
  * Class Gallery
  * @package AppBundle\Entity\Gallery
  *
@@ -52,6 +51,11 @@ class Gallery
         $this->items = new ArrayCollection();
     }
 
+    public function getItemsNbre()
+    {
+        return $this->getItems()->count();
+    }
+
     /**
      * @return int
      */
@@ -93,7 +97,7 @@ class Gallery
     }
 
     /**
-     * @return Item
+     * @return ArrayCollection
      */
     public function getItems()
     {

@@ -39,4 +39,38 @@ class GalleryController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/list/gallery", name="gallery_list")
+     */
+    public function listAction(Request $request)
+    {
+        $galleries = $this->getDoctrine()->getRepository(GalleryEntity::class)
+            ->findAll();
+
+        return $this->render('gallery/list.html.twig', compact('galleries'));
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/edit/gallery/{id}", name="gallery_edit")
+     */
+    public function editAction(Request $request, int $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $gallery = $em->getRepository(GalleryEntity::class)
+            ->find($id);
+
+        return $this->render("gallery/edit.html.twig", ['gallery' => $gallery]);
+
+        echo '<pre>'; var_dump($gallery->getItems()); die;
+
+    }
+
 }
