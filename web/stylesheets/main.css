@@ -6,8 +6,9 @@
     background-size: cover !important;
     background-position: center !important;
 }
-#item-dimmer .media-form,
-.media-form-row input,
-.media-form-row .media-form div{
-    /*display: none;*/
+/*.media-form-row input,*/
+/*.media-form-row .media-form div,*/
+#item-dimmer .media-form
+{
+    display: none;
 }
