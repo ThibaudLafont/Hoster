@@ -33,6 +33,9 @@ class Item extends AbstractType
                     'choice_label' => 'name',
                     'expanded' => true
                 ]
+            )
+            ->add(
+                'position', TextType::class
             );
     }
 

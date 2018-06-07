@@ -9,5 +9,5 @@
 #item-dimmer .media-form,
 .media-form-row input,
 .media-form-row .media-form div{
-    display: none;
+    /*display: none;*/
 }

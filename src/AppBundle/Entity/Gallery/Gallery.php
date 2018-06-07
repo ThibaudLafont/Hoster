@@ -118,4 +118,9 @@ class Gallery
         $item->setGallery($this);
     }
 
+    public function removeItem(Item $item)
+    {
+        $this->removeItem($item);
+    }
+
 }
