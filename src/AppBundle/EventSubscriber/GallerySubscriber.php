@@ -22,18 +22,26 @@ class GallerySubscriber implements EventSubscriberInterface
         // Get data
         $data = $event->getData();
 
+//        $i = 1;
+
+//        foreach($data->getMedias() as $media) {
+//
+//            $item = new Item();
+//            $item->setMedia($media);
+//            $item->setPosition($i);
+//
+//            $data->addItem($item);
+//
+//            $i++;
+//
+//        }
+
         $i = 1;
-
-        foreach($data->getMedias() as $media) {
-
-            $item = new Item();
-            $item->setMedia($media);
-            $item->setPosition($i);
-
+        foreach($data->getItems() as $item) {
             $data->addItem($item);
-
+            $item->setPosition($i);
             $i++;
-
         }
+
     }
 }

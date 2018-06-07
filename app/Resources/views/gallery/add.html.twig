@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% macro testItems(itemForm) %}
+{% macro itemsCollection(itemForm) %}
     <h3 class="ui inverted header">Choisir un média</h3>
     <!-- Parent div -->
-    <section class="ui six stackable cards">
+    <section id="item-dimmer" class="ui six stackable cards">
         {% for media in itemForm.media %}
             <!-- Get entity attrs -->
             {% set index = media.vars.value %}
@@ -21,7 +21,7 @@
             <!-- Media Item -->
             <div class="ui fluid card gallery-item">
                 <!-- Image -->
-                <div class="image"style="background-image: url('{{ src }}');"></div>
+                <div class="image" style="background-image: url('{{ src }}');"></div>
 
                 <!-- Title & Icon -->
                 <div class="content">
@@ -32,12 +32,17 @@
                 </div>
 
                 <!-- Form to include -->
-                <div class="media-form" style="display: none">
+                <div class="media-form"
+                src="{{ src }}"
+                icon="{{ icon }}"
+                name="{{ entity.name }}">
                     <!-- Option input -->
                     {{ form_row(media) }}
-                    <!-- Position input -->
-                    {{ form_row(itemForm.position) }}
-                    {#<input type="text" id="gallery_items_{{ index }}_position" name="gallery[items][{{ index }}][position]" />#}
+                    {#<!-- Position input -->#}
+                    {#<input type="text" id="gallery_items___name___position" name="gallery[items][__name__][position]" required="required" />#}
+                    <a href="#" class="up">Up</a>
+                    <a href="#" class="down">Down</a>
+                    <a href="#" class="delete">Delete</a>
                 </div>
             </div>
         {% endfor %}
@@ -48,6 +53,9 @@
     <section class="ui basic segment">
         <h1>Ajouter une galerie</h1>
 
+        <!-- Form Theme -->
+        {#{% form_theme form 'form_theme/jquery.collection.html.twig' %}#}
+
         <!-- Form -->
         {{ form_start(form, {'attr': {'class': 'ui form', 'action': '/add/gallery'}}) }}
 
@@ -57,52 +65,28 @@
                 {{ form_widget(form.title) }}
             </div>
 
-            <!-- Medias -->
-            {#<div class="ui field">#}
-                {#{{ form_label(form.medias) }}#}
-                {#<div class="ui six stackable cards">#}
-                    {#{% for media in form.medias %}#}
-                        {#<!-- Get entity data -->#}
-                        {#{% set index = media.vars.value %}#}
-                        {#{% set entity = form.medias.vars.choices[index].data %}#}
-
-                        {#<!-- Define image src -->#}
-                        {#{% if entity.embedSrc is defined %}#}
-                            {#{% set src = entity.coverImage %}#}
-                            {#{% set icon = 'ui video icon' %}#}
-                        {#{% elseif entity.thumbSrc is defined %}#}
-                            {#{% set src = entity.thumbSrc %}#}
-                            {#{% set icon = 'ui camera icon' %}#}
-                        {#{% endif %}#}
-
-                        {#<!-- Media item -->#}
-                        {#<div class="ui fluid card gallery-item">#}
-                            {#<!-- Top part of card -->#}
-                            {#<div class="image"#}
-                                 {#style="background-image: url('{{ src }}');">#}
-
-                                {#<div class="ui checkbox">#}
-                                    {#<!-- Checkbox -->#}
-                                    {#{{ form_widget(media) }}#}
-                                {#</div>#}
-                            {#</div>#}
-
-                            {#<div class="content">#}
-                                {#<h5 class="header">#}
-                                    {#<i class="{{ icon }}"></i>#}
-                                    {#{{ entity.name }}#}
-                                {#</h5>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-                {#</div>#}
-            </div>
-
             {% import _self as formMacros %}
-            <div class="test" data-prototype="{{ formMacros.testItems(form.items.vars.prototype)|e('html_attr') }}"></div>
+            <div id="gallery_items" class="media-item-test" data-prototype="{{ formMacros.itemsCollection(form.items.vars.prototype)|e('html_attr') }}"></div>
 
-            <!-- Submit -->
-            {{ form_row(form.submit, {'attr': {'class': 'ui submit button'}}) }}
+            <!-- Added medias -->
+            <h4>Médias</h4>
+            <table class="ui celled striped table">
+                <thead>
+                <tr>
+                    <th class="collapsing">Preview</th>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        <!-- Simulate render of form.items -->
+        {% do form.items.setRendered() %}
+
+        <!-- Submit -->
+        {{ form_row(form.submit, {'attr': {'class': 'ui submit button'}}) }}
 
         {{ form_end(form) }}
 
@@ -110,36 +94,6 @@
 
     <div class="ui page dimmer">
     </div>
-
-{#<div id="gallery_items___name__">#}
-    {#<div>#}
-        {#<label class="required">Media</label>#}
-        {#<div id="gallery_items___name___media">#}
-            {#<input type="radio" id="gallery_items___name___media_5" name="gallery[items][__name__][media]" required="required" value="5" />#}
-            {#<label for="gallery_items___name___media_5" class="required">BDM</label>#}
-            {#<input type="radio" id="gallery_items___name___media_8" name="gallery[items][__name__][media]" required="required" value="8" />#}
-            {#<label for="gallery_items___name___media_8" class="required">Test</label>#}
-            {#<input type="radio" id="gallery_items___name___media_3" name="gallery[items][__name__][media]" required="required" value="3" />#}
-            {#<label for="gallery_items___name___media_3" class="required">Name</label>#}
-            {#<input type="radio" id="gallery_items___name___media_4" name="gallery[items][__name__][media]" required="required" value="4" />#}
-            {#<label for="gallery_items___name___media_4" class="required">Autre tof</label>#}
-            {#<input type="radio" id="gallery_items___name___media_6" name="gallery[items][__name__][media]" required="required" value="6" />#}
-            {#<label for="gallery_items___name___media_6" class="required">Laakjaka</label>#}
-            {#<input type="radio" id="gallery_items___name___media_7" name="gallery[items][__name__][media]" required="required" value="7" />#}
-            {#<label for="gallery_items___name___media_7" class="required">Ihiihii</label>#}
-            {#<input type="radio" id="gallery_items___name___media_11" name="gallery[items][__name__][media]" required="required" value="11" />#}
-            {#<label for="gallery_items___name___media_11" class="required">ahghehh</label>#}
-            {#<input type="radio" id="gallery_items___name___media_1" name="gallery[items][__name__][media]" required="required" value="1" />#}
-            {#<label for="gallery_items___name___media_1" class="required">New youtube</label>#}
-            {#<input type="radio" id="gallery_items___name___media_2" name="gallery[items][__name__][media]" required="required" value="2" />#}
-            {#<label for="gallery_items___name___media_2" class="required">New new youtube</label>#}
-        {#</div>#}
-    {#</div>#}
-    {#<div>#}
-        {#<label for="gallery_items___name___position" class="required">Position</label>#}
-        {#<input type="text" id="gallery_items___name___position" name="gallery[items][__name__][position]" required="required" />#}
-    {#</div>#}
-{#</div>#}
 {% endblock %}
 
 {% block stylesheets %}
@@ -155,6 +109,7 @@
             // get the new index
             var index = $collectionHolder.data('index');
 
+            // Get prototype
             var newForm = prototype;
 
             // Replace '__name__' in the prototype's HTML to
@@ -175,7 +130,52 @@
 
             // Add event on click
             $('.gallery-item').click(function(e){
+                // Get data from clicked item
                 var form = $(this).children('.media-form');
+                var src = $(this).children('.media-form').attr('src');
+                var name = $(this).children('.media-form').attr('name');
+                var icon = $(this).children('.media-form').attr('icon');
+
+                // Check form option
+                form.find('input[type="radio"]').attr('checked', true);
+
+                // Create elements of new line
+                var line = $('<tr class="media-form-row"></tr>');
+                var preview = $('<td class="collapsing"><img class="ui small image" src="' + src + '"></td>');
+                var name = $('<td><i class="' + icon + '"></i>' + name + '</td>');
+                var actions = $('<td></td>');
+                actions.append(form);
+
+                // Append columns to row
+                line.append(preview);
+                line.append(name);
+                line.append(actions)
+
+                // Append new row to table
+                $('table').append(line);
+
+                // Hide dimmer
+                $('.ui.page.dimmer').dimmer('hide');
+
+                // Up and Down buttons
+                $(".up, .down").click(function () {
+                    var row = $(this).parents("tr:first");
+
+                    if($(this).is('.up')){
+                        row.insertBefore(row.prev());
+                    }
+                    else{
+                        row.insertAfter(row.next());
+                    }
+
+                });
+
+                // Delete Button
+                $('.delete').click(function(){
+                    e.preventDefault();
+                    var row = $(this).parents("tr:first");
+                    row.remove();
+                });
             });
         }
 
@@ -187,7 +187,7 @@
 
         jQuery(document).ready(function() {
             // Get the ul that holds the collection of tags
-            $collectionHolder = $('.test');
+            $collectionHolder = $('.media-item-test');
 
             // add the "add a tag" anchor and li to the tags ul
             $collectionHolder.append($newLinkLi);

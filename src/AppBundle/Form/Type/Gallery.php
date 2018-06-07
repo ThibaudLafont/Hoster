@@ -62,7 +62,11 @@ class Gallery extends AbstractType
                 'items',
                 CollectionType::class, [
                     'entry_type' => \AppBundle\Form\Type\Item::class,
-                    'allow_add' => true
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'attr' => [
+                        'class' => 'media-item-collection'
+                    ]
                 ]
             )
             ->add(

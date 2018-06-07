@@ -1,8 +1,13 @@
+.gallery-item {
+    cursor: pointer;
+}
 .gallery-item .image {
     height: 140px;
     background-size: cover !important;
     background-position: center !important;
 }
-.gallery-item input[type="checkbox"] {
-    /*visibility: hidden;*/
+#item-dimmer .media-form,
+.media-form-row input,
+.media-form-row .media-form div{
+    display: none;
 }

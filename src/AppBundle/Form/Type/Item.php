@@ -28,13 +28,12 @@ class Item extends AbstractType
         // Form build
         $builder
             ->add(
-                'media',
-                EntityType::class, [
+                'media', EntityType::class, [
                     'class' => 'AppBundle:Media',
                     'choice_label' => 'name',
                     'expanded' => true
                 ]
-            )->add('position', TextType::class);
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
