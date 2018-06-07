@@ -1,0 +1,35 @@
+{% block _medias_entry_widget %}
+    <h3>{{ form_widget(form) }}</h3>
+    <!-- Get entity data -->
+    {% set index = form.vars.value %}
+    {% set entity = form.medias.vars.choices[index].data %}
+
+    <!-- Define image src -->
+    {% if entity.embedSrc is defined %}
+        {% set src = entity.coverImage %}
+        {% set icon = 'ui video icon' %}
+    {% elseif entity.thumbSrc is defined %}
+        {% set src = entity.thumbSrc %}
+        {% set icon = 'ui camera icon' %}
+    {% endif %}
+
+    <!-- Media item -->
+    <div class="ui fluid card gallery-item">
+        <!-- Top part of card -->
+        <div class="image"
+             style="background-image: url('{{ src }}');">
+
+            <div class="ui checkbox">
+                <!-- Checkbox -->
+                {#{{ block(media) }}#}
+            </div>
+        </div>
+
+        <div class="content">
+            <h5 class="header">
+                <i class="{{ icon }}"></i>
+                {{ entity.name }}
+            </h5>
+        </div>
+    </div>
+{% endblock %}

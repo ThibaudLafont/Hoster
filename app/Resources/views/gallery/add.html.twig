@@ -1,5 +1,49 @@
 {% extends 'base.html.twig' %}
 
+{% macro testItems(itemForm) %}
+    <h3 class="ui inverted header">Choisir un média</h3>
+    <!-- Parent div -->
+    <section class="ui six stackable cards">
+        {% for media in itemForm.media %}
+            <!-- Get entity attrs -->
+            {% set index = media.vars.value %}
+            {% set entity = itemForm.media.vars.choices[index].data %}
+
+            <!-- Define image src -->
+            {% if entity.embedSrc is defined %}
+                {% set src = entity.coverImage %}
+                {% set icon = 'ui video icon' %}
+            {% elseif entity.thumbSrc is defined %}
+                {% set src = entity.thumbSrc %}
+                {% set icon = 'ui camera icon' %}
+            {% endif %}
+
+            <!-- Media Item -->
+            <div class="ui fluid card gallery-item">
+                <!-- Image -->
+                <div class="image"style="background-image: url('{{ src }}');"></div>
+
+                <!-- Title & Icon -->
+                <div class="content">
+                    <h5 class="header">
+                        <i class="{{ icon }}"></i>
+                        {{ entity.name }}
+                    </h5>
+                </div>
+
+                <!-- Form to include -->
+                <div class="media-form" style="display: none">
+                    <!-- Option input -->
+                    {{ form_row(media) }}
+                    <!-- Position input -->
+                    {{ form_row(itemForm.position) }}
+                    {#<input type="text" id="gallery_items_{{ index }}_position" name="gallery[items][{{ index }}][position]" />#}
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endmacro %}
+
 {% block body %}
     <section class="ui basic segment">
         <h1>Ajouter une galerie</h1>
@@ -14,97 +58,154 @@
             </div>
 
             <!-- Medias -->
-            <div class="ui field">
-                {{ form_label(form.medias) }}
-                <div class="ui six stackable cards">
-                    {% for media in form.medias %}
-                        <!-- Get entity data -->
-                        {% set index = media.vars.value %}
-                        {% set entity = form.medias.vars.choices[index].data %}
+            {#<div class="ui field">#}
+                {#{{ form_label(form.medias) }}#}
+                {#<div class="ui six stackable cards">#}
+                    {#{% for media in form.medias %}#}
+                        {#<!-- Get entity data -->#}
+                        {#{% set index = media.vars.value %}#}
+                        {#{% set entity = form.medias.vars.choices[index].data %}#}
 
-                        <!-- Define image src -->
-                        {% if entity.embedSrc is defined %}
-                            {% set src = entity.coverImage %}
-                            {% set icon = 'ui video icon' %}
-                        {% elseif entity.thumbSrc is defined %}
-                            {% set src = entity.thumbSrc %}
-                            {% set icon = 'ui camera icon' %}
-                        {% endif %}
+                        {#<!-- Define image src -->#}
+                        {#{% if entity.embedSrc is defined %}#}
+                            {#{% set src = entity.coverImage %}#}
+                            {#{% set icon = 'ui video icon' %}#}
+                        {#{% elseif entity.thumbSrc is defined %}#}
+                            {#{% set src = entity.thumbSrc %}#}
+                            {#{% set icon = 'ui camera icon' %}#}
+                        {#{% endif %}#}
 
-                        <!-- Media item -->
-                        <div class="ui fluid card gallery-item">
-                            <!-- Top part of card -->
-                            <div class="image"
-                                 style="background-image: url('{{ src }}');">
+                        {#<!-- Media item -->#}
+                        {#<div class="ui fluid card gallery-item">#}
+                            {#<!-- Top part of card -->#}
+                            {#<div class="image"#}
+                                 {#style="background-image: url('{{ src }}');">#}
 
-                                <div class="ui checkbox">
-                                    <!-- Checkbox -->
-                                    {{ form_widget(media) }}
-                                </div>
-                            </div>
-                            
-                            <div class="content">
-                                <h5 class="header">
-                                    <i class="{{ icon }}"></i>
-                                    {{ entity.name }}
-                                </h5>
-                            </div>
+                                {#<div class="ui checkbox">#}
+                                    {#<!-- Checkbox -->#}
+                                    {#{{ form_widget(media) }}#}
+                                {#</div>#}
+                            {#</div>#}
 
-                            <!-- Dimmer -->
-                            <div class="ui dimmer">
-                                <div class="content">
-                                    <h2 class="ui inverted icon header">
-                                        <i class="check icon"></i>
-                                    </h2>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
+                            {#<div class="content">#}
+                                {#<h5 class="header">#}
+                                    {#<i class="{{ icon }}"></i>#}
+                                    {#{{ entity.name }}#}
+                                {#</h5>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#{% endfor %}#}
+                {#</div>#}
             </div>
 
-            {#<div class="ui submit button">#}
-                {{ form_row(form.submit, {'attr': {'class': 'ui submit button'}}) }}
-            {#</div>#}
+            {% import _self as formMacros %}
+            <div class="test" data-prototype="{{ formMacros.testItems(form.items.vars.prototype)|e('html_attr') }}"></div>
+
+            <!-- Submit -->
+            {{ form_row(form.submit, {'attr': {'class': 'ui submit button'}}) }}
 
         {{ form_end(form) }}
 
     </section>
+
+    <div class="ui page dimmer">
+    </div>
+
+{#<div id="gallery_items___name__">#}
+    {#<div>#}
+        {#<label class="required">Media</label>#}
+        {#<div id="gallery_items___name___media">#}
+            {#<input type="radio" id="gallery_items___name___media_5" name="gallery[items][__name__][media]" required="required" value="5" />#}
+            {#<label for="gallery_items___name___media_5" class="required">BDM</label>#}
+            {#<input type="radio" id="gallery_items___name___media_8" name="gallery[items][__name__][media]" required="required" value="8" />#}
+            {#<label for="gallery_items___name___media_8" class="required">Test</label>#}
+            {#<input type="radio" id="gallery_items___name___media_3" name="gallery[items][__name__][media]" required="required" value="3" />#}
+            {#<label for="gallery_items___name___media_3" class="required">Name</label>#}
+            {#<input type="radio" id="gallery_items___name___media_4" name="gallery[items][__name__][media]" required="required" value="4" />#}
+            {#<label for="gallery_items___name___media_4" class="required">Autre tof</label>#}
+            {#<input type="radio" id="gallery_items___name___media_6" name="gallery[items][__name__][media]" required="required" value="6" />#}
+            {#<label for="gallery_items___name___media_6" class="required">Laakjaka</label>#}
+            {#<input type="radio" id="gallery_items___name___media_7" name="gallery[items][__name__][media]" required="required" value="7" />#}
+            {#<label for="gallery_items___name___media_7" class="required">Ihiihii</label>#}
+            {#<input type="radio" id="gallery_items___name___media_11" name="gallery[items][__name__][media]" required="required" value="11" />#}
+            {#<label for="gallery_items___name___media_11" class="required">ahghehh</label>#}
+            {#<input type="radio" id="gallery_items___name___media_1" name="gallery[items][__name__][media]" required="required" value="1" />#}
+            {#<label for="gallery_items___name___media_1" class="required">New youtube</label>#}
+            {#<input type="radio" id="gallery_items___name___media_2" name="gallery[items][__name__][media]" required="required" value="2" />#}
+            {#<label for="gallery_items___name___media_2" class="required">New new youtube</label>#}
+        {#</div>#}
+    {#</div>#}
+    {#<div>#}
+        {#<label for="gallery_items___name___position" class="required">Position</label>#}
+        {#<input type="text" id="gallery_items___name___position" name="gallery[items][__name__][position]" required="required" />#}
+    {#</div>#}
+{#</div>#}
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block javascripts %}
+    <!-- Symfony collection -->
     <script>
-        function toggleCheckbox(elt)
-        {
-            // Toggle checkbox
-            if(elt.hasClass('checked')) { // If is checked
+        function addTagForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
 
-                // Ui checkbox
-                elt.removeClass('checked');
-                // Input checkbox
-                elt.children('input').removeAttr('checked');
+            // get the new index
+            var index = $collectionHolder.data('index');
 
-            } else {                      // If non-checked
+            var newForm = prototype;
 
-                // Ui checkbox
-                elt.addClass('checked');
-                // Input checkbox
-                elt.children('input').attr('checked', true);
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
 
-            }
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Clear dimmer
+            $('.ui.page.dimmer').empty();
+
+            // Append form in dimmer
+            $('.ui.page.dimmer').append(newForm);
+
+            // Show dimmer
+            $('.ui.page.dimmer').dimmer('show');
+
+            // Add event on click
+            $('.gallery-item').click(function(e){
+                var form = $(this).children('.media-form');
+            });
         }
 
-        // init checkboxes
-        $('.ui.checkbox').checkbox();
+        var $collectionHolder;
 
-        $('.ui.card').click(function(e) {
-            // Store checkbox
-            var checkbox = $(this).children('.image').children('.ui.checkbox');
-            // Toggle
-            toggleCheckbox(checkbox)
-        })
+        // setup an "add a tag" link
+        var $addTagLink = $('<a href="" class="ui green icon button add_tag_link"><i class="ui plus icon"></i></a>');
+        var $newLinkLi = $('<li></li>').append($addTagLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('.test');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addTagLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addTagForm($collectionHolder, $newLinkLi);
+            });
+        });
     </script>
+
+    <!-- Checkbox toggle -->
+    <script src="/js/gallery/toggleCheckbox.js"></script>
 {% endblock %}

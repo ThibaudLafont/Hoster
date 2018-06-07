@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "854052de266566324c4ee80e0fe81fa1",
+    "content-hash": "19cb3310302f30182a5a8a552b459927",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1202,6 +1202,39 @@
                 "psr-3"
             ],
             "time": "2017-06-19T01:22:40+00:00"
+        },
+        {
+            "name": "ninsuo/symfony-collection",
+            "version": "2.1.27",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ninsuo/symfony-collection.git",
+                "reference": "b9b646cf8661458ef0a3aaf728dfc39ea0e44e9d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ninsuo/symfony-collection/zipball/b9b646cf8661458ef0a3aaf728dfc39ea0e44e9d",
+                "reference": "b9b646cf8661458ef0a3aaf728dfc39ea0e44e9d",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "ScriptHandler.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alain Tiemblo",
+                    "email": "ninsuo@gmail.com"
+                }
+            ],
+            "description": "A jQuery plugin that manages adding, deleting and moving elements from a Symfony collection",
+            "time": "2018-05-22T15:53:28+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2625,8 +2658,6 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.5.9"
-    },
+    "platform": [],
     "platform-dev": []
 }

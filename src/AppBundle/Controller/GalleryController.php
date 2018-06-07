@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Gallery\Gallery as GalleryEntity;
+use AppBundle\Entity\Gallery\Item;
 use AppBundle\Form\Type\Gallery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,8 @@ class GalleryController extends Controller
 
         // Check if form was submitted
         if($form->isSubmitted() && $form->isValid()) {
+            echo '<pre>'; var_dump($form->getData()); die;
+
             // Persist entity
             $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());

@@ -15,5 +15,8 @@ parameters:
     mailer_user: ~
     mailer_password: ~
 
+    web_image_dir: /uploads/medias/images/
+    root_image_dir: "/var/www/html/web%web_image_dir%"
+
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt

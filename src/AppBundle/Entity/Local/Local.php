@@ -40,7 +40,7 @@ abstract class Local extends Media
     /**
      * @return string
      */
-    public function getExtension(): string
+    public function getExtension()
     {
         return $this->extension;
     }
@@ -53,7 +53,7 @@ abstract class Local extends Media
     /**
      * @return string
      */
-    public function getDirPath(): string
+    public function getDirPath()
     {
         return $this->dirPath;
     }
