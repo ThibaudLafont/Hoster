@@ -61,24 +61,36 @@ class ImageController extends Controller
         $form->handleRequest($request);
 
         // Check if FILE is defined
-        if($form->isSubmitted() && $form->isValid()) {
-            // Persist entity
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($form->getData());
-            $em->flush();
+        if($form->isSubmitted()) {
+            if($form->isValid()) {
+                $image = $form->getData();
 
-            // Build Response
-            $response = new Response();
-            $response->setContent(json_encode(['url' => 'http://hoster.lan' . $image->getSrc()]));
-            $response->headers->set('Content-Type', 'application/json');
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+                // Persist entity
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($image);
+                $em->flush();
 
-            // Return Response
-            return $response;
+                $content = json_encode([
+                    'id' => $image->getId(),
+                    'type' => 'image',
+                    'url' => 'http://hoster.lan' . $image->getSrc()
+                ]);
+
+            } else {
+                $content = json_encode((string) $form->getErrors(true, false));
+            }
         }
 
+        // Build Response
+        $response = new Response();
+        $response->setContent($content);
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+
         // Else return 400
-        return new Response('Problème d\'uplaod', 400, ['Access-Control-Allow-Origin' => '*']);
+//        return new Response('Problème d\'uplaod', 400, ['Access-Control-Allow-Origin' => '*']);
     }
 
     /**

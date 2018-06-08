@@ -53,8 +53,11 @@
     <section class="ui basic segment">
         <h1>Ajouter une galerie</h1>
 
-        <!-- Form Theme -->
-        {#{% form_theme form 'form_theme/jquery.collection.html.twig' %}#}
+        <!-- Image Form -->
+        <h4>Image</h4>
+        {{ form_start(imageForm, {'attr': {'class': 'ui form'}}) }}
+        {{ form_widget(imageForm) }}
+        {{ form_end(imageForm) }}
 
         <!-- Form -->
         {{ form_start(form, {'attr': {'class': 'ui form', 'action': '/add/gallery'}}) }}
@@ -66,7 +69,10 @@
             </div>
 
             {% import _self as formMacros %}
-            <div id="gallery_items" class="media-item-test" data-prototype="{{ formMacros.itemsCollection(form.items.vars.prototype)|e('html_attr') }}"></div>
+            <ul id="gallery_items" class="media-item-test" data-prototype="{{ formMacros.itemsCollection(form.items.vars.prototype)|e('html_attr') }}">
+                <li>
+                </li>
+            </ul>
 
             <!-- Added medias -->
             <h4>Médias</h4>
@@ -102,6 +108,30 @@
 {% block javascripts %}
     <!-- Symfony collection -->
     <script>
+        // ImageForm
+        $('#image_Uploader').click(function(e){
+            e.preventDefault();
+
+            // Get Form data
+            var data = new FormData();
+            data.append('image[name]',   $('#image_name').val());
+            data.append('image[alt]',    $('#image_alt').val());
+            data.append('image[file]',  $('#image_file').prop('files')[0]);
+            data.append('image[_token]', $('#image__token').val());
+            //
+            // // Ajax request
+            $.ajax({
+                method: "POST",
+                url: "/add/image/ajax",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function(text) {
+                    console.log(text)
+                }
+            });
+        })
+
         // Inquire position fields at submit
         $('.submit').click(function(e){
             var i = 1;

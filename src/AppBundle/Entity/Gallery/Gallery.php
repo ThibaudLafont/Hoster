@@ -41,6 +41,11 @@ class Gallery
     private $items;
 
     /**
+     * @var ArrayCollection
+     */
+    private $newItems;
+
+    /**
      * @var Media
      */
     private $medias;
@@ -49,6 +54,7 @@ class Gallery
     {
         $this->medias = new ArrayCollection();
         $this->items = new ArrayCollection();
+        $this->newItems = new ArrayCollection();
     }
 
     public function getItemsNbre()
@@ -121,6 +127,26 @@ class Gallery
     public function removeItem(Item $item)
     {
         $this->removeItem($item);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getNewItems(): ArrayCollection
+    {
+        return $this->newItems;
+    }
+
+    /**
+     * @param ArrayCollection $newItems
+     */
+    public function setNewItems(ArrayCollection $newItems): void
+    {
+        $this->newItems = $newItems;
+    }
+
+    public function addNewItem($item) {
+        $this->newItems->add($item);
     }
 
 }

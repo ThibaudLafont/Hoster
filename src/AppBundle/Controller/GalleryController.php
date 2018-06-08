@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Gallery\Gallery as GalleryEntity;
 use AppBundle\Entity\Gallery\Item;
 use AppBundle\Form\Type\Gallery;
+use AppBundle\Form\Type\Image;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,6 +24,8 @@ class GalleryController extends Controller
         $form = $this->createForm(Gallery::class, new GalleryEntity());
         $form->handleRequest($request);
 
+        $newImageForm = $this->createForm(Image::class);
+
         // Check if form was submitted
         if($form->isSubmitted() && $form->isValid()) {
             // Persist entity
@@ -36,7 +39,10 @@ class GalleryController extends Controller
 
         return $this->render(
             'gallery/add.html.twig',
-            ['form' => $form->createView()]
+            [
+                'form' => $form->createView(),
+                'imageForm' => $newImageForm->createView()
+            ]
         );
     }
 

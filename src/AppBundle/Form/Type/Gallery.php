@@ -48,26 +48,19 @@ class Gallery extends AbstractType
                 'title',
                 TextType::class
             )
-//            ->add(
-//                'medias',
-//                EntityType::class,
-//                [
-//                    'class' => "AppBundle:Media",
-//                    'choice_label' => 'name',
-//                    'multiple' => true,
-//                    'expanded' => true
-//                ]
-//            )
+            ->add(
+                'newItems',
+                CollectionType::class, [
+                    'entry_type' => ImageItem::class
+                ]
+            )
             ->add(
                 'items',
                 CollectionType::class, [
                     'entry_type' => \AppBundle\Form\Type\Item::class,
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'by_reference' => false,
-                    'attr' => [
-                        'class' => 'media-item-collection'
-                    ]
+                    'by_reference' => false
                 ]
             )
             ->add(
