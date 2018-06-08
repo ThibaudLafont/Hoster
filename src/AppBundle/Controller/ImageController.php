@@ -72,6 +72,7 @@ class ImageController extends Controller
 
                 $content = json_encode([
                     'id' => $image->getId(),
+                    'name' => $image->getName(),
                     'type' => 'image',
                     'url' => 'http://hoster.lan' . $image->getSrc()
                 ]);
@@ -79,6 +80,8 @@ class ImageController extends Controller
             } else {
                 $content = json_encode((string) $form->getErrors(true, false));
             }
+        } else {
+            $content = json_encode('Veuillez poster des données');
         }
 
         // Build Response
