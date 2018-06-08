@@ -37,6 +37,10 @@ services:
             $manager: '@Intervention\Image\ImageManager'
             $rootUploadDir: '%root_image_dir%'
 
+    AppBundle\EventSubscriber\GallerySubscriber:
+        arguments:
+            $em: '@doctrine.orm.entity_manager'
+
     item.listener:
         class: AppBundle\EventListener\ItemListener
         tags:

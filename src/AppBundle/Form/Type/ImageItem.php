@@ -17,12 +17,25 @@ class ImageItem extends AbstractType
         // Form build
         $builder
             ->add(
-                'id',
-                TextType::class
+                'id', TextType::class, [
+                    'attr' => [
+                        'class' => 'newitem-id'
+                    ]
+                ]
             )
             ->add(
-                'position',
-                TextType::class
+                'type', TextType::class, [
+                    'attr' => [
+                        'class' => 'newitem-type'
+                    ]
+                ]
+            )
+            ->add(
+                'position', TextType::class, [
+                    'attr' => [
+                        'class' => 'item-position'
+                    ]
+                ]
             );
     }
 

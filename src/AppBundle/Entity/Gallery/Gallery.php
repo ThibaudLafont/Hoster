@@ -132,7 +132,7 @@ class Gallery
     /**
      * @return ArrayCollection
      */
-    public function getNewItems(): ArrayCollection
+    public function getNewItems()
     {
         return $this->newItems;
     }

@@ -39,7 +39,7 @@
                     <!-- Option input -->
                     {{ form_row(media) }}
                     {#<!-- Position input -->#}
-                    <input type="text" id="gallery_items___name___position" name="gallery[items][__name__][position]" class="pos-input" required="required" />
+                    <input type="text" id="gallery_items___name___position" name="gallery[items][__name__][position]" class="item-position" required="required" />
                     <a href="#" class="up">Up</a>
                     <a href="#" class="down">Down</a>
                     <a href="#" class="delete">Delete</a>
@@ -52,12 +52,6 @@
 {% block body %}
     <section class="ui basic segment">
         <h1>Ajouter une galerie</h1>
-
-        <!-- Image Form -->
-        <h4>Image</h4>
-        {{ form_start(imageForm, {'attr': {'class': 'ui form'}}) }}
-        {{ form_widget(imageForm) }}
-        {{ form_end(imageForm) }}
 
         <!-- Form -->
         {{ form_start(form, {'attr': {'class': 'ui form', 'action': '/add/gallery'}}) }}
@@ -98,6 +92,13 @@
 
     </section>
 
+    <!-- Image Form -->
+    <div id="new-image-form" style="display: none;">
+        {{ form_start(imageForm, {'attr': {'class': 'ui form'}}) }}
+        {{ form_widget(imageForm) }}
+        {{ form_end(imageForm) }}
+    </div>
+
     <div class="ui page dimmer">
     </div>
 {% endblock %}
@@ -106,213 +107,216 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="/js/gallery/collection.js"></script>
+    <script src="/js/gallery/collection2.js"></script>
     <!-- Symfony collection -->
-    <script>
-        // ImageForm
-        $('#image_Uploader').click(function(e){
-            e.preventDefault();
+    {#<script>#}
+        {#// ImageForm#}
+        {#$('#image_Uploader').click(function(e){#}
+            {#e.preventDefault();#}
 
-            // Get Form data
-            var data = new FormData();
-            data.append('image[name]',   $('#image_name').val());
-            data.append('image[alt]',    $('#image_alt').val());
-            data.append('image[file]',  $('#image_file').prop('files')[0]);
-            data.append('image[_token]', $('#image__token').val());
-            //
-            // // Ajax request
-            $.ajax({
-                method: "POST",
-                url: "/add/image/ajax",
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(text) {
-                    var form = $('<li>Form<input type="radio"></li>')
-                    addTableRow(form, text['url'], text['name'], 'ui image icon')
-                }
-            });
-        })
+            {#// Get Form data#}
+            {#var data = new FormData();#}
+            {#data.append('image[name]',   $('#image_name').val());#}
+            {#data.append('image[alt]',    $('#image_alt').val());#}
+            {#data.append('image[file]',  $('#image_file').prop('files')[0]);#}
+            {#data.append('image[_token]', $('#image__token').val());#}
+            {#//#}
+            {#// // Ajax request#}
+            {#$.ajax({#}
+                {#method: "POST",#}
+                {#url: "/add/image/ajax",#}
+                {#data: data,#}
+                {#processData: false,#}
+                {#contentType: false,#}
+                {#success: function(text) {#}
+                    {#var form = $('<li>Form<input type="radio"></li>')#}
+                    {#addTableRow(form, text['url'], text['name'], 'ui image icon')#}
+                {#}#}
+            {#});#}
+        {#})#}
 
-        // Inquire position fields at submit
-        $('.submit').click(function(e){
-            var i = 1;
-            var rows = $('tbody').find('tr');
-            rows.each(function(){
-                var position = $(this).find('.pos-input');
-                position.attr('value', i);
-                i++;
-            })
-        })
+        {#// Inquire position fields at submit#}
+        {#$('.submit').click(function(e){#}
+            {#var i = 1;#}
+            {#var rows = $('tbody').find('tr');#}
+            {#rows.each(function(){#}
+                {#var position = $(this).find('.pos-input');#}
+                {#position.attr('value', i);#}
+                {#i++;#}
+            {#})#}
+        {#})#}
 
-        function addTableRow(form, src, name, icon) {
-            // Check form option
-            form.find('input[type="radio"]').attr('checked', true);
-            // Up button
-            form.find(".up").click(function () {
-                e.preventDefault();
-                var row = $(this).parents("tr:first");
-                row.insertBefore(row.prev());
-            });
-            // Down button
-            form.find(".down").click(function () {
-                e.preventDefault();
-                var row = $(this).parents("tr:first");
-                row.insertAfter(row.next());
-            });
-            // Delete button
-            form.find('.delete').click(function(){
-                e.preventDefault();
-                var row = $(this).parents("tr:first");
-                row.remove();
-            });
+        {#function addTableRow(form, src, name, icon) {#}
+            {#// Check form option#}
+            {#form.find('input[type="radio"]').attr('checked', true);#}
+            {#// Up button#}
+            {#form.find(".up").click(function () {#}
+                {#e.preventDefault();#}
+                {#var row = $(this).parents("tr:first");#}
+                {#row.insertBefore(row.prev());#}
+            {#});#}
+            {#// Down button#}
+            {#form.find(".down").click(function () {#}
+                {#e.preventDefault();#}
+                {#var row = $(this).parents("tr:first");#}
+                {#row.insertAfter(row.next());#}
+            {#});#}
+            {#// Delete button#}
+            {#form.find('.delete').click(function(){#}
+                {#e.preventDefault();#}
+                {#var row = $(this).parents("tr:first");#}
+                {#row.remove();#}
+            {#});#}
 
 
-            // Create elements of new line
-            var line = $('<tr class="media-form-row"></tr>');
-            var preview = $('<td class="collapsing"><img class="ui small image" src="' + src + '"></td>');
-            var name = $('<td><i class="' + icon + '"></i>' + name + '</td>');
-            var actions = $('<td></td>');
-            actions.append(form);
+            {#// Create elements of new line#}
+            {#var line = $('<tr class="media-form-row"></tr>');#}
+            {#var preview = $('<td class="collapsing"><img class="ui small image" src="' + src + '"></td>');#}
+            {#var name = $('<td><i class="' + icon + '"></i>' + name + '</td>');#}
+            {#var actions = $('<td></td>');#}
+            {#actions.append(form);#}
 
-            // Append columns to row
-            line.append(preview);
-            line.append(name);
-            line.append(actions)
+            {#// Append columns to row#}
+            {#line.append(preview);#}
+            {#line.append(name);#}
+            {#line.append(actions)#}
 
-            // Append new row to table
-            $('table').append(line);
-        }
+            {#// Append new row to table#}
+            {#$('table').append(line);#}
+        {#}#}
 
-        function addItemForm($collectionHolder, $newLinkLi) {
-            // Get the data-prototype explained earlier
-            var prototype = $collectionHolder.data('prototype');
+        {#function addItemForm($collectionHolder, $newLinkLi) {#}
+            {#// Get the data-prototype explained earlier#}
+            {#var prototype = $collectionHolder.data('prototype');#}
 
-            // get the new index
-            var index = $collectionHolder.data('index');
+            {#// get the new index#}
+            {#var index = $collectionHolder.data('index');#}
 
-            // Get prototype
-            var newForm = prototype;
+            {#// Get prototype#}
+            {#var newForm = prototype;#}
 
-            // Replace '__name__' in the prototype's HTML to
-            // instead be a number based on how many items we have
-            newForm = newForm.replace(/__name__/g, index);
+            {#// Replace '__name__' in the prototype's HTML to#}
+            {#// instead be a number based on how many items we have#}
+            {#newForm = newForm.replace(/__name__/g, index);#}
 
-            // increase the index with one for the next item
-            $collectionHolder.data('index', index + 1);
+            {#// increase the index with one for the next item#}
+            {#$collectionHolder.data('index', index + 1);#}
 
-            // Clear dimmer
-            $('.ui.page.dimmer').empty();
+            {#// Clear dimmer#}
+            {#$('.ui.page.dimmer').empty();#}
 
-            // Append form in dimmer
-            $('.ui.page.dimmer').append(newForm);
+            {#// Append form in dimmer#}
+            {#$('.ui.page.dimmer').append(newForm);#}
 
-            // Show dimmer
-            $('.ui.page.dimmer').dimmer('show');
+            {#// Show dimmer#}
+            {#$('.ui.page.dimmer').dimmer('show');#}
 
-            // Add event on click
-            $('.gallery-item').click(function(e){
-                // Get data from clicked item
-                var form = $(this).children('.media-form');
-                var src = $(this).children('.media-form').attr('src');
-                var name = $(this).children('.media-form').attr('name');
-                var icon = $(this).children('.media-form').attr('icon');
-                addTableRow(form, src, name, icon);
+            {#// Add event on click#}
+            {#$('.gallery-item').click(function(e){#}
+                {#// Get data from clicked item#}
+                {#var form = $(this).children('.media-form');#}
+                {#var src = $(this).children('.media-form').attr('src');#}
+                {#var name = $(this).children('.media-form').attr('name');#}
+                {#var icon = $(this).children('.media-form').attr('icon');#}
+                {#addTableRow(form, src, name, icon);#}
 
-                // Hide dimmer
-                $('.ui.page.dimmer').dimmer('hide');
-            });
-        }
+                {#// Hide dimmer#}
+                {#$('.ui.page.dimmer').dimmer('hide');#}
+            {#});#}
+        {#}#}
 
-        function handleItemAdd($collectionHolder, $addLinkButton, $addLinkLi) {
-            // add the "add a tag" anchor and li to the tags ul
-            $collectionHolder.append($addLinkLi);
+        {#function handleItemAdd($collectionHolder, $addLinkButton, $addLinkLi) {#}
+            {#// add the "add a tag" anchor and li to the tags ul#}
+            {#$collectionHolder.append($addLinkLi);#}
 
-            // count the current form inputs we have (e.g. 2), use that as the new
-            // index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            {#// count the current form inputs we have (e.g. 2), use that as the new#}
+            {#// index when inserting a new item (e.g. 2)#}
+            {#$collectionHolder.data('index', $collectionHolder.find(':input').length);#}
 
-            $addLinkButton.on('click', function(e) {
-                // prevent the link from creating a "#" on the URL
-                e.preventDefault();
+            {#$addLinkButton.on('click', function(e) {#}
+                {#// prevent the link from creating a "#" on the URL#}
+                {#e.preventDefault();#}
 
-                // add a new tag form (see next code block)
-                addItemForm($collectionHolder, $addLinkLi);
-            });
-        }
+                {#// add a new tag form (see next code block)#}
+                {#addItemForm($collectionHolder, $addLinkLi);#}
+            {#});#}
+        {#}#}
 
-        function addNewItemForm($collectionHolder, $newLinkLi) {
-            // Get the data-prototype explained earlier
-            var prototype = $collectionHolder.data('prototype');
+        {#function addNewItemForm($collectionHolder, $newLinkLi) {#}
+            {#// Get the data-prototype explained earlier#}
+            {#var prototype = $collectionHolder.data('prototype');#}
 
-            // get the new index
-            var index = $collectionHolder.data('index');
+            {#// get the new index#}
+            {#var index = $collectionHolder.data('index');#}
 
-            // Get prototype
-            var newForm = prototype;
+            {#// Get prototype#}
+            {#var newForm = prototype;#}
 
-            // Replace '__name__' in the prototype's HTML to
-            // instead be a number based on how many items we have
-            newForm = newForm.replace(/__name__/g, index);
+            {#// Replace '__name__' in the prototype's HTML to#}
+            {#// instead be a number based on how many items we have#}
+            {#newForm = newForm.replace(/__name__/g, index);#}
 
-            // increase the index with one for the next item
-            $collectionHolder.data('index', index + 1);
+            {#// increase the index with one for the next item#}
+            {#$collectionHolder.data('index', index + 1);#}
 
-            console.log(newForm)
+            {#console.log(newForm)#}
 
-            // Clear dimmer
-            // $('.ui.page.dimmer').empty();
-            //
-            // // Append form in dimmer
-            // $('.ui.page.dimmer').append(newForm);
-            //
-            // // Show dimmer
-            // $('.ui.page.dimmer').dimmer('show');
-            //
-            // // Add event on click
-            // $('.gallery-item').click(function(e){
-            //     // Get data from clicked item
-            //     var form = $(this).children('.media-form');
-            //     var src = $(this).children('.media-form').attr('src');
-            //     var name = $(this).children('.media-form').attr('name');
-            //     var icon = $(this).children('.media-form').attr('icon');
-            //     addTableRow(form, src, name, icon);
-            //
-            //     // Hide dimmer
-            //     $('.ui.page.dimmer').dimmer('hide');
-            // });
-        }
 
-        function handleNewItemAdd($collectionHolder, $addLinkButton, $addLinkLi) {
-            // add the "add a tag" anchor and li to the tags ul
-            $collectionHolder.append($addLinkLi);
+            {#// Clear dimmer#}
+            {#// $('.ui.page.dimmer').empty();#}
+            {#//#}
+            {#// // Append form in dimmer#}
+            {#// $('.ui.page.dimmer').append(newForm);#}
+            {#//#}
+            {#// // Show dimmer#}
+            {#// $('.ui.page.dimmer').dimmer('show');#}
+            {#//#}
+            {#// // Add event on click#}
+            {#// $('.gallery-item').click(function(e){#}
+            {#//     // Get data from clicked item#}
+            {#//     var form = $(this).children('.media-form');#}
+            {#//     var src = $(this).children('.media-form').attr('src');#}
+            {#//     var name = $(this).children('.media-form').attr('name');#}
+            {#//     var icon = $(this).children('.media-form').attr('icon');#}
+            {#//     addTableRow(form, src, name, icon);#}
+            {#//#}
+            {#//     // Hide dimmer#}
+            {#//     $('.ui.page.dimmer').dimmer('hide');#}
+            {#// });#}
+        {#}#}
 
-            // count the current form inputs we have (e.g. 2), use that as the new
-            // index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+        {#function handleNewItemAdd($collectionHolder, $addLinkButton, $addLinkLi) {#}
+            {#// add the "add a tag" anchor and li to the tags ul#}
+            {#$collectionHolder.append($addLinkLi);#}
 
-            $addLinkButton.on('click', function(e) {
-                // prevent the link from creating a "#" on the URL
-                e.preventDefault();
+            {#// count the current form inputs we have (e.g. 2), use that as the new#}
+            {#// index when inserting a new item (e.g. 2)#}
+            {#$collectionHolder.data('index', $collectionHolder.find(':input').length);#}
 
-                // add a new tag form (see next code block)
-                addNewItemForm($collectionHolder, $addLinkLi);
-            });
-        }
+            {#$addLinkButton.on('click', function(e) {#}
+                {#// prevent the link from creating a "#" on the URL#}
+                {#e.preventDefault();#}
 
-        // setup an "add a tag" link
+                {#// add a new tag form (see next code block)#}
+                {#addNewItemForm($collectionHolder, $addLinkLi);#}
+            {#});#}
+        {#}#}
 
-        jQuery(document).ready(function() {
-            // Add item link
-            var $addItemButton = $('<a href="" class="ui green icon button add_tag_link"><i class="ui plus icon"></i></a>');
-            var $newItemLi = $('<li></li>').append($addItemButton);
-            handleItemAdd($('.media-item-parent'), $addItemButton, $newItemLi);
+        {#// setup an "add a tag" link#}
 
-            // Add newItem Link
-            var $addNewItemButton = $('<a href="" class="ui green icon button add_tag_link"><i class="ui image icon"></i></a>');
-            var $newNewItemLi = $('<li></li>').append($addNewItemButton);
-            handleNewItemAdd($('.media-newitem-parent'), $addItemButton, $newNewItemLi)
-        });
-    </script>
+        {#jQuery(document).ready(function() {#}
+            {#// Add item link#}
+            {#var $addItemButton = $('<a class="ui green icon button add_tag_link"><i class="ui plus icon"></i></a>');#}
+            {#var $newItemLi = $('<li></li>').append($addItemButton);#}
+            {#handleItemAdd($('.media-item-parent'), $addItemButton, $newItemLi);#}
+
+            {#// Add newItem Link#}
+            {#var $addNewItemButton = $('<a id="test" class="ui green icon button add_tag_link"><i class="ui image icon"></i></a>');#}
+            {#var $newNewItemLi = $('<li></li>').append($addNewItemButton);#}
+            {#handleNewItemAdd($('.media-newitem-parent'), $addNewItemButton, $newNewItemLi)#}
+        {#});#}
+    {#</script>#}
 
     <!-- Checkbox toggle -->
     <script src="/js/gallery/toggleCheckbox.js"></script>
