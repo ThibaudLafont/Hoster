@@ -5,7 +5,7 @@ function onBrowseDimmerSubmit() {
         var form = $(this).children('.media-form');
         var src = $(this).children('.media-form').attr('src');
         var name = $(this).children('.media-form').attr('name');
-        var icon = $(this).children('.media-form').attr('icon');
+        var icon = '<i class="' + $(this).children('.media-form').attr('icon') + '"></i>';
 
         // Check form option
         form.find('input[type="radio"]').attr('checked', true);

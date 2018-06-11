@@ -1,23 +1,23 @@
 <?php
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\Distant\Dailymotion;
+use AppBundle\Entity\Distant\Youtube;
 use AppBundle\Form\Type\Distant;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class DailymotionController extends ApiController
+class YoutubeController extends ApiController
 {
     /**
      * @param Request $request
      * @return Response
      *
-     * @Route("/add/dailymotion/ajax", name="dailymotion_ajax_upload")
+     * @Route("/add/youtube/ajax", name="youtube_ajax_upload")
      */
     public function ajaxAddAction(Request $request)
     {
         // Form
-        $form = $this->createForm(Distant::class, new Dailymotion());
+        $form = $this->createForm(Distant::class, new Youtube());
         $form->handleRequest($request);
 
         $response = $this->handleAjaxAdd($form);

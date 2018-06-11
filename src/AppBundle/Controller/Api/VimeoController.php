@@ -1,23 +1,23 @@
 <?php
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\Distant\Dailymotion;
+use AppBundle\Entity\Distant\Vimeo;
 use AppBundle\Form\Type\Distant;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class DailymotionController extends ApiController
+class VimeoController extends ApiController
 {
     /**
      * @param Request $request
      * @return Response
      *
-     * @Route("/add/dailymotion/ajax", name="dailymotion_ajax_upload")
+     * @Route("/add/vimeo/ajax", name="vimeo_ajax_upload")
      */
     public function ajaxAddAction(Request $request)
     {
         // Form
-        $form = $this->createForm(Distant::class, new Dailymotion());
+        $form = $this->createForm(Distant::class, new Vimeo());
         $form->handleRequest($request);
 
         $response = $this->handleAjaxAdd($form);

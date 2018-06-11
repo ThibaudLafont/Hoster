@@ -16,10 +16,10 @@ function onDistantDimmerSubmit(ajaxUrl) {
             processData: false,
             contentType: false,
             success: function(text) {
-                ajaxSucess(text)
+                ajaxSucess(text, 'ui video icon')
             },
             error: function(text) {
-                console.log(text)
+                ajaxError(text)
             }
         });
     })
@@ -44,25 +44,43 @@ function onNewImageDimmerSubmit() {
             processData: false,
             contentType: false,
             success: function(text) {
-                ajaxSucess(text)
+                ajaxSucess(text, 'ui image icon')
+            },
+            error: function(text) {
+                ajaxError(text)
             }
         });
     })
 }
 
 // ImageForm
-function ajaxSucess(text) {
+function ajaxSucess(text, icon) {
     // Build new-item form
     var newForm = $('<div class="new-item-form"></div>');
     newForm.append($($('.ui.page.dimmer .new-item-form').contents()));
 
-
     newForm.find('.newitem-id').val(text['id']);
     newForm.find('.newitem-type').val(text['type']);
 
-    appendNewTableRow(text['url'], text['name'], '<i class="' + 'ui image icon' + '"></i>', newForm)
+    appendNewTableRow(text['url'], text['name'], '<i class="' + icon + '"></i>', newForm)
 
     $('.ui.page.dimmer').dimmer('hide');
+}
+
+function ajaxError(text) {
+    console.log(text);
+    // Delete content in case of present errors
+    $('.ui.page.dimmer .form-errors').empty();
+
+    // UTF8 decode & return line adapt
+    text = $.parseJSON(text.responseText);
+    text = text.replace(/\n/g, "<br/>");
+
+    // Create element with errors
+    var content = $('<p>' + text + '</p>');
+
+    // Append errors in form
+    $('.ui.page.dimmer .form-errors').append(content);
 }
 
 // Youtube callback

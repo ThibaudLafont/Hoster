@@ -2,15 +2,13 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\Distant\Dailymotion;
+use AppBundle\Entity\Distant\Vimeo;
+use AppBundle\Entity\Distant\Youtube;
+use AppBundle\Form\Type\Image;
 use AppBundle\Form\Type\ImageUpload;
-use AppBundle\Serializer\DailymotionSerializer;
-use AppBundle\Serializer\ImageSerializer;
-use AppBundle\Serializer\MediaSerializer;
-use AppBundle\Serializer\VimeoSerializer;
-use AppBundle\Serializer\YoutubeSerializer;
 use AppBundle\Service\ImageHandler;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiController extends Controller
@@ -22,13 +20,60 @@ class ApiController extends Controller
             case Dailymotion::class:
                 $type = 'dailymotion';
                 break;
+            case Youtube::class:
+                $type = 'youtube';
+                break;
+            case Vimeo::class:
+                $type = 'vimeo';
+                break;
+            case Image::class:
+                $type = 'image';
+                break;
+            default:
+                break;
         }
-        return ['sucess', json_encode([
+        return json_encode([
             'id' => $entity->getId(),
             'name' => $entity->getName(),
             'type' => $type,
             'url' => $entity->getCoverImage()
-        ])];
+        ]);
+    }
+
+    protected function handleAjaxAdd($form)
+    {
+        // Check if FILE is defined
+        if($form->isSubmitted()) {
+            if($form->isValid()) {
+                $entity = $form->getData();
+
+                // Persist entity
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                // Created => 201 http status
+                $code = 201;
+                $content = $this->buildSuccessContent($entity);
+
+            } else {
+                // Bad request => 400 http status
+                $code = 400;
+
+                // Get & Rewrite errors
+                $errors = $form->getErrors(true);
+                $errors = str_replace('ERROR', 'Erreur', $errors);
+
+                // Set content
+                $content = json_encode($errors);
+            }
+        } else {
+            // Bad request => 400 http status
+            $code = 400;
+            $content = json_encode('Veuillez poster des données');
+        }
+
+        return ['code' => $code, 'content' => $content];
     }
 
     protected function renderAjax($code, $content)

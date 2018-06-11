@@ -30,14 +30,20 @@ class DailymotionController extends Controller
         $form->handleRequest($request);
 
         // Check if form was submitted
-        if($form->isSubmitted() && $form->isValid()) {
-            // Persist entity
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($form->getData());
-            $em->flush();
+        if($form->isSubmitted()) {
+            if($form->isValid()) {
+                // Persist entity
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($form->getData());
+                $em->flush();
 
-            // Return to image_upload
-            return $this->redirectToRoute('dailymotion_add');
+                // Return to image_upload
+                return $this->redirectToRoute('dailymotion_add');
+            } else {
+                $errors =  $form->getErrors(true);
+                $errors = str_replace('ERROR', 'Erreur', $errors);
+                echo '<pre>'; echo $errors; die;
+            }
         }
 
         return $this->render(

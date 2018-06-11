@@ -48,51 +48,6 @@ class YoutubeController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @Route("/add/youtube/ajax", name="youtube_ajax_upload")
-     */
-    public function ajaxAddAction(Request $request)
-    {
-        // Form
-        $form = $this->createForm(Distant::class, new Youtube());
-        $form->handleRequest($request);
-
-        // Check if FILE is defined
-        if($form->isSubmitted()) {
-            if($form->isValid()) {
-                $yt = $form->getData();
-
-                // Persist entity
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($yt);
-                $em->flush();
-
-                $content = json_encode([
-                    'id' => $yt->getId(),
-                    'name' => $yt->getName(),
-                    'type' => 'youtube',
-                    'url' => $yt->getCoverImage()
-                ]);
-
-            } else {
-                $content = json_encode((string) $form->getErrors(true, false));
-            }
-        } else {
-            $content = json_encode('Veuillez poster des données');
-        }
-
-        // Build Response
-        $response = new Response();
-        $response->setContent($content);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
-    }
-
-    /**
-     * @param Request $request
      * @param int $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *

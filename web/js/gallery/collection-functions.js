@@ -64,7 +64,7 @@ function appendNewTableRow(thumbnail, name, icon, form) {
     // Create elements of new line
     var line = $('<tr class="media-form-row"></tr>');
     var preview = $('<td class="collapsing"><img class="ui small image" src="' + thumbnail + '"></td>');
-    var name = $('<td><i class="' + icon + '"></i>' + name + '</td>');
+    var name = $('<td>'+ icon + name + '</td>');
     var actions = $('<td></td>');
     actions.append(form);
 
