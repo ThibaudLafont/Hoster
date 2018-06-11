@@ -17,7 +17,7 @@
         <div>
             <button type="submit" id="distant_Ajouter" name="distant[Ajouter]">Ajouter</button>
         </div>
-        <input type="hidden" id="distant__token" name="distant[_token]" value="b42jW6v5raM3WXAsZgKzKSrQnobCayz6fX2drgrPVQY">
+        <input type="hidden" id="distant__token" name="distant[_token]" value="{{ distantForm._token.vars.value }}">
 
         <!-- Form block for tableRowAppend -->
         {% include 'form_theme/gallery/new-item.html.twig' %}
