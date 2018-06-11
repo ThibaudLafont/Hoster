@@ -54,7 +54,7 @@ function onNewImageDimmerSubmit() {
 function ajaxSucess(text) {
     // Build new-item form
     var newForm = $('<div class="new-item-form"></div>');
-    newForm.append($($('.new-item-form').contents()));
+    newForm.append($($('.ui.page.dimmer .new-item-form').contents()));
 
 
     newForm.find('.newitem-id').val(text['id']);
