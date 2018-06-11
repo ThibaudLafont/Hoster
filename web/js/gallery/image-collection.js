@@ -2,10 +2,6 @@ function onNewImageDimmerSubmit() {
     $('.ui.dimmer.page button[type="submit"]').click(function(e){
         e.preventDefault();
 
-        // Build new-item form
-        var newForm = $('<div class="new-image-form"></div>');
-        newForm.append($($('.new-item-form').contents()));
-
         // Build Form data and get values
         var data = new FormData();
         data.append('image[name]',   $('#image_name').val());
@@ -21,7 +17,7 @@ function onNewImageDimmerSubmit() {
             processData: false,
             contentType: false,
             success: function(text) {
-                ajaxSucess(text, newForm)
+                ajaxSucess(text)
             }
         });
     })

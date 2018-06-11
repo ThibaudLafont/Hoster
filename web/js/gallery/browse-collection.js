@@ -1,4 +1,4 @@
-function onItemDimmerSubmit() {
+function onBrowseDimmerSubmit() {
     // Add event on click
     $('.gallery-item').click(function(e){
         // Get data from clicked item
@@ -23,6 +23,6 @@ jQuery(document).ready(function() {
     initCollection(
         $('.media-item-parent'),
         '<i class="ui folder icon"></i>',
-        onItemDimmerSubmit
+        onBrowseDimmerSubmit
     )
 });
