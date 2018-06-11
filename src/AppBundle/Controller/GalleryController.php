@@ -3,6 +3,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Gallery\Gallery as GalleryEntity;
 use AppBundle\Entity\Gallery\Item;
+use AppBundle\Form\Type\Distant;
 use AppBundle\Form\Type\Gallery;
 use AppBundle\Form\Type\Image;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,6 +26,7 @@ class GalleryController extends Controller
         $form->handleRequest($request);
 
         $newImageForm = $this->createForm(Image::class);
+        $distantForm = $this->createForm(Distant::class);
 
         // Check if form was submitted
         if($form->isSubmitted() && $form->isValid()) {
@@ -41,7 +43,8 @@ class GalleryController extends Controller
             'gallery/add.html.twig',
             [
                 'form' => $form->createView(),
-                'imageForm' => $newImageForm->createView()
+                'imageForm' => $newImageForm->createView(),
+                'distantForm' => $distantForm->createView()
             ]
         );
     }

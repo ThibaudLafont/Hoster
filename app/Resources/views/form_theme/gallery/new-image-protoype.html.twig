@@ -1,4 +1,4 @@
-{% macro newItemCollection(imageForm, newItemForm) %}
+{% macro newItemCollection(imageForm) %}
     <!-- Title -->
     <h3 class="ui inverted header">Uploader une image</h3>
 
@@ -9,18 +9,6 @@
         {{ form_end(imageForm) }}
 
         <!-- Form block for tableRowAppend -->
-        <div id="future-new-item-form">
-            <div class="image-item-form">
-                <!-- NewItem Form -->
-                {{ form_row(newItemForm.id) }}
-                {{ form_row(newItemForm.type) }}
-                {{ form_row(newItemForm.position) }}
-
-                <!-- Up/Down/Delete -->
-                <a href="#" class="up">Up</a>
-                <a href="#" class="down">Down</a>
-                <a href="#" class="delete">Delete</a>
-            </div>
-        </div>
+        {% include 'form_theme/gallery/new-item.html.twig' %}
     </section>
 {% endmacro %}

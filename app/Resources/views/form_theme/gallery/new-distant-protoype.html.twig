@@ -1,0 +1,24 @@
+{% macro newItemCollection(distantForm) %}
+    <!-- Title -->
+    <h3 class="ui inverted header">Uploader une vidéo youtube</h3>
+
+    <!-- Content -->
+    <section id="new-distant-dimmer" class="ui form">
+        <!-- Upload form -->
+        <div>
+            <label for="distant_name" class="required">Name</label>
+            <input type="text" id="distant_name" name="distant[name]" required="required">
+        </div>
+        <div>
+            <label for="distant_url" class="required">Url</label>
+            <input type="text" id="distant_url" name="distant[url]" required="required">
+        </div>
+        <div>
+            <button type="submit" id="distant_Ajouter" name="distant[Ajouter]">Ajouter</button>
+        </div>
+        <input type="hidden" id="distant__token" name="distant[_token]" value="b42jW6v5raM3WXAsZgKzKSrQnobCayz6fX2drgrPVQY">
+
+        <!-- Form block for tableRowAppend -->
+        {% include 'form_theme/gallery/new-item.html.twig' %}
+    </section>
+{% endmacro %}

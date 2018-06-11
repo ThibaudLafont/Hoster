@@ -48,6 +48,51 @@ class VimeoController extends Controller
 
     /**
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/add/vimeo/ajax", name="vimeo_ajax_upload")
+     */
+    public function ajaxAddAction(Request $request)
+    {
+        // Form
+        $form = $this->createForm(Distant::class, new Vimeo());
+        $form->handleRequest($request);
+
+        // Check if FILE is defined
+        if($form->isSubmitted()) {
+            if($form->isValid()) {
+                $dm = $form->getData();
+
+                // Persist entity
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($dm);
+                $em->flush();
+
+                $content = json_encode([
+                    'id' => $dm->getId(),
+                    'name' => $dm->getName(),
+                    'type' => 'vimeo',
+                    'url' => $dm->getCoverImage()
+                ]);
+
+            } else {
+                $content = json_encode((string) $form->getErrors(true, false));
+            }
+        } else {
+            $content = json_encode('Veuillez poster des données');
+        }
+
+        // Build Response
+        $response = new Response();
+        $response->setContent($content);
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
      * @param int $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *

@@ -13,6 +13,7 @@
     display: none;
 }
 
-#new-image-dimmer .image-item-form {
+#new-image-dimmer #future-new-item-form,
+#new-distant-dimmer #future-new-item-form {
     display: none;
 }

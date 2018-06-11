@@ -24,7 +24,7 @@ class YoutubeSubscriber implements EventSubscriberInterface
         $data = $event->getData();
 
         // If no data ; youtube_add
-        if(is_null($data->getName())) {
+        if(is_null($data)) {
             $form->add(
                 'Ajouter',
                 SubmitType::class

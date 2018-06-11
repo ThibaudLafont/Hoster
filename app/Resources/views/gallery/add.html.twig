@@ -20,9 +20,15 @@
             </ul>
 
             {% import 'form_theme/gallery/new-image-protoype.html.twig' as imageMacro %}
-            <ul class="media-newitem-parent"
+            <ul class="media-new-image-parent"
                 class="image-item-parent"
-                data-prototype="{{ imageMacro.newItemCollection(imageForm ,form.newItems.vars.prototype)|e('html_attr') }}">
+                data-prototype="{{ imageMacro.newItemCollection(imageForm)|e('html_attr') }}">
+            </ul>
+
+            {% import 'form_theme/gallery/new-distant-protoype.html.twig' as distantMacro %}
+            <ul class="media-new-distant-parent"
+                class="youtube-item-parent"
+                data-prototype="{{ distantMacro.newItemCollection(distantForm)|e('html_attr') }}">
             </ul>
 
             <!-- Added medias -->
@@ -39,8 +45,9 @@
                 </tbody>
             </table>
 
-        <!-- Simulate render of form.items -->
+        <!-- Simulate render of form.items & form.newItems -->
         {% do form.items.setRendered() %}
+        {% do form.newItems.setRendered() %}
 
         <!-- Submit -->
         {{ form_row(form.submit, {'attr': {'class': 'ui submit button'}}) }}
@@ -48,13 +55,6 @@
         {{ form_end(form) }}
 
     </section>
-
-    <!-- Image Form -->
-    <div id="new-image-form" style="display: none;">
-        {{ form_start(imageForm, {'attr': {'class': 'ui form'}}) }}
-        {{ form_widget(imageForm) }}
-        {{ form_end(imageForm) }}
-    </div>
 
     <div class="ui page dimmer">
     </div>
@@ -65,8 +65,9 @@
 
 {% block javascripts %}
     <script src="/js/gallery/collection-functions.js"></script>
-    <script src="/js/gallery/collection.js"></script>
-    <script src="/js/gallery/collection2.js"></script>
+    <script src="/js/gallery/browse-collection.js"></script>
+    <script src="/js/gallery/image-collection.js"></script>
+    <script src="/js/gallery/distant-collection.js"></script>
 
     <!-- Checkbox toggle -->
     <script src="/js/gallery/toggleCheckbox.js"></script>

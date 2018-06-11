@@ -1,5 +1,4 @@
 function UpDownDeleteEvents(form) {
-    console.log(form);
     // Up button
     form.find(".up").click(function (e) {
         e.preventDefault();
