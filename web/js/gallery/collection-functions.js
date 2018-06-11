@@ -1,25 +1,26 @@
 function UpDownDeleteEvents(form) {
+    console.log(form);
     // Up button
-    form.find(".up").click(function () {
+    form.find(".up").click(function (e) {
         e.preventDefault();
         var row = $(this).parents("tr:first");
         row.insertBefore(row.prev());
     });
     // Down button
-    form.find(".down").click(function () {
+    form.find(".down").click(function (e) {
         e.preventDefault();
         var row = $(this).parents("tr:first");
         row.insertAfter(row.next());
     });
     // Delete button
-    form.find('.delete').click(function(){
+    form.find('.delete').click(function(e){
         e.preventDefault();
         var row = $(this).parents("tr:first");
         row.remove();
     });
 }
 
-function initCollection($collectionHolder, $buttonContent, onDimmerSubmit) {
+function initCollection($collectionHolder, $buttonContent, $function) {
     // Create add button & insert
     var $addItemButton = $('<a class="ui green icon button">' + $buttonContent + '</a>');
     var $newItemLi = $('<li></li>').append($addItemButton);
@@ -29,7 +30,7 @@ function initCollection($collectionHolder, $buttonContent, onDimmerSubmit) {
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
     // Add item click event
-    $addItemButton.click(function(e, onDimmerSubmit){
+    $addItemButton.click(function(e){
         e.preventDefault();
 
         // Get the data-prototype from holder
@@ -56,7 +57,7 @@ function initCollection($collectionHolder, $buttonContent, onDimmerSubmit) {
         // Show dimmer
         $('.ui.page.dimmer').dimmer('show');
 
-        // Exec given function (generally a click event)
+        $function()
     })
 }
 

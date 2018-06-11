@@ -22,7 +22,7 @@
             {% import 'form_theme/gallery/new-image-protoype.html.twig' as imageMacro %}
             <ul class="media-newitem-parent"
                 class="image-item-parent"
-                data-prototype="{{ imageMacro.newItemCollection(form.newItems.vars.prototype)|e('html_attr') }}">
+                data-prototype="{{ imageMacro.newItemCollection(imageForm ,form.newItems.vars.prototype)|e('html_attr') }}">
             </ul>
 
             <!-- Added medias -->

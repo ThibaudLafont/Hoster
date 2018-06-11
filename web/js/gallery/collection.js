@@ -1,5 +1,4 @@
-function onItemDimmerSubmit(lalala) {
-    console.log(lalala)
+function onItemDimmerSubmit() {
     // Add event on click
     $('.gallery-item').click(function(e){
         // Get data from clicked item
@@ -24,6 +23,6 @@ jQuery(document).ready(function() {
     initCollection(
         $('.media-item-parent'),
         '<i class="ui folder icon"></i>',
-        onItemDimmerSubmit()
+        onItemDimmerSubmit
     )
 });

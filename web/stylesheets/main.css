@@ -12,3 +12,7 @@
 {
     display: none;
 }
+
+#new-image-dimmer .image-item-form {
+    display: none;
+}
