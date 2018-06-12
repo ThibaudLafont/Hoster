@@ -23,10 +23,10 @@ function initCollection($collectionHolder, $buttonContent, $function) {
     // Create add button & insert
     var $addItemButton = $('<a class="ui green icon button">' + $buttonContent + '</a>');
     var $newItemLi = $('<li></li>').append($addItemButton);
-    $collectionHolder.append($newItemLi);
+    $('#add-media-buttons').append($addItemButton);
 
-    // Define index
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+    // Define index in table
+    $('#gallery-medias').data('index', $('#gallery-medias tbody').find('tr').length);
 
     // Add item click event
     $addItemButton.click(function(e){
@@ -36,7 +36,7 @@ function initCollection($collectionHolder, $buttonContent, $function) {
         var prototype = $collectionHolder.data('prototype');
 
         // get the new index
-        var index = $collectionHolder.data('index');
+        var index = $('#gallery-medias').data('index');
 
         // Store prototype
         var newForm = prototype;
@@ -45,7 +45,7 @@ function initCollection($collectionHolder, $buttonContent, $function) {
         newForm = newForm.replace(/__name__/g, index);
 
         // increase the index with one for the next item
-        $collectionHolder.data('index', index + 1);
+        $('#gallery-medias').data('index', index + 1);
 
         // Clear dimmer
         $('.ui.page.dimmer').empty();

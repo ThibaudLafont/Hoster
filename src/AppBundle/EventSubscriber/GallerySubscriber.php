@@ -1,6 +1,9 @@
 <?php
 namespace AppBundle\EventSubscriber;
 
+use AppBundle\Entity\Distant\Dailymotion;
+use AppBundle\Entity\Distant\Vimeo;
+use AppBundle\Entity\Distant\Youtube;
 use AppBundle\Entity\Gallery\Item;
 use AppBundle\Entity\Gallery\Media;
 use AppBundle\Entity\Local\Image;
@@ -34,17 +37,37 @@ class GallerySubscriber implements EventSubscriberInterface
 
         // Add items to gallery
         foreach($data->getNewItems() as $newItem) {
-            switch ($newItem['type']){
-                case 'image':
-                    $image = $this->getEm()->getRepository(Image::class)
-                        ->find($newItem['id']);
-                    $item = new Item();
-                    $item->setMedia($image);
-                    $item->setPosition($newItem['position']);
-                    $data->addItem($item);
-            }
+            $entity = $this->getEm()->getRepository(\AppBundle\Entity\Media::class)
+                ->find($newItem['id']);
+            $this->createNewItem($entity, $data, $newItem['position']);
+//            switch ($newItem['type']){
+//                case 'image':
+//                    $image = $this->getEm()->getRepository(Image::class)
+//                        ->find($newItem['id']);
+//                    $this->createNewItem($image, $data, $newItem['position']);
+//                case 'youtube':
+//                    $yt = $this->getEm()->getRepository(Youtube::class)
+//                        ->find($newItem['id']);
+//                    $this->createNewItem($yt, $data, $newItem['position']);
+//                case 'dailymotion':
+//                    $dm = $this->getEm()->getRepository(Dailymotion::class)
+//                        ->find($newItem['id']);
+//                    $this->createNewItem($dm, $data, $newItem['position']);
+//                case 'vimeo':
+//                    $vm = $this->getEm()->getRepository(Vimeo::class)
+//                        ->find($newItem['id']);
+//                    $this->createNewItem($vm, $data, $newItem['position']);
+//            }
         }
 
+    }
+
+    private function createNewItem($entity, $gallery, $position)
+    {
+        $item = new Item();
+        $item->setMedia($entity);
+        $item->setPosition($position);
+        $gallery->addItem($item);
     }
 
     /**

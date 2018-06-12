@@ -18,19 +18,15 @@ class ApiController extends Controller
     {
         switch(get_class($entity)){
             case Dailymotion::class:
-                $type = 'dailymotion';
                 $thumb = $entity->getCoverImage();
                 break;
             case Youtube::class:
-                $type = 'youtube';
                 $thumb = $entity->getCoverImage();
                 break;
             case Vimeo::class:
-                $type = 'vimeo';
                 $thumb = $entity->getCoverImage();
                 break;
             case Image::class:
-                $type = 'image';
                 $thumb = $entity->getThumbSrc();
                 break;
             default:
@@ -39,7 +35,6 @@ class ApiController extends Controller
         return json_encode([
             'id' => $entity->getId(),
             'name' => $entity->getName(),
-            'type' => $type,
             'url' => $thumb
         ]);
     }

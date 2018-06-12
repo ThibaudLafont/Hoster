@@ -48,48 +48,6 @@ class ImageController extends Controller
         );
     }
 
-    public function ajaxAddAction(Request $request)
-    {
-        // Form
-        $form = $this->createForm(ImageType::class);
-        $form->handleRequest($request);
-
-        // Check if FILE is defined
-        if($form->isSubmitted()) {
-            if($form->isValid()) {
-                $image = $form->getData();
-
-                // Persist entity
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($image);
-                $em->flush();
-
-                $content = json_encode([
-                    'id' => $image->getId(),
-                    'name' => $image->getName(),
-                    'type' => 'image',
-                    'url' => 'http://hoster.lan' . $image->getSrc()
-                ]);
-
-            } else {
-                $content = json_encode((string) $form->getErrors(true, false));
-            }
-        } else {
-            $content = json_encode('Veuillez poster des données');
-        }
-
-        // Build Response
-        $response = new Response();
-        $response->setContent($content);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
-
-        // Else return 400
-//        return new Response('Problème d\'uplaod', 400, ['Access-Control-Allow-Origin' => '*']);
-    }
-
     /**
      * @param Request $request
      * @param $id

@@ -60,7 +60,7 @@ function ajaxSucess(text, icon) {
     newForm.append($($('.ui.page.dimmer .new-item-form').contents()));
 
     newForm.find('.newitem-id').val(text['id']);
-    newForm.find('.newitem-type').val(text['type']);
+    // newForm.find('.newitem-type').val(text['type']);
 
     appendNewTableRow(text['url'], text['name'], '<i class="' + icon + '"></i>', newForm)
 
@@ -68,7 +68,6 @@ function ajaxSucess(text, icon) {
 }
 
 function ajaxError(text) {
-    console.log(text);
     // Delete content in case of present errors
     $('.ui.page.dimmer .form-errors').empty();
 
@@ -98,6 +97,13 @@ function onNewVimeoDimmerSubmit() {
 
 // Init collections
 jQuery(document).ready(function() {
+    // Image
+    initCollection(
+        $('.media-new-image-parent'),
+        '<i class="ui plus icon"></i>Image',
+        onNewImageDimmerSubmit
+    )
+
     // Youtube
     initCollection(
         $('.media-new-distant-parent'),
@@ -117,12 +123,5 @@ jQuery(document).ready(function() {
         $('.media-new-distant-parent'),
         '<i class="ui plus icon"></i>Vimeo',
         onNewVimeoDimmerSubmit
-    )
-
-    // Image
-    initCollection(
-        $('.media-new-image-parent'),
-        '<i class="ui plus icon"></i>Image',
-        onNewImageDimmerSubmit
     )
 });

@@ -13,27 +13,30 @@
                 {{ form_widget(form.title) }}
             </div>
 
+            <div id="add-media-buttons">
+            </div>
+
             {% import 'form_theme/gallery/item-protoype.html.twig' as itemMacro %}
-            <ul id="gallery_items"
+            <p id="gallery_items"
                 class="media-item-parent"
                 data-prototype="{{ itemMacro.itemsCollection(form.items.vars.prototype)|e('html_attr') }}">
-            </ul>
+            </p>
 
             {% import 'form_theme/gallery/new-image-protoype.html.twig' as imageMacro %}
-            <ul class="media-new-image-parent"
+            <p class="media-new-image-parent"
                 class="image-item-parent"
                 data-prototype="{{ imageMacro.newItemCollection(imageForm)|e('html_attr') }}">
-            </ul>
+            </p>
 
             {% import 'form_theme/gallery/new-distant-protoype.html.twig' as distantMacro %}
-            <ul class="media-new-distant-parent"
+            <p class="media-new-distant-parent"
                 class="youtube-item-parent"
                 data-prototype="{{ distantMacro.newItemCollection(distantForm)|e('html_attr') }}">
-            </ul>
+            </p>
 
             <!-- Added medias -->
             <h4>Médias</h4>
-            <table class="ui celled striped table">
+            <table id="gallery-medias" class="ui celled striped table">
                 <thead>
                 <tr>
                     <th class="collapsing">Preview</th>
