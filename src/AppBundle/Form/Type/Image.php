@@ -28,11 +28,15 @@ class Image extends AbstractType
             ->addEventSubscriber(new ImageSubscriber(new Slugifier()))
             ->add(
                 'name',
-                TextType::class
+                TextType::class, [
+                    'label' => 'Nom'
+                ]
             )
             ->add(
                 'alt',
-                TextType::class
+                TextType::class, [
+                    'label' => 'Description'
+                ]
             )
             ->add(
                 'slug',

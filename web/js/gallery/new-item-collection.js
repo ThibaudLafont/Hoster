@@ -76,7 +76,7 @@ function ajaxError(text) {
     text = text.replace(/\n/g, "<br/>");
 
     // Create element with errors
-    var content = $('<p>' + text + '</p>');
+    var content = $('<p class="ui error message">' + text + '</p>');
 
     // Append errors in form
     $('.ui.page.dimmer .form-errors').append(content);
@@ -100,28 +100,28 @@ jQuery(document).ready(function() {
     // Image
     initCollection(
         $('.media-new-image-parent'),
-        '<i class="ui plus icon"></i>Image',
+        '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Image</a>',
         onNewImageDimmerSubmit
     )
 
     // Youtube
     initCollection(
         $('.media-new-distant-parent'),
-        '<i class="ui plus icon"></i>Youtube',
+        '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Youtube</a>',
         onNewYoutubeDimmerSubmit
     )
 
     // Dailymotion
     initCollection(
         $('.media-new-distant-parent'),
-        '<i class="ui plus icon"></i>Dailymotion',
+        '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Dailymotion</a>',
         onNewDailymotionDimmerSubmit
     )
 
     // Vimeo
     initCollection(
         $('.media-new-distant-parent'),
-        '<i class="ui plus icon"></i>Vimeo',
+        '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Vimeo</a>',
         onNewVimeoDimmerSubmit
     )
 });

@@ -55,15 +55,19 @@ class ImageSubscriber implements EventSubscriberInterface
                     FileType::class
                 )
                 ->add(  // Upload button
-                    'Uploader',
-                    SubmitType::class
+                    'submit',
+                    SubmitType::class, [
+                        'label' => 'Ajouter'
+                    ]
                 )
             ;
             // Else, image_edit
         } else {
             $form->add(  // Edit button
                 'Modifier',
-                SubmitType::class
+                SubmitType::class, [
+                    'label' => 'Modifier'
+                ]
             );
         }
     }

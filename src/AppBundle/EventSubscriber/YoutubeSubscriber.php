@@ -26,14 +26,18 @@ class YoutubeSubscriber implements EventSubscriberInterface
         // If no data ; youtube_add
         if(is_null($data)) {
             $form->add(
-                'Ajouter',
-                SubmitType::class
+                'submit',
+                SubmitType::class, [
+                    'label' => 'Ajouter'
+                ]
             );
         // Else, youtube_edit
         } else {
             $form->add(  // Upload button
                 'Modifier',
-                SubmitType::class
+                SubmitType::class, [
+                    'label' => 'Modifier'
+                ]
             );
         }
     }

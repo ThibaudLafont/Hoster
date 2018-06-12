@@ -46,7 +46,9 @@ class Gallery extends AbstractType
             ->addEventSubscriber($this->getGallerySubscriber())
             ->add(
                 'title',
-                TextType::class
+                TextType::class, [
+                    'label' => 'Titre'
+                ]
             )
             ->add(
                 'newItems',
@@ -66,7 +68,9 @@ class Gallery extends AbstractType
             )
             ->add(
                 'submit',
-                SubmitType::class
+                SubmitType::class, [
+                    'label' => 'Créer la galerie'
+                ]
             );
     }
 

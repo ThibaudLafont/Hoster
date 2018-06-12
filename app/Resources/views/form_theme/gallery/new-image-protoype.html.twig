@@ -1,13 +1,26 @@
 {% macro newItemCollection(imageForm) %}
-    <!-- Title -->
-    <h3 class="ui inverted header">Uploader une image</h3>
+    <section id="new-image-dimmer" class="ui left aligned segment">
+        <!-- Title -->
+        <h3 class="ui header">Uploader une image</h3>
 
-    <!-- Content -->
-    <section id="new-image-dimmer">
-        <ul class="form-errors"></ul>
+        <!-- Errors -->
+        <p class="form-errors"></p>
+
         <!-- Upload form -->
         {{ form_start(imageForm, {'attr': {'class': 'ui form'}}) }}
-            {{ form(imageForm) }}
+            <div class="field">
+                {{ form_label(imageForm.name) }}
+                {{ form_widget(imageForm.name) }}
+            </div>
+            <div class="field">
+                {{ form_label(imageForm.alt) }}
+                {{ form_widget(imageForm.alt) }}
+            </div>
+            <div class="field">
+                {{ form_label(imageForm.file) }}
+                {{ form_widget(imageForm.file) }}
+            </div>
+            {{ form_row(imageForm.submit, {'attr': {'class': 'ui fluid green submit button'}}) }}
         {{ form_end(imageForm) }}
 
         <!-- Form block for tableRowAppend -->

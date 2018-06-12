@@ -21,11 +21,15 @@ class Distant extends AbstractType
             ->addEventSubscriber(new YoutubeSubscriber())
             ->add(
                 'name',
-                TextType::class
+                TextType::class, [
+                    'label' => 'Nom'
+                ]
             )
             ->add(
                 'url',
-                TextType::class
+                TextType::class, [
+                    'label' => 'URL'
+                ]
             );
     }
 

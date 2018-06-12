@@ -1,23 +1,31 @@
 {% macro newItemCollection(distantForm) %}
-    <!-- Title -->
-    <h3 class="ui inverted header">Uploader une vidéo</h3>
-    <ul class="form-errors"></ul>
+    <section id="new-distant-dimmer" class="ui left aligned segment">
+        <!-- Title -->
+        <h3 class="ui header">Uploader une vidéo</h3>
 
-    <!-- Content -->
-    <section id="new-distant-dimmer" class="ui form">
-        <!-- Upload form -->
-        <div>
-            <label for="distant_name" class="required">Name</label>
-            <input type="text" id="distant_name" name="distant[name]" required="required">
+        <!-- Errors -->
+        <p class="form-errors"></p>
+
+        <div class="ui form">
+            <!-- Upload form -->
+            <div class="field">
+                {{ form_label(distantForm.name) }}
+                <input type="text" id="distant_name" name="distant[name]" required="required">
+            </div>
+            <div class="field">
+                {{ form_label(distantForm.url) }}
+                <input type="text" id="distant_url" name="distant[url]" required="required">
+            </div>
+            <div>
+                <button
+                        type="submit"
+                        id="distant_Ajouter"
+                        class="ui fluid green submit button"
+                        name="distant[Ajouter]">Uploader
+                </button>
+            </div>
+            <input type="hidden" id="distant__token" name="distant[_token]" value="{{ distantForm._token.vars.value }}">
         </div>
-        <div>
-            <label for="distant_url" class="required">Url</label>
-            <input type="text" id="distant_url" name="distant[url]" required="required">
-        </div>
-        <div>
-            <button type="submit" id="distant_Ajouter" name="distant[Ajouter]">Ajouter</button>
-        </div>
-        <input type="hidden" id="distant__token" name="distant[_token]" value="{{ distantForm._token.vars.value }}">
 
         <!-- Form block for tableRowAppend -->
         {% include 'form_theme/gallery/new-item.html.twig' %}

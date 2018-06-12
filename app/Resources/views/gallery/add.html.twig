@@ -2,18 +2,24 @@
 
 {% block body %}
     <section class="ui basic segment">
-        <h1>Ajouter une galerie</h1>
+        <div class="ui clearing basic segment">
+            <h1 class="ui left floated header">
+                Ajouter une galerie
+            </h1>
+            <!-- Submit -->
+            {{ form_row(form.submit, {'attr': {'class': 'ui right floated green submit button'}}) }}
+        </div>
 
         <!-- Form -->
         {{ form_start(form, {'attr': {'class': 'ui form', 'action': '/add/gallery'}}) }}
+
+            <div id="add-media-buttons" class="ui field">
+            </div>
 
             <!-- Title -->
             <div class="ui field">
                 {{ form_label(form.title) }}
                 {{ form_widget(form.title) }}
-            </div>
-
-            <div id="add-media-buttons">
             </div>
 
             {% import 'form_theme/gallery/item-protoype.html.twig' as itemMacro %}
@@ -39,7 +45,7 @@
             <table id="gallery-medias" class="ui celled striped table">
                 <thead>
                 <tr>
-                    <th class="collapsing">Preview</th>
+                    <th class="collapsing">Aperçu</th>
                     <th>Nom</th>
                     <th>Actions</th>
                 </tr>
@@ -51,9 +57,6 @@
         <!-- Simulate render of form.items & form.newItems -->
         {% do form.items.setRendered() %}
         {% do form.newItems.setRendered() %}
-
-        <!-- Submit -->
-        {{ form_row(form.submit, {'attr': {'class': 'ui submit button'}}) }}
 
         {{ form_end(form) }}
 

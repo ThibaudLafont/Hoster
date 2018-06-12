@@ -19,10 +19,9 @@ function UpDownDeleteEvents(form) {
     });
 }
 
-function initCollection($collectionHolder, $buttonContent, $function) {
+function initCollection($collectionHolder, $button, $function) {
     // Create add button & insert
-    var $addItemButton = $('<a class="ui green icon button">' + $buttonContent + '</a>');
-    var $newItemLi = $('<li></li>').append($addItemButton);
+    var $addItemButton = $($button);
     $('#add-media-buttons').append($addItemButton);
 
     // Define index in table
@@ -65,7 +64,7 @@ function appendNewTableRow(thumbnail, name, icon, form) {
     var line = $('<tr class="media-form-row"></tr>');
     var preview = $('<td class="collapsing"><img class="ui small image" src="' + thumbnail + '"></td>');
     var name = $('<td>'+ icon + name + '</td>');
-    var actions = $('<td></td>');
+    var actions = $('<td class="collapsing"></td>');
     actions.append(form);
 
     UpDownDeleteEvents(form);

@@ -22,7 +22,7 @@ jQuery(document).ready(function() {
     // Append add button
     initCollection(
         $('.media-item-parent'),
-        '<i class="ui folder icon"></i>',
+        '<p><a class="ui primary labeled icon button"><i class="ui folder icon"></i>Parcourir</a></p>',
         onBrowseDimmerSubmit
     )
 });

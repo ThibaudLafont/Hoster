@@ -6,9 +6,10 @@
     background-size: cover !important;
     background-position: center !important;
 }
-/*.media-form-row input,*/
-/*.media-form-row .media-form div,*/
-#item-dimmer .media-form
+.media-form-row input,
+.media-form-row .media-form div,
+#item-dimmer .media-form,
+.new-item-form div
 {
     display: none;
 }
