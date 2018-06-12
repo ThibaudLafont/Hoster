@@ -27,6 +27,11 @@
             <input type="hidden" id="distant__token" name="distant[_token]" value="{{ distantForm._token.vars.value }}">
         </div>
 
+        <!-- Loader -->
+        <div class="ui dimmer">
+            <div class="ui text loader">Upload en cours</div>
+        </div>
+
         <!-- Form block for tableRowAppend -->
         {% include 'form_theme/gallery/new-item.html.twig' %}
     </section>

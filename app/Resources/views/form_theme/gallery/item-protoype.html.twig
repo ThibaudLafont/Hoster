@@ -1,58 +1,60 @@
 {% macro itemsCollection(itemForm) %}
-    <h3 class="ui inverted header">Choisir un média</h3>
-    <!-- Parent div -->
-    <section id="item-dimmer" class="ui six stackable cards">
-        {% for media in itemForm.media %}
-            <!-- Get entity attrs -->
-            {% set index = media.vars.value %}
-            {% set entity = itemForm.media.vars.choices[index].data %}
+    <section id="browse-collection" class="ui segment">
+        <h1 class="ui header">Médias uploadés</h1>
+        <!-- Parent div -->
+        <section id="item-dimmer" class="ui centered cards">
+            {% for media in itemForm.media %}
+                <!-- Get entity attrs -->
+                {% set index = media.vars.value %}
+                {% set entity = itemForm.media.vars.choices[index].data %}
 
-            <!-- Define image src -->
-            {% if entity.embedSrc is defined %}
-                {% set src = entity.coverImage %}
-                {% set icon = 'ui video icon' %}
-            {% elseif entity.thumbSrc is defined %}
-                {% set src = entity.thumbSrc %}
-                {% set icon = 'ui camera icon' %}
-            {% endif %}
+                <!-- Define image src -->
+                {% if entity.embedSrc is defined %}
+                    {% set src = entity.coverImage %}
+                    {% set icon = 'ui video icon' %}
+                {% elseif entity.thumbSrc is defined %}
+                    {% set src = entity.thumbSrc %}
+                    {% set icon = 'ui camera icon' %}
+                {% endif %}
 
-            <!-- Media Item -->
-            <div class="ui fluid card gallery-item">
-                <!-- Image -->
-                <div class="image" style="background-image: url('{{ src }}');"></div>
+                <!-- Media Item -->
+                <div class="ui card gallery-item">
+                    <!-- Image -->
+                    <div class="image" style="background-image: url('{{ src }}');"></div>
 
-                <!-- Title & Icon -->
-                <div class="content">
-                    <h5 class="header">
-                        <i class="{{ icon }}"></i>
-                        {{ entity.name }}
-                    </h5>
+                    <!-- Title & Icon -->
+                    <div class="content">
+                        <h5 class="header">
+                            <i class="{{ icon }}"></i>
+                            {{ entity.name }}
+                        </h5>
+                    </div>
+
+                    <!-- Form to include -->
+                    <div class="media-form"
+                         src="{{ src }}"
+                         icon="{{ icon }}"
+                         name="{{ entity.name }}">
+
+                        <!-- Option inputs -->
+                        {{ form_row(media) }}
+
+                        <!-- Position input -->
+                        <input type="text"
+                               id="gallery_items___name___position"
+                               name="gallery[items][__name__][position]"
+                               class="item-position"
+                               required="required" />
+
+                        <!-- Up/Down/Delete -->
+                        <p>
+                            <a href="#" class="ui icon button up"><i class="ui arrow up icon"></i></a>
+                            <a href="#" class="ui icon button down"><i class="ui arrow down icon"></i></a>
+                            <a href="#" class="ui red icon button delete"><i class="ui trash icon"></i></a>
+                        </p>
+                    </div>
                 </div>
-
-                <!-- Form to include -->
-                <div class="media-form"
-                     src="{{ src }}"
-                     icon="{{ icon }}"
-                     name="{{ entity.name }}">
-
-                    <!-- Option inputs -->
-                    {{ form_row(media) }}
-
-                    <!-- Position input -->
-                    <input type="text"
-                           id="gallery_items___name___position"
-                           name="gallery[items][__name__][position]"
-                           class="item-position"
-                           required="required" />
-
-                    <!-- Up/Down/Delete -->
-                    <p>
-                        <a href="#" class="ui icon button up"><i class="ui arrow up icon"></i></a>
-                        <a href="#" class="ui icon button down"><i class="ui arrow down icon"></i></a>
-                        <a href="#" class="ui red icon button delete"><i class="ui trash icon"></i></a>
-                    </p>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </section>
     </section>
 {% endmacro %}

@@ -55,7 +55,7 @@ class Image extends AbstractType
                     return array('create');
                 }
 
-                return array('Default');
+                return array('default');
             }
         ]);
     }

@@ -1,19 +1,22 @@
 function UpDownDeleteEvents(form) {
     // Up button
-    form.find(".up").click(function (e) {
+    form.find(".up").unbind('click').click(function (e) {
         e.preventDefault();
-        var row = $(this).parents("tr:first");
+        e.stopPropagation();
+        var row = $(this).parents("tr");
         row.insertBefore(row.prev());
     });
     // Down button
-    form.find(".down").click(function (e) {
+    form.find(".down").unbind('click').click(function (e) {
         e.preventDefault();
+        e.stopPropagation();
         var row = $(this).parents("tr:first");
         row.insertAfter(row.next());
     });
     // Delete button
-    form.find('.delete').click(function(e){
+    form.find('.delete').unbind('click').click(function(e){
         e.preventDefault();
+        e.stopPropagation();
         var row = $(this).parents("tr:first");
         row.remove();
     });
@@ -34,17 +37,8 @@ function initCollection($collectionHolder, $button, $function) {
         // Get the data-prototype from holder
         var prototype = $collectionHolder.data('prototype');
 
-        // get the new index
-        var index = $('#gallery-medias').data('index');
-
         // Store prototype
         var newForm = prototype;
-
-        // Replace '__name__' in the prototype's HTML
-        newForm = newForm.replace(/__name__/g, index);
-
-        // increase the index with one for the next item
-        $('#gallery-medias').data('index', index + 1);
 
         // Clear dimmer
         $('.ui.page.dimmer').empty();
@@ -65,6 +59,18 @@ function appendNewTableRow(thumbnail, name, icon, form) {
     var preview = $('<td class="collapsing"><img class="ui small image" src="' + thumbnail + '"></td>');
     var name = $('<td>'+ icon + name + '</td>');
     var actions = $('<td class="collapsing"></td>');
+
+    // get the new index
+    var index = $('#gallery-medias').data('index');
+
+    // Replace '__name__' in the prototype's HTML
+    form = form.html().replace(/__name__/g, index)
+
+    // increase the index with one for the next item
+    $('#gallery-medias').data('index', index + 1);
+
+    form = $(form)
+
     actions.append(form);
 
     UpDownDeleteEvents(form);

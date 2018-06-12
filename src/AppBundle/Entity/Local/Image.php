@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table(name="media_local_image")
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\ImageListener"})
- * @UniqueEntity("slug", message="Nom déjà pris")
+ * @UniqueEntity("slug", message="Nom déjà pris", groups={"create", "default"})
  */
 class Image extends Local
 {
@@ -31,7 +31,8 @@ class Image extends Local
      *     uploadIniSizeErrorMessage="Le fichier fourni est trop lourd",
      *     notFoundMessage="Fichier introuvable",
      *     detectCorrupted=true,
-     *     corruptedMessage="Le fichier est corrompu"
+     *     corruptedMessage="Le fichier est corrompu",
+     *     groups={"create"}
      * )
      * @Assert\NotNull(message="Le fichier est obligatoire", groups={"create"})
      */
@@ -41,6 +42,13 @@ class Image extends Local
      * @var string
      * @ORM\Column(name="alt", type="string")
      * @Assert\NotNull(message="La description est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters",
+     *      groups={"create", "default"}
+     * )
      */
     private $alt;
 
@@ -91,12 +99,6 @@ class Image extends Local
      */
     public function setExtension(string $extension): void
     {
-        if (
-        !in_array($extension, ['jpg', 'jpeg', 'png'])
-        ) {
-            throw new \InvalidArgumentException("Invalid Local Image extension");
-        }
-
         // Assign extension
         $this->extension = $extension;
     }

@@ -7,6 +7,7 @@
     background-position: center !important;
 }
 .media-form-row input,
+.media-form-row label,
 .media-form-row .media-form div,
 #item-dimmer .media-form,
 .new-item-form div
@@ -17,4 +18,8 @@
 #new-image-dimmer #future-new-item-form,
 #new-distant-dimmer #future-new-item-form {
     display: none;
+}
+
+#browse-collection {
+    overflow: scroll;
 }

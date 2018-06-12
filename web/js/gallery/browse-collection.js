@@ -14,7 +14,7 @@ function onBrowseDimmerSubmit() {
         appendNewTableRow(src, name, icon, form);
 
         // Hide dimmer
-        $('.ui.page.dimmer').dimmer('hide');
+        $(this).hide();
     });
 }
 

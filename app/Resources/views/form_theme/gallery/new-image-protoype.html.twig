@@ -23,6 +23,11 @@
             {{ form_row(imageForm.submit, {'attr': {'class': 'ui fluid green submit button'}}) }}
         {{ form_end(imageForm) }}
 
+        <!-- Loader -->
+        <div class="ui dimmer">
+            <div class="ui text loader">Upload en cours</div>
+        </div>
+
         <!-- Form block for tableRowAppend -->
         {% include 'form_theme/gallery/new-item.html.twig' %}
     </section>

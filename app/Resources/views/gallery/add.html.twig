@@ -6,15 +6,12 @@
             <h1 class="ui left floated header">
                 Ajouter une galerie
             </h1>
-            <!-- Submit -->
-            {{ form_row(form.submit, {'attr': {'class': 'ui right floated green submit button'}}) }}
         </div>
 
         <!-- Form -->
         {{ form_start(form, {'attr': {'class': 'ui form', 'action': '/add/gallery'}}) }}
-
-            <div id="add-media-buttons" class="ui field">
-            </div>
+            <!-- Submit -->
+            {{ form_row(form.submit, {'attr': {'class': 'ui right floated green submit button'}}) }}
 
             <!-- Title -->
             <div class="ui field">
@@ -22,18 +19,25 @@
                 {{ form_widget(form.title) }}
             </div>
 
+            <!-- Add buttons -->
+            <div id="add-media-buttons" class="ui field">
+            </div>
+
+            <!-- Browse proto -->
             {% import 'form_theme/gallery/item-protoype.html.twig' as itemMacro %}
             <p id="gallery_items"
                 class="media-item-parent"
                 data-prototype="{{ itemMacro.itemsCollection(form.items.vars.prototype)|e('html_attr') }}">
             </p>
 
+            <!-- Image proto -->
             {% import 'form_theme/gallery/new-image-protoype.html.twig' as imageMacro %}
             <p class="media-new-image-parent"
                 class="image-item-parent"
                 data-prototype="{{ imageMacro.newItemCollection(imageForm)|e('html_attr') }}">
             </p>
 
+            <!-- Distant proto -->
             {% import 'form_theme/gallery/new-distant-protoype.html.twig' as distantMacro %}
             <p class="media-new-distant-parent"
                 class="youtube-item-parent"
@@ -51,12 +55,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                    {{ dump(form.items) }}
                 </tbody>
             </table>
 
-        <!-- Simulate render of form.items & form.newItems -->
-        {% do form.items.setRendered() %}
-        {% do form.newItems.setRendered() %}
+            <!-- Simulate render of form.items & form.newItems -->
+            {% do form.items.setRendered() %}
+            {% do form.newItems.setRendered() %}
 
         {{ form_end(form) }}
 

@@ -2,6 +2,8 @@ function onDistantDimmerSubmit(ajaxUrl) {
     $('.ui.dimmer.page button[type="submit"]').click(function(e){
         e.preventDefault();
 
+        $('#new-distant-dimmer .dimmer').dimmer('show');
+
         // Build Form data and get values
         var data = new FormData();
         data.append('distant[name]',   $('#distant_name').val());
@@ -16,9 +18,11 @@ function onDistantDimmerSubmit(ajaxUrl) {
             processData: false,
             contentType: false,
             success: function(text) {
+                $('#new-distant-dimmer .dimmer').dimmer('hide');
                 ajaxSucess(text, 'ui video icon')
             },
             error: function(text) {
+                $('#new-distant-dimmer .dimmer').dimmer('hide');
                 ajaxError(text)
             }
         });
@@ -28,6 +32,8 @@ function onDistantDimmerSubmit(ajaxUrl) {
 function onNewImageDimmerSubmit() {
     $('.ui.dimmer.page button[type="submit"]').click(function(e){
         e.preventDefault();
+
+        $('#new-image-dimmer .dimmer').dimmer('show');
 
         // Build Form data and get values
         var data = new FormData();
@@ -44,9 +50,11 @@ function onNewImageDimmerSubmit() {
             processData: false,
             contentType: false,
             success: function(text) {
+                $('#new-image-dimmer .dimmer').dimmer('hide');
                 ajaxSucess(text, 'ui image icon')
             },
             error: function(text) {
+                $('#new-image-dimmer .dimmer').dimmer('hide');
                 ajaxError(text)
             }
         });
@@ -59,11 +67,13 @@ function ajaxSucess(text, icon) {
     var newForm = $('<div class="new-item-form"></div>');
     newForm.append($($('.ui.page.dimmer .new-item-form').contents()));
 
+    // Inquire return value in input
     newForm.find('.newitem-id').val(text['id']);
-    // newForm.find('.newitem-type').val(text['type']);
 
+    // Append new row
     appendNewTableRow(text['url'], text['name'], '<i class="' + icon + '"></i>', newForm)
 
+    // Hide dimmer
     $('.ui.page.dimmer').dimmer('hide');
 }
 
@@ -72,7 +82,12 @@ function ajaxError(text) {
     $('.ui.page.dimmer .form-errors').empty();
 
     // UTF8 decode & return line adapt
-    text = $.parseJSON(text.responseText);
+    console.log(text)
+    try {
+        text = $.parseJSON(text.responseText);
+    } catch (e) {
+        text = "Problème serveur"
+    }
     text = text.replace(/\n/g, "<br/>");
 
     // Create element with errors
