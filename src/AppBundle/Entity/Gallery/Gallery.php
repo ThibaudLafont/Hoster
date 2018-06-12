@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Gallery;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 /**
  * Class Gallery
@@ -37,6 +38,7 @@ class Gallery
      *     mappedBy="gallery",
      *     cascade={"persist"}
      * )
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $items;
 
@@ -140,7 +142,7 @@ class Gallery
     /**
      * @param ArrayCollection $newItems
      */
-    public function setNewItems(ArrayCollection $newItems): void
+    public function setNewItems($newItems): void
     {
         $this->newItems = $newItems;
     }

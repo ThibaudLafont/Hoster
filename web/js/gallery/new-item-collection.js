@@ -67,11 +67,8 @@ function ajaxSucess(text, icon) {
     var newForm = $('<div class="new-item-form"></div>');
     newForm.append($($('.ui.page.dimmer .new-item-form').contents()));
 
-    // Inquire return value in input
-    newForm.find('.newitem-id').val(text['id']);
-
     // Append new row
-    appendNewTableRow(text['url'], text['name'], '<i class="' + icon + '"></i>', newForm)
+    appendNewTableRow(text['url'], text['id'], text['name'], '<i class="' + icon + '"></i>', newForm)
 
     // Hide dimmer
     $('.ui.page.dimmer').dimmer('hide');

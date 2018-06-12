@@ -36,10 +36,12 @@ class GallerySubscriber implements EventSubscriberInterface
         $data = $event->getData();
 
         // Add items to gallery
-        foreach($data->getNewItems() as $newItem) {
-            $entity = $this->getEm()->getRepository(\AppBundle\Entity\Media::class)
-                ->find($newItem['id']);
-            $this->createNewItem($entity, $data, $newItem['position']);
+        if(!is_null($data->getNewItems())) {
+            foreach($data->getNewItems() as $newItem) {
+                $entity = $this->getEm()->getRepository(\AppBundle\Entity\Media::class)
+                    ->find($newItem['id']);
+                $this->createNewItem($entity, $data, $newItem['position']);
+            }
         }
 
     }

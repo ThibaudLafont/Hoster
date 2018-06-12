@@ -54,7 +54,7 @@ class Gallery extends AbstractType
                 'newItems',
                 CollectionType::class, [
                     'entry_type' => ImageItem::class,
-                    'allow_add' => true
+                    'allow_add' => true,
                 ]
             )
             ->add(

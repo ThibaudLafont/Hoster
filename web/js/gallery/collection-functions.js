@@ -1,25 +1,37 @@
 function UpDownDeleteEvents(form) {
     // Up button
     form.find(".up").unbind('click').click(function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var row = $(this).parents("tr");
-        row.insertBefore(row.prev());
+        rowToUp($(this), e);
     });
     // Down button
     form.find(".down").unbind('click').click(function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var row = $(this).parents("tr:first");
-        row.insertAfter(row.next());
+        rowToDown($(this), e);
     });
     // Delete button
     form.find('.delete').unbind('click').click(function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var row = $(this).parents("tr:first");
-        row.remove();
+        rowDeletion($(this), e);
     });
+}
+
+function rowToUp(element, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var row = element.parents("tr");
+    row.insertBefore(row.prev());
+}
+
+function rowToDown(element, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var row = element.parents("tr:first");
+    row.insertAfter(row.next());
+}
+
+function rowDeletion(element, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var row = element.parents("tr:first");
+    row.remove();
 }
 
 function initCollection($collectionHolder, $button, $function) {
@@ -53,7 +65,7 @@ function initCollection($collectionHolder, $button, $function) {
     })
 }
 
-function appendNewTableRow(thumbnail, name, icon, form) {
+function appendNewTableRow(thumbnail, id, name, icon, form) {
     // Create elements of new line
     var line = $('<tr class="media-form-row"></tr>');
     var preview = $('<td class="collapsing"><img class="ui small image" src="' + thumbnail + '"></td>');
@@ -70,6 +82,10 @@ function appendNewTableRow(thumbnail, name, icon, form) {
     $('#gallery-medias').data('index', index + 1);
 
     form = $(form)
+
+    // Inquire return value in input if newItem
+    if(id !== null)
+        form.find('.newitem-id').val(id);
 
     actions.append(form);
 

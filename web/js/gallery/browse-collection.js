@@ -11,7 +11,7 @@ function onBrowseDimmerSubmit() {
         form.find('input[type="radio"]').attr('checked', true);
 
         // Append new table row
-        appendNewTableRow(src, name, icon, form);
+        appendNewTableRow(src, null, name, icon, form);
 
         // Hide dimmer
         $(this).hide();

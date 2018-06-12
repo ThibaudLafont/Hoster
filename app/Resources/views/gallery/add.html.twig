@@ -9,7 +9,7 @@
         </div>
 
         <!-- Form -->
-        {{ form_start(form, {'attr': {'class': 'ui form', 'action': '/add/gallery'}}) }}
+        {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
             <!-- Submit -->
             {{ form_row(form.submit, {'attr': {'class': 'ui right floated green submit button'}}) }}
 
@@ -76,8 +76,22 @@
                             <td>
                                 <i class="{{ icon }}"></i>{{ entity.name }}
                             </td>
-                            <td class="collapsing">
-                                Up Down Delete
+                            <td class="existent-item-form collapsing">
+                                <div class="hidden-form">
+                                    {{ form_widget(item.media) }}
+                                    {{ form_widget(item.position, {'attr': {'class': 'item-position'}}) }}
+                                </div>
+                                <p>
+                                    <a href="#" onclick="rowToUp($(this), event)" class="ui icon button up">
+                                        <i class="ui arrow up icon"></i>
+                                    </a>
+                                    <a href="#" onclick="rowToDown($(this), event)" class="ui icon button down">
+                                        <i class="ui arrow down icon"></i>
+                                    </a>
+                                    <a href="#" onclick="rowDeletion($(this), event)" class="ui red icon button delete">
+                                        <i class="ui trash icon"></i>
+                                    </a>
+                                </p>
                             </td>
                         </tr>
                     {% endfor %}
