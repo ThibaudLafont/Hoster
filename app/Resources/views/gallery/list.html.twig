@@ -12,15 +12,18 @@
             <tr>
                 <th>Preview</th>
                 <th>Nom</th>
-                <th>Infos</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for gallery in galleries %}
                 <tr>
-                    <td>img<br/><a href="/edit/gallery/{{ gallery.id }}" class="ui green icon button"><i class="ui edit icon"></i></a></td>
-                    <td>{{ gallery.title }}</td>
-                    <td>{{ gallery.itemsNbre }} éléments</td>
+                    <td>Main img</td>
+                    <td>{{ gallery.title }} - <em>{{ gallery.itemsNbre }} élément(s)</em></td>
+                    <td class="collapsing">
+                        <a href="/edit/gallery/{{ gallery.id }}" class="ui green icon button"><i class="ui edit icon"></i></a>
+                        <a href="/delete/gallery/{{ gallery.id }}" class="ui red icon button"><i class="ui trash icon"></i></a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

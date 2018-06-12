@@ -79,7 +79,6 @@ function ajaxError(text) {
     $('.ui.page.dimmer .form-errors').empty();
 
     // UTF8 decode & return line adapt
-    console.log(text)
     try {
         text = $.parseJSON(text.responseText);
     } catch (e) {

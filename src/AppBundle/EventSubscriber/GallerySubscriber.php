@@ -9,6 +9,7 @@ use AppBundle\Entity\Gallery\Media;
 use AppBundle\Entity\Local\Image;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -26,7 +27,8 @@ class GallerySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            FormEvents::POST_SUBMIT => 'convertMediaEntities'
+            FormEvents::POST_SUBMIT => 'convertMediaEntities',
+            FormEvents::PRE_SET_DATA => 'handleFormBuild'
         ];
     }
 
@@ -44,6 +46,33 @@ class GallerySubscriber implements EventSubscriberInterface
             }
         }
 
+    }
+
+    public function handleFormBuild(FormEvent $event)
+    {
+        // Get data
+        $form = $event->getForm();
+        $data = $event->getData();
+
+        // If no data ; gallery_add
+        if(is_null($data->getTitle())) {
+            $form
+                ->add(
+                    'submit',
+                    SubmitType::class, [
+                        'label' => 'Créer la galerie'
+                    ]
+                );
+            // Else, gallery_edit
+        } else {
+            $form
+                ->add(
+                    'submit',
+                    SubmitType::class, [
+                        'label' => 'Mettre à jour'
+                    ]
+                );
+        }
     }
 
     private function createNewItem($entity, $gallery, $position)

@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Gallery;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 /**
  * Class Item
@@ -67,9 +68,15 @@ class Item
     /**
      * @param Gallery $gallery
      */
-    public function setGallery(Gallery $gallery): void
+    public function setGallery($gallery): void
     {
-        $this->gallery = $gallery;
+        if(is_null($gallery)) {
+            $this->gallery = $gallery;
+        } elseif (get_class($gallery) === Gallery::class) {
+            $this->gallery = $gallery;
+        } else {
+            throw new InvalidTypeException('Une entité Gallery ou une valeur nulle est attendue');
+        }
     }
 
     /**

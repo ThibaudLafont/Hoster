@@ -23,3 +23,8 @@
 #browse-collection {
     overflow: scroll;
 }
+
+.ui.page.dimmer #new-image-dimmer,
+.ui.page.dimmer #new-distant-dimmer {
+    min-width: 350px;
+}

@@ -40,7 +40,7 @@ class GalleryController extends Controller
         }
 
         return $this->render(
-            'gallery/add.html.twig',
+            'gallery/form.html.twig',
             [
                 'form' => $form->createView(),
                 'imageForm' => $newImageForm->createView(),
@@ -76,6 +76,7 @@ class GalleryController extends Controller
         $gallery = $em->getRepository(GalleryEntity::class)
             ->find($id);
 
+        // New items forms
         $newImageForm = $this->createForm(Image::class);
         $distantForm = $this->createForm(Distant::class);
 
@@ -92,7 +93,7 @@ class GalleryController extends Controller
         }
 
         return $this->render(
-            'gallery/add.html.twig',
+            'gallery/form.html.twig',
             [
                 'form' => $form->createView(),
                 'imageForm' => $newImageForm->createView(),

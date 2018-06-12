@@ -4,7 +4,11 @@
     <section class="ui basic segment">
         <div class="ui clearing basic segment">
             <h1 class="ui left floated header">
-                Ajouter une galerie
+                {% if form.vars.value.title is not null %}
+                    Modifier "{{ form.vars.value.title }}"
+                {% else %}
+                    Ajouter une galerie
+                {% endif %}
             </h1>
         </div>
 

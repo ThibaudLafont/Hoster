@@ -53,7 +53,7 @@ class Gallery extends AbstractType
             ->add(
                 'newItems',
                 CollectionType::class, [
-                    'entry_type' => ImageItem::class,
+                    'entry_type' => NewItem::class,
                     'allow_add' => true,
                 ]
             )
@@ -64,12 +64,6 @@ class Gallery extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false
-                ]
-            )
-            ->add(
-                'submit',
-                SubmitType::class, [
-                    'label' => 'Créer la galerie'
                 ]
             );
     }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImageItem extends AbstractType
+class NewItem extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder

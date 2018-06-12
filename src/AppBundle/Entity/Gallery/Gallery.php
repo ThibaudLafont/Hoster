@@ -36,7 +36,8 @@ class Gallery
      * @ORM\OneToMany(
      *     targetEntity="Item",
      *     mappedBy="gallery",
-     *     cascade={"persist"}
+     *     cascade={"persist"},
+     *     orphanRemoval=true
      * )
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -128,7 +129,8 @@ class Gallery
 
     public function removeItem(Item $item)
     {
-        $this->removeItem($item);
+        $this->items->removeElement($item);
+        $item->setGallery(null);
     }
 
     /**
