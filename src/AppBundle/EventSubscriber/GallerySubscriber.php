@@ -40,24 +40,6 @@ class GallerySubscriber implements EventSubscriberInterface
             $entity = $this->getEm()->getRepository(\AppBundle\Entity\Media::class)
                 ->find($newItem['id']);
             $this->createNewItem($entity, $data, $newItem['position']);
-//            switch ($newItem['type']){
-//                case 'image':
-//                    $image = $this->getEm()->getRepository(Image::class)
-//                        ->find($newItem['id']);
-//                    $this->createNewItem($image, $data, $newItem['position']);
-//                case 'youtube':
-//                    $yt = $this->getEm()->getRepository(Youtube::class)
-//                        ->find($newItem['id']);
-//                    $this->createNewItem($yt, $data, $newItem['position']);
-//                case 'dailymotion':
-//                    $dm = $this->getEm()->getRepository(Dailymotion::class)
-//                        ->find($newItem['id']);
-//                    $this->createNewItem($dm, $data, $newItem['position']);
-//                case 'vimeo':
-//                    $vm = $this->getEm()->getRepository(Vimeo::class)
-//                        ->find($newItem['id']);
-//                    $this->createNewItem($vm, $data, $newItem['position']);
-//            }
         }
 
     }
