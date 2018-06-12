@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Entity\Distant\Dailymotion;
 use AppBundle\Entity\Distant\Vimeo;
 use AppBundle\Entity\Distant\Youtube;
-use AppBundle\Form\Type\Image;
+use AppBundle\Entity\Local\Image;
 use AppBundle\Form\Type\ImageUpload;
 use AppBundle\Service\ImageHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,15 +19,19 @@ class ApiController extends Controller
         switch(get_class($entity)){
             case Dailymotion::class:
                 $type = 'dailymotion';
+                $thumb = $entity->getCoverImage();
                 break;
             case Youtube::class:
                 $type = 'youtube';
+                $thumb = $entity->getCoverImage();
                 break;
             case Vimeo::class:
                 $type = 'vimeo';
+                $thumb = $entity->getCoverImage();
                 break;
             case Image::class:
                 $type = 'image';
+                $thumb = $entity->getThumbSrc();
                 break;
             default:
                 break;
@@ -36,7 +40,7 @@ class ApiController extends Controller
             'id' => $entity->getId(),
             'name' => $entity->getName(),
             'type' => $type,
-            'url' => $entity->getCoverImage()
+            'url' => $thumb
         ]);
     }
 

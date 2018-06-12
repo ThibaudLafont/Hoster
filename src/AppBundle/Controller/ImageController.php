@@ -48,12 +48,6 @@ class ImageController extends Controller
         );
     }
 
-    /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @Route("/add/image/ajax", name="image_ajax_upload")
-     */
     public function ajaxAddAction(Request $request)
     {
         // Form
