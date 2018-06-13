@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-class YoutubeSubscriber implements EventSubscriberInterface
+class DistantSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
@@ -23,18 +23,18 @@ class YoutubeSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
         $data = $event->getData();
 
-        // If no data ; youtube_add
-        if(is_null($data)) {
+        // If no data ; distant_add
+        if(is_null($data) || is_null($data->getName())) {
             $form->add(
                 'submit',
                 SubmitType::class, [
                     'label' => 'Ajouter'
                 ]
             );
-        // Else, youtube_edit
+        // Else, distant_edit
         } else {
             $form->add(  // Upload button
-                'Modifier',
+                'submit',
                 SubmitType::class, [
                     'label' => 'Modifier'
                 ]

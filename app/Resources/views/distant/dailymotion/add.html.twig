@@ -4,9 +4,8 @@
     <section class="ui basic segment">
         <h1>Dailymotion Upload</h1>
 
-        <!-- Form -->
-        {% form_theme form 'form_table_layout.html.twig' %}
-        {{ form(form) }}
+        <!-- Add link -->
+        <a href="#" id="add-button" class="ui primary button">Ajouter une vidéo</a>
 
         <!-- Uploaded images -->
         <table class="ui celled striped table">
@@ -45,7 +44,11 @@
             </tbody>
         </table>
     </section>
+
+    <!-- Dimmer form -->
+    {% include 'distant/_form-dimmer.html.twig' %}
 {% endblock %}
 
-{% block stylesheets %}
+{% block javascripts %}
+    <script src="/js/distant/form-dimmer.js"></script>
 {% endblock %}

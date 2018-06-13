@@ -4,9 +4,8 @@
     <section class="ui basic segment">
         <h1>Image Upload</h1>
 
-        <!-- Form -->
-        {% form_theme form 'form_table_layout.html.twig' %}
-        {{ form(form) }}
+        <!-- Add link -->
+        <a href="#" id="add-image-button" class="ui primary button">Ajouter une image</a>
 
         <!-- Uploaded images -->
         <table class="ui celled striped table">
@@ -19,34 +18,88 @@
             </tr>
             </thead>
             <tbody>
+            <!-- Images -->
             {% for image in images %}
                 <tr>
+                    <!-- First Cell -->
                     <td class="collapsing">
+                        <!-- Thumbnail -->
                         <a href="{{ image.src }}" target="_blank">
                             <img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">
                         </a>
+                        <!-- Delete action -->
                         <form action="/delete/image/{{ image.id }}" style="float: left">
                             <button type="submit" class="ui red icon button">
                                 <i class="ui icon trash"></i>
                             </button>
                         </form>
+                        <!-- Edit Action -->
                         <form action="/edit/image/{{ image.id }}">
                             <button class="ui green icon button">
                                 <i class="ui icon edit"></i>
                             </button>
                         </form>
                     </td>
+
+                    <!-- Image name -->
                     <td>{{ image.name }}</td>
+
+                    <!-- Image Description -->
                     <td>{{ image.alt }}</td>
-                    <td>
-                        {% include 'image/_image_infos.html.twig' %}
-                    </td>
+
+                    <!-- Image Infos -->
+                    <td>{% include 'image/_image_infos.html.twig' %}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </section>
+
+    <!-- Page Dimmer -->
+    <div class="ui page dimmer">
+        <div class="ui left aligned segment">
+            <!-- Form -->
+            {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+                <!-- Name -->
+                <div class="field">
+                    {{ form_row(form.name) }}
+                </div>
+
+                <!-- Description -->
+                <div class="field">
+                    {{ form_row(form.alt) }}
+                </div>
+
+                <!-- File -->
+                <div class="field">
+                    {{ form_row(form.file) }}
+                </div>
+
+                <!-- Submit -->
+                {{ form_row(form.submit, {'attr': {'class': 'ui fluid green submit button'}}) }}
+
+                <!-- Hidden fields -->
+                {{ form_row(form.slug) }}
+                {{ form_row(form._token) }}
+            {{ form_end(form) }}
+        </div>
+
+        <!-- Loader -->
+        <div id="loader" class="ui dimmer">
+            <div class="ui text loader">Upload en cours</div>
+        </div>
+    </div>
 {% endblock %}
 
-{% block stylesheets %}
+{% block javascripts %}
+    <script>
+        $('#add-image-button').click(function(e){
+            e.preventDefault();
+            $('.ui.page.dimmer').dimmer('show');
+        });
+
+        $('.ui.submit.button').click(function(e){
+            $('#loader').dimmer('show');
+        });
+    </script>
 {% endblock %}

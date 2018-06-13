@@ -1,0 +1,15 @@
+<!-- Form -->
+{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+    <!-- Name -->
+    <div class="field">
+        {{ form_row(form.name) }}
+    </div>
+    <!-- URL -->
+    <div class="field">
+        {{ form_row(form.url) }}
+    </div>
+    <!-- Submit -->
+    {{ form_row(form.submit, {'attr': {'class': 'ui fluid green submit button'}}) }}
+    <!-- Token -->
+    {{ form_row(form._token) }}
+{{ form_end(form) }}
