@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="ui basic segment">
-        <h1>Vimeo Upload</h1>
+        <h1>Vidéos Viméo</h1>
 
         <!-- Add link -->
         <a href="#" id="add-button" class="ui primary button">Ajouter une vidéo</a>
@@ -14,30 +14,44 @@
                 <th>Preview</th>
                 <th>Nom</th>
                 <th>Infos</th>
+                <th class="center aligned">Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for vid in vids %}
                 <tr>
+                    <!-- Thumbnail -->
                     <td class="collapsing">
                         <a href="{{ vid.url }}" target="_blank">
                             <img class="ui small image" src="{{ vid.coverImage }}" alt="Cover of {{ vid.name }}">
                         </a>
-                        <form action="/delete/vimeo/{{ vid.id }}" style="float: left">
+                    </td>
+
+                    <!-- Name -->
+                    <td>{{ vid.name }}</td>
+
+                    <!-- Infos -->
+                    <td class="collapsing">
+                        <strong>Créé le</strong>: {{ vid.createAt|date }}<br/>
+                        <strong>Type de fichier</strong>: Vidéo Dailymotion<br/>
+                        <strong>Code</strong>: {{ vid.code }}
+                    </td>
+
+                    <!-- Action buttons -->
+                    <td class="action-buttons collapsing">
+                        <!-- Delete form -->
+                        <form action="/delete/vimeo/{{ vid.id }}">
                             <button type="submit" class="ui red icon button">
                                 <i class="ui icon trash"></i>
                             </button>
                         </form>
+
+                        <!-- Edit form -->
                         <form action="/edit/vimeo/{{ vid.id }}">
                             <button class="ui green icon button">
                                 <i class="ui icon edit"></i>
                             </button>
                         </form>
-                    </td>
-                    <td>{{ vid.name }}</td>
-                    <td>Créé le: {{ vid.createAt|date }}<br/>
-                        Type de fichier: Vidéo Dailymotion<br/>
-                        Code: {{ vid.code }}
                     </td>
                 </tr>
             {% endfor %}

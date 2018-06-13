@@ -28,3 +28,10 @@
 .ui.page.dimmer #new-distant-dimmer {
     min-width: 350px;
 }
+
+.action-buttons {
+    text-align: center !important;
+}
+.action-buttons form {
+    display: inline;
+}

@@ -13,8 +13,8 @@
             <tr>
                 <th>Preview</th>
                 <th>Nom</th>
-                <th>Description</th>
                 <th>Infos</th>
+                <th class="center aligned">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -27,12 +27,26 @@
                         <a href="{{ image.src }}" target="_blank">
                             <img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">
                         </a>
+                    </td>
+
+                    <!-- Image name&alt -->
+                    <td>
+                        <h4>{{ image.name }}</h4>
+                        <em>{{ image.alt }}</em>
+                    </td>
+
+                    <!-- Image Infos -->
+                    <td class="collapsing">{% include 'image/_image_infos.html.twig' %}</td>
+
+                    <!-- Action buttons -->
+                    <td class="action-buttons collapsing">
                         <!-- Delete action -->
-                        <form action="/delete/image/{{ image.id }}" style="float: left">
+                        <form action="/delete/image/{{ image.id }}">
                             <button type="submit" class="ui red icon button">
                                 <i class="ui icon trash"></i>
                             </button>
                         </form>
+
                         <!-- Edit Action -->
                         <form action="/edit/image/{{ image.id }}">
                             <button class="ui green icon button">
@@ -40,15 +54,6 @@
                             </button>
                         </form>
                     </td>
-
-                    <!-- Image name -->
-                    <td>{{ image.name }}</td>
-
-                    <!-- Image Description -->
-                    <td>{{ image.alt }}</td>
-
-                    <!-- Image Infos -->
-                    <td>{% include 'image/_image_infos.html.twig' %}</td>
                 </tr>
             {% endfor %}
             </tbody>
