@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table(name="media_local_image")
  * @ORM\EntityListeners({"AppBundle\EventListener\ItemListener", "AppBundle\EventListener\ImageListener"})
- * @UniqueEntity("slug", message="Nom déjà pris", groups={"create", "default"})
+ * @UniqueEntity("slug", message="Nom déjà pris", groups={"create", "Default"})
  */
 class Image extends Local
 {
@@ -41,13 +41,13 @@ class Image extends Local
     /**
      * @var string
      * @ORM\Column(name="alt", type="string")
-     * @Assert\NotNull(message="La description est obligatoire")
+     * @Assert\NotNull(message="La description est obligatoire", groups={"create", "Default"})
      * @Assert\Length(
      *      min = 2,
      *      max = 50,
      *      minMessage = "Your first name must be at least {{ limit }} characters long",
      *      maxMessage = "Your first name cannot be longer than {{ limit }} characters",
-     *      groups={"create", "default"}
+     *      groups={"create", "Default"}
      * )
      */
     private $alt;

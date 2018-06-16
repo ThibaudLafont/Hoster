@@ -28,7 +28,9 @@ class ImageSubscriber implements EventSubscriberInterface
             $form
                 ->add(  // Show file input
                     'file',
-                    FileType::class
+                    FileType::class,[
+                        'error_bubbling' => true
+                    ]
                 )
                 ->add(  // Upload button
                     'submit',

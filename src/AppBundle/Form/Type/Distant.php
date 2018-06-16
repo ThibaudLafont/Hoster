@@ -24,13 +24,15 @@ class Distant extends AbstractType
             ->add(
                 'name',
                 TextType::class, [
-                    'label' => 'Nom'
+                    'label' => 'Nom',
+                    'error_bubbling' => true
                 ]
             )
             ->add(
                 'url',
                 TextType::class, [
-                    'label' => 'URL'
+                    'label' => 'URL',
+                    'error_bubbling' => true
                 ]
             )
             ->add(

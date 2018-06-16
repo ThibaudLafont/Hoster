@@ -36,7 +36,7 @@ class Media
     /**
      * @var string
      * @ORM\Column(name="name", type="string")
-     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\NotNull(message="Le nom est obligatoire", groups={"create", "Default"})
      */
     protected $name;
 

@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Gallery

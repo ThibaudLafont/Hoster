@@ -31,13 +31,15 @@ class Image extends AbstractType
             ->add(
                 'name',
                 TextType::class, [
-                    'label' => 'Nom'
+                    'label' => 'Nom',
+                    'error_bubbling' => true
                 ]
             )
             ->add(
                 'alt',
                 TextType::class, [
-                    'label' => 'Description'
+                    'label' => 'Description',
+                    'error_bubbling' => true
                 ]
             )
             ->add(
@@ -57,7 +59,7 @@ class Image extends AbstractType
                     return array('create');
                 }
 
-                return array('default');
+                return array('Default');
             }
         ]);
     }

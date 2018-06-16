@@ -18,6 +18,7 @@ abstract class Distant extends Media
      * @var string
      * @ORM\Column(name="url", type="string")
      * @Assert\Url(
+     *     message="L'URL fournie n'est pas valide",
      *     checkDNS="ANY",
      *     dnsMessage="L'url fournie est invalide"
      * )

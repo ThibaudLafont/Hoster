@@ -7,6 +7,10 @@
         <!-- Add link -->
         <a href="#" id="add-button" class="ui primary button">Ajouter une image</a>
 
+        {% if not form.vars.valid %}
+            {% include 'form_theme/global-error.html.twig' %}
+        {% endif %}
+
         <!-- Uploaded images -->
         <table class="ui celled striped table">
             <thead>
@@ -62,6 +66,11 @@
     <!-- Page Dimmer -->
     <div class="ui page dimmer">
         <div class="ui left aligned segment">
+            <!-- Errors -->
+            {% if not form.vars.valid %}
+                {% include 'form_theme/dimmer-error.html.twig' %}
+            {% endif %}
+
             <!-- Form -->
             {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
                 <!-- Name -->

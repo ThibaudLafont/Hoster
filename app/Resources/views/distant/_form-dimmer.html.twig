@@ -1,6 +1,12 @@
 <div class="ui page dimmer">
     <!-- Form -->
     <div class="ui left aligned segment">
+        <!-- Error -->
+        {% if not form.vars.valid %}
+            {% include 'form_theme/dimmer-error.html.twig' %}
+        {% endif %}
+
+        <!-- Form -->
         {% include 'form_theme/distant/add-form.html.twig' %}
     </div>
 
