@@ -5,25 +5,24 @@
         <h1>Image Upload</h1>
 
         <!-- Add link -->
-        <a href="#" id="add-image-button" class="ui primary button">Ajouter une image</a>
+        <a href="#" id="add-button" class="ui primary button">Ajouter une image</a>
 
         <!-- Uploaded images -->
         <table class="ui celled striped table">
             <thead>
-            <tr>
-                <th>Preview</th>
-                <th>Nom</th>
-                <th>Infos</th>
-                <th class="center aligned">Actions</th>
-            </tr>
+                <tr>
+                    <th class="collapsing">Preview</th>
+                    <th>Nom</th>
+                    <th>Infos</th>
+                    <th class="collapsing center aligned">Actions</th>
+                </tr>
             </thead>
             <tbody>
             <!-- Images -->
             {% for image in images %}
                 <tr>
-                    <!-- First Cell -->
+                    <!-- Thumbnail -->
                     <td class="collapsing">
-                        <!-- Thumbnail -->
                         <a href="{{ image.src }}" target="_blank">
                             <img src="{{ image.thumbSrc }}" alt="{{ image.alt }}">
                         </a>
@@ -97,14 +96,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        $('#add-image-button').click(function(e){
-            e.preventDefault();
-            $('.ui.page.dimmer').dimmer('show');
-        });
-
-        $('.ui.submit.button').click(function(e){
-            $('#loader').dimmer('show');
-        });
-    </script>
+    <script src="/js/form-dimmer.js"></script>
 {% endblock %}
