@@ -39,10 +39,6 @@ class DailymotionController extends Controller
 
                 // Return to image_upload
                 return $this->redirectToRoute('dailymotion_add');
-            } else {
-                $errors =  $form->getErrors(true);
-                $errors = str_replace('ERROR', 'Erreur', $errors);
-                echo '<pre>'; echo $errors; die;
             }
         }
 

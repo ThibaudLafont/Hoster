@@ -41,6 +41,12 @@ class Media
     protected $name;
 
     /**
+     * @var string
+     * @ORM\Column(name="slug", type="string")
+     */
+    protected $slug;
+
+    /**
      * @var DateTime
      * @ORM\Column(name="create_at", type="datetime")
      */
@@ -81,6 +87,22 @@ class Media
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     /**

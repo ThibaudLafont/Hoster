@@ -3,6 +3,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Local\Image as ImageEntity;
 use AppBundle\EventSubscriber\ImageSubscriber;
+use AppBundle\EventSubscriber\MediaSubscriber;
 use AppBundle\Service\Slugifier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -25,7 +26,8 @@ class Image extends AbstractType
     {
         // Form build
         $builder
-            ->addEventSubscriber(new ImageSubscriber(new Slugifier()))
+            ->addEventSubscriber(new ImageSubscriber())
+            ->addEventSubscriber(new MediaSubscriber(new Slugifier()))
             ->add(
                 'name',
                 TextType::class, [

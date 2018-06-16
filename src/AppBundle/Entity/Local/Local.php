@@ -8,12 +8,6 @@ abstract class Local extends Media
 {
     /**
      * @var string
-     * @ORM\Column(name="slug", type="string")
-     */
-    protected $slug;
-
-    /**
-     * @var string
      * @ORM\Column(name="extension", type="string")
      */
     protected $extension;
@@ -64,22 +58,6 @@ abstract class Local extends Media
     public function setDirPath(string $dirPath): void
     {
         $this->dirPath = $dirPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     */
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
     }
 
 }

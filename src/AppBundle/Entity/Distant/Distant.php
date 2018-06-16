@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Media
  *
- * @UniqueEntity("name", message="Nom déjà pris")
+ * @UniqueEntity("slug", message="Nom déjà pris")
  */
 abstract class Distant extends Media
 {
