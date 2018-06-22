@@ -27,6 +27,11 @@ class Youtube extends Distant
         return 'https://www.youtube.com/embed/' . $this->getCode();
     }
 
+    public function getType()
+    {
+        return 'youtube';
+    }
+
     /**
      * @return bool|int
      *

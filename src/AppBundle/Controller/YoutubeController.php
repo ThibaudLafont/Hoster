@@ -41,8 +41,12 @@ class YoutubeController extends Controller
         }
 
         return $this->render(
-            'distant/youtube/add.html.twig',
-            ['vids' => $vids, 'form' => $form->createView()]
+            'distant/add.html.twig',
+            [
+                'type' => 'Youtube',
+                'vids' => $vids,
+                'form' => $form->createView()
+            ]
         );
     }
 
@@ -73,8 +77,12 @@ class YoutubeController extends Controller
         }
 
         return $this->render(
-            'distant/youtube/edit.html.twig',
-            ['vid' => $vid, 'form' => $form->createView()]
+            'distant/edit.html.twig',
+            [
+                'type' => 'Youtube',
+                'vid' => $vid,
+                'form' => $form->createView()
+            ]
         );
 
     }

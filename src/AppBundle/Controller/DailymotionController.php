@@ -43,8 +43,12 @@ class DailymotionController extends Controller
         }
 
         return $this->render(
-            'distant/dailymotion/add.html.twig',
-            ['vids' => $vids, 'form' => $form->createView()]
+            'distant/add.html.twig',
+            [
+                'type' => 'Dailymotion',
+                'vids' => $vids,
+                'form' => $form->createView()
+            ]
         );
     }
 
@@ -75,8 +79,12 @@ class DailymotionController extends Controller
         }
 
         return $this->render(
-            'distant/dailymotion/edit.html.twig',
-            ['vid' => $vid, 'form' => $form->createView()]
+            'distant/edit.html.twig',
+            [
+                'type' => 'Dailymotion',
+                'vid' => $vid,
+                'form' => $form->createView()
+            ]
         );
 
     }

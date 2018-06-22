@@ -25,6 +25,11 @@ class Dailymotion extends Distant
         return '//www.dailymotion.com/embed/video/' . $this->getCode();
     }
 
+    public function getType()
+    {
+        return 'dailymotion';
+    }
+
     /**
      * @return bool|int
      *

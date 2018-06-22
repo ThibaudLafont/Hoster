@@ -33,11 +33,22 @@ abstract class Distant extends Media
     protected $code;
 
     abstract function getSrc();
+    abstract function getType();
     abstract function isFromCorrectHost();
 
     public function getIconClass()
     {
         return 'ui video icon';
+    }
+
+    public function getEditUrl()
+    {
+        return '/edit/' . $this->getType() . '/' . $this->getId();
+    }
+
+    public function getDeleteUrl()
+    {
+        return '/delete/' . $this->getType() . '/' . $this->getId();
     }
 
     /**

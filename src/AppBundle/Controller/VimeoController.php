@@ -41,8 +41,12 @@ class VimeoController extends Controller
         }
 
         return $this->render(
-            'distant/vimeo/add.html.twig',
-            ['vids' => $vids, 'form' => $form->createView()]
+            'distant/add.html.twig',
+            [
+                'type' => 'Vimeo',
+                'vids' => $vids,
+                'form' => $form->createView()
+            ]
         );
     }
 
@@ -73,8 +77,12 @@ class VimeoController extends Controller
         }
 
         return $this->render(
-            'distant/vimeo/edit.html.twig',
-            ['vid' => $vid, 'form' => $form->createView()]
+            'distant/edit.html.twig',
+            [
+                'type' => 'Vimeo',
+                'vid' => $vid,
+                'form' => $form->createView()
+            ]
         );
 
     }

@@ -30,6 +30,11 @@ class Vimeo extends Distant
         return 'https://player.vimeo.com/video/' . $this->getCode();
     }
 
+    public function getType()
+    {
+        return 'vimeo';
+    }
+
     /**
      * @return bool|int
      *
