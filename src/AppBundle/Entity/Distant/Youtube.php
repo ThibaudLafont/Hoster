@@ -15,14 +15,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Youtube extends Distant
 {
 
-    public function getCoverImage()
+    public function getThumbnail()
     {
         return 'https://img.youtube.com/vi/' .
             $this->getCode() .
             '/hqdefault.jpg';
     }
 
-    public function getEmbedSrc()
+    public function getSrc()
     {
         return 'https://www.youtube.com/embed/' . $this->getCode();
     }

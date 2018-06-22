@@ -20,12 +20,12 @@ class Vimeo extends Distant
      */
     private $coverUrl;
 
-    public function getCoverImage()
+    public function getThumbnail()
     {
         return $this->coverUrl;
     }
 
-    public function getEmbedSrc()
+    public function getSrc()
     {
         return 'https://player.vimeo.com/video/' . $this->getCode();
     }

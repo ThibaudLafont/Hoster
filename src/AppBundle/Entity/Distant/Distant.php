@@ -32,9 +32,13 @@ abstract class Distant extends Media
      */
     protected $code;
 
-    abstract function getCoverImage();
-    abstract function getEmbedSrc();
+    abstract function getSrc();
     abstract function isFromCorrectHost();
+
+    public function getIconClass()
+    {
+        return 'ui video icon';
+    }
 
     /**
      * @return string

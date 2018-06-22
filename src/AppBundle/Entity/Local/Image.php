@@ -52,6 +52,11 @@ class Image extends Local
      */
     private $alt;
 
+    public function getIconClass()
+    {
+        return 'ui camera icon';
+    }
+
     /**
      * @return int
      */
@@ -87,7 +92,7 @@ class Image extends Local
         return $size . ' Kb';
     }
 
-    public function getThumbSrc()
+    public function getThumbnail()
     {
         return
             $this->getDirPath() . 'thumbnails/' .
