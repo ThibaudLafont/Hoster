@@ -21,6 +21,7 @@
 }
 
 #browse-collection {
+    height: 80%;
     overflow: scroll;
 }
 
@@ -34,4 +35,18 @@
 }
 .action-buttons form {
     display: inline;
+}
+
+#close-button
+{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+#media-dimmer-form,
+#new-image-dimmer
+{
+    padding-top: 45px;
 }

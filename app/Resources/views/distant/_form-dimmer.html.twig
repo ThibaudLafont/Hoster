@@ -1,6 +1,10 @@
 <div class="ui page dimmer">
+
     <!-- Form -->
-    <div class="ui left aligned segment">
+    <div id="media-dimmer-form" class="ui left aligned segment">
+        <!-- Close button -->
+        <i id="close-button" class="ui big window close red icon"></i>
+
         <!-- Error -->
         {% if not form.vars.valid %}
             {% include 'form_theme/dimmer-error.html.twig' %}

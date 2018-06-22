@@ -1,8 +1,13 @@
 {% macro itemsCollection(itemForm) %}
-    <section id="browse-collection" class="ui segment">
+    <section id="browse-collection" class="ui top attached segment">
+        <!-- Close button -->
+        <i id="close-button" class="ui big window close red icon"></i>
+
+        <!-- Header -->
         <h1 class="ui header">Médias uploadés</h1>
+
         <!-- Parent div -->
-        <section id="item-dimmer" class="ui centered cards">
+        <section id="item-dimmer" class="ui four cards">
             {% for media in itemForm.media %}
                 <!-- Get entity attrs -->
                 {% set index = media.vars.value %}

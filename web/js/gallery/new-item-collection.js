@@ -110,6 +110,7 @@ function onNewVimeoDimmerSubmit() {
 jQuery(document).ready(function() {
     // Image
     initCollection(
+        'Image',
         $('.media-new-image-parent'),
         '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Image</a>',
         onNewImageDimmerSubmit
@@ -117,6 +118,7 @@ jQuery(document).ready(function() {
 
     // Youtube
     initCollection(
+        'Youtube',
         $('.media-new-distant-parent'),
         '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Youtube</a>',
         onNewYoutubeDimmerSubmit
@@ -124,6 +126,7 @@ jQuery(document).ready(function() {
 
     // Dailymotion
     initCollection(
+        'Dailymotion',
         $('.media-new-distant-parent'),
         '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Dailymotion</a>',
         onNewDailymotionDimmerSubmit
@@ -131,6 +134,7 @@ jQuery(document).ready(function() {
 
     // Vimeo
     initCollection(
+        'Viméo',
         $('.media-new-distant-parent'),
         '<a class="ui green labeled icon button"><i class="ui plus icon"></i>Vimeo</a>',
         onNewVimeoDimmerSubmit

@@ -36,3 +36,7 @@ $('#form-error-button').click(function(e){
     e.preventDefault();
     $('.ui.page.dimmer').dimmer('show');
 });
+
+$('.ui.page.dimmer #close-button').click(function(){
+    $('.ui.page.dimmer').dimmer('hide');
+})

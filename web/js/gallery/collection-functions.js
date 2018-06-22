@@ -34,7 +34,7 @@ function rowDeletion(element, event) {
     row.remove();
 }
 
-function initCollection($collectionHolder, $button, $function) {
+function initCollection($type, $collectionHolder, $button, $function) {
     // Create add button & insert
     var $addItemButton = $($button);
     $('#add-media-buttons').append($addItemButton);
@@ -57,6 +57,14 @@ function initCollection($collectionHolder, $button, $function) {
 
         // Append form in dimmer
         $('.ui.page.dimmer').append(newForm);
+
+        // Change title for current media to upload
+        $('.ui.page.dimmer .ui.header').text($type);
+
+        // Add event on close-button
+        $('.ui.page.dimmer #close-button').click(function(e){
+            $('.ui.page.dimmer').dimmer('hide');
+        })
 
         // Show dimmer
         $('.ui.page.dimmer').dimmer('show');
