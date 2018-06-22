@@ -5,7 +5,7 @@
         <h1>Éditer {{ vid.name }} - Vidéo {{ vid.type|capitalize }}</h1>
 
         <!-- All images button -->
-        <a class="ui primary button" href="/add/vimeo">Toutes les vidéos Vimeo</a>
+        <a class="ui primary button" href="/add/{{ type|lower }}">Toutes les vidéos {{ type }}</a>
 
         <h4>Vidéo</h4>
         <iframe width="400" height="220"
