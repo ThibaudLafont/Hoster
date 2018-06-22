@@ -2,32 +2,41 @@
 
 {% block body %}
     <section class="ui basic segment">
-        <h1>Éditer {{ media.name }} - Vidéo {{ media.type|capitalize }}</h1>
+        <h1>Éditer "{{ media.name }}"</h1>
+        <a href="/add/{{ media.type|lower }}" class="ui primary button">Retour à la galerie</a>
 
         <section class="ui basic segment">
             <div class="ui two column centered grid">
                 <div class="height wide column">
-                    <!-- Preview -->
+
+                    <!-- Preview block -->
                     <div class="ui fluid card">
                         <div class="content">
+                            <!-- Media Name -->
                             <div class="header">{{ media.name }}</div>
+
+                            <!-- Media display -->
                             <div class="description">
                                 {% if media.type is same as('image') %}
                                     <img src="{{ media.src }}" alt="{{ media.alt }}" class="ui fluid image">
                                 {% else %}
                                     <div class="aspect-ratio">
-                                        <iframe src="{{ media.src }}">
-                                        </iframe>
+                                        <iframe src="{{ media.src }}"></iframe>
                                     </div>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Sidebar -->
                 <div class="four wide column">
-                    <!-- Infos -->
+
+                    <!-- Infos block  -->
                     <div class="ui card">
                         <div class="content">
+
+                            <!-- Media details -->
                             <div class="description">
                                 <p>
                                     {% if media.type is same as('image') %}
@@ -38,11 +47,18 @@
                                 </p>
                             </div>
                         </div>
+
+
+                        <!-- Media Icon & Type -->
                         <div class="extra content">
-                            <i class="{{ media.iconClass }}"></i>
-                            {{ media.type|capitalize }}
+                            <span class="left floated">
+                                <i class="{{ media.iconClass }}"></i>
+                                {{ media.type|capitalize }}
+                            </span>
                         </div>
                     </div>
+
+                    <!-- Edit form block -->
                     {% if media.type is same as('image') %}
                         {% include 'form_theme/local/image/edit-form.html.twig' %}
                     {% else %}
