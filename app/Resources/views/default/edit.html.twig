@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="ui basic segment">
+        <h1>Éditer {{ media.name }} - Vidéo {{ media.type|capitalize }}</h1>
+
+        <section class="ui basic segment">
+            <div class="ui two column centered grid">
+                <div class="height wide column">
+                    <!-- Preview -->
+                    <div class="ui fluid card">
+                        <div class="content">
+                            <div class="header">{{ media.name }}</div>
+                            <div class="description">
+                                {% if media.type is same as('image') %}
+                                    <img src="{{ media.src }}" alt="{{ media.alt }}" class="ui fluid image">
+                                {% else %}
+                                    <div class="aspect-ratio">
+                                        <iframe src="{{ media.src }}">
+                                        </iframe>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <!-- Infos -->
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="description">
+                                <p>
+                                    {% if media.type is same as('image') %}
+                                        {% include 'image/_image-infos.html.twig' %}
+                                    {% else %}
+                                        {% include 'distant/_distant-infos.html.twig' %}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <i class="{{ media.iconClass }}"></i>
+                            {{ media.type|capitalize }}
+                        </div>
+                    </div>
+                    {% if media.type is same as('image') %}
+                        {% include 'form_theme/local/image/edit-form.html.twig' %}
+                    {% else %}
+                        {% include 'form_theme/distant/edit-form.html.twig' %}
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

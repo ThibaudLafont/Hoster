@@ -13,12 +13,11 @@
 
         <!-- Infos -->
         <h4>Infos</h4>
-        <p>{% include 'image/_image_infos.html.twig' %}</p>
+        <p>{% include 'image/_image-infos.html.twig' %}</p>
 
         <!-- Form -->
         <h4>Form</h4>
-        {% form_theme form 'form_table_layout.html.twig' %}
-        {{ form(form) }}
+        {% include 'image/_image-infos.html.twig' %}
 
     </section>
 {% endblock %}

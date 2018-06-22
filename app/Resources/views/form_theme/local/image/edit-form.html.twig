@@ -1,0 +1,25 @@
+<div class="ui card">
+    <div class="content">
+        <div class="description">
+            <!-- Form -->
+            {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+            <!-- Name -->
+            <div class="field">
+                {{ form_row(form.name) }}
+            </div>
+            <!-- Alt -->
+            <div class="field">
+                {{ form_row(form.alt) }}
+            </div>
+
+            <!-- Hidden fields -->
+            {{ form_row(form.slug) }}
+            {{ form_row(form._token) }}
+        </div>
+    </div>
+    <div class="ui green bottom attached button">
+        <!-- Submit -->
+        {{ form_row(form.submit, {'attr': {'class': 'ui fluid green submit button'}}) }}
+    </div>
+    {{ form_end(form) }}
+</div>

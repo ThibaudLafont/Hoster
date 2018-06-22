@@ -1,3 +1,7 @@
+{% if media is defined %}
+    {% set image = media %}
+{% endif %}
+
 <strong>Créé le</strong>: {{ image.createAt|date }}<br/>
 <strong>Type de fichier</strong>: {{ image.extension }}<br/>
 <strong>Dimensions</strong>: {{ image.width }} x {{ image.height }}<br/>

@@ -52,6 +52,11 @@ class Image extends Local
      */
     private $alt;
 
+    public function getType()
+    {
+        return 'image';
+    }
+
     public function getIconClass()
     {
         return 'ui camera icon';

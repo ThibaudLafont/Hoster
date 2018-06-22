@@ -36,9 +36,7 @@
 
                     <!-- Infos -->
                     <td class="collapsing">
-                        <strong>Créé le</strong>: {{ vid.createAt|date }}<br/>
-                        <strong>Type de fichier</strong>: Vidéo {{ vid.type }}<br/>
-                        <strong>Code</strong>: {{ vid.code }}
+                        {% include 'distant/_distant-infos.html.twig' %}
                     </td>
 
                     <!-- Action buttons -->

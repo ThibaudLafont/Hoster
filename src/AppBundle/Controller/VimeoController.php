@@ -77,10 +77,10 @@ class VimeoController extends Controller
         }
 
         return $this->render(
-            'distant/edit.html.twig',
+            'default/edit.html.twig',
             [
                 'type' => 'Vimeo',
-                'vid' => $vid,
+                'media' => $vid,
                 'form' => $form->createView()
             ]
         );

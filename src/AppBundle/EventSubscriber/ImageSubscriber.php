@@ -42,7 +42,7 @@ class ImageSubscriber implements EventSubscriberInterface
             // Else, image_edit
         } else {
             $form->add(  // Edit button
-                'Modifier',
+                'submit',
                 SubmitType::class, [
                     'label' => 'Modifier'
                 ]

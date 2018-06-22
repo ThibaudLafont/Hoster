@@ -73,8 +73,12 @@ class ImageController extends Controller
 
         // Render
         return $this->render(
-            'image/edit.html.twig',
-            ['image' => $image, 'form' => $form->createView()]
+            'default/edit.html.twig',
+            [
+                'type' => 'Image',
+                'media' => $image,
+                'form' => $form->createView()
+            ]
         );
     }
 

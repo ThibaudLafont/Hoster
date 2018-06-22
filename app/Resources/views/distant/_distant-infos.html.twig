@@ -1,0 +1,7 @@
+{% if media is defined %}
+    {% set vid = media %}
+{% endif %}
+
+<strong>Créé le</strong>: {{ vid.createAt|date }}<br/>
+<strong>Type de fichier</strong>: Vidéo {{ vid.type }}<br/>
+<strong>Code</strong>: {{ vid.code }}
