@@ -78,7 +78,7 @@ function appendNewTableRow(thumbnail, id, name, icon, form) {
     var line = $('<tr class="media-form-row"></tr>');
     var preview = $('<td class="collapsing"><img class="ui small image" src="' + thumbnail + '"></td>');
     var name = $('<td>'+ icon + name + '</td>');
-    var actions = $('<td class="collapsing"></td>');
+    var actions = $('<td class="new-item-form collapsing"></td>');
 
     // get the new index
     var index = $('#gallery-medias').data('index');

@@ -16,26 +16,10 @@ class ApiController extends Controller
 
     protected function buildSuccessContent($entity)
     {
-        switch(get_class($entity)){
-            case Dailymotion::class:
-                $thumb = $entity->getCoverImage();
-                break;
-            case Youtube::class:
-                $thumb = $entity->getCoverImage();
-                break;
-            case Vimeo::class:
-                $thumb = $entity->getCoverImage();
-                break;
-            case Image::class:
-                $thumb = $entity->getThumbSrc();
-                break;
-            default:
-                break;
-        }
         return json_encode([
             'id' => $entity->getId(),
             'name' => $entity->getName(),
-            'url' => $thumb
+            'url' => $entity->getThumbnail()
         ]);
     }
 

@@ -82,6 +82,7 @@ function ajaxError(text) {
     try {
         text = $.parseJSON(text.responseText);
     } catch (e) {
+        console.log(text)
         text = "Problème serveur"
     }
     text = text.replace(/\n/g, "<br/>");
