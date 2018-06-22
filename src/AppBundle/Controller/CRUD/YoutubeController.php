@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\CRUD;
 
 use AppBundle\Entity\Distant\Youtube;
 use AppBundle\Form\Type\Distant;
@@ -97,8 +97,6 @@ class YoutubeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $vid = $em->getRepository(Youtube::class)->find($id);
-
-//        $this->denyAccessUnlessGranted('delete', $vid, 'Ce média est utilisé par une galerie, suppression impossible');
 
         $em->remove($vid);
         $em->flush();

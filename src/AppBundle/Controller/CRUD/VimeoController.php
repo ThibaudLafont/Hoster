@@ -1,7 +1,7 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\CRUD;
 
-use AppBundle\Entity\Distant\Dailymotion;
+use AppBundle\Entity\Distant\Vimeo;
 use AppBundle\Form\Type\Distant;
 use AppBundle\Form\Type\ImageUpload;
 use AppBundle\Service\ImageHandler;
@@ -10,42 +10,40 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class DailymotionController extends Controller
+class VimeoController extends Controller
 {
 
     /**
      * @param Request $request
      * @return Response
      *
-     * @Route("/add/dailymotion", name="dailymotion_add")
+     * @Route("/add/vimeo", name="vimeo_add")
      */
     public function addAction(Request $request)
     {
         // Get images
         $em = $this->getDoctrine()->getManager();
-        $vids = $em->getRepository(Dailymotion::class)->findAll();
+        $vids = $em->getRepository(Vimeo::class)->findAll();
 
         // Form
-        $form = $this->createForm(Distant::class, new Dailymotion());
+        $form = $this->createForm(Distant::class, new Vimeo());
         $form->handleRequest($request);
 
         // Check if form was submitted
-        if($form->isSubmitted()) {
-            if($form->isValid()) {
-                // Persist entity
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($form->getData());
-                $em->flush();
+        if($form->isSubmitted() && $form->isValid()) {
+            // Persist entity
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
 
-                // Return to image_upload
-                return $this->redirectToRoute('dailymotion_add');
-            }
+            // Return to image_upload
+            return $this->redirectToRoute('vimeo_add');
         }
 
         return $this->render(
             'distant/add.html.twig',
             [
-                'type' => 'Dailymotion',
+                'type' => 'Vimeo',
                 'vids' => $vids,
                 'form' => $form->createView()
             ]
@@ -57,13 +55,13 @@ class DailymotionController extends Controller
      * @param int $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
-     * @Route("/edit/dailymotion/{id}", name="dailymotion_edit")
+     * @Route("/edit/vimeo/{id}", name="vimeo_edit")
      */
     public function editAction(Request $request, int $id)
     {
         // Get images
         $em = $this->getDoctrine()->getManager();
-        $vid = $em->getRepository(Dailymotion::class)->find($id);
+        $vid = $em->getRepository(Vimeo::class)->find($id);
 
         // Form
         $form = $this->createForm(Distant::class, $vid);
@@ -75,13 +73,13 @@ class DailymotionController extends Controller
             $em->flush();
 
             // Return to image_upload
-            return $this->redirectToRoute('dailymotion_add');
+            return $this->redirectToRoute('vimeo_add');
         }
 
         return $this->render(
             'default/edit.html.twig',
             [
-                'type' => 'Dailymotion',
+                'type' => 'Vimeo',
                 'media' => $vid,
                 'form' => $form->createView()
             ]
@@ -93,17 +91,19 @@ class DailymotionController extends Controller
      * @param int $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/delete/dailymotion/{id}", name="dailymotion_delete")
+     * @Route("/delete/vimeo/{id}", name="vimeo_delete")
      */
     public function deleteAction(int $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $vid = $em->getRepository(Dailymotion::class)->find($id);
+        $vid = $em->getRepository(Vimeo::class)->find($id);
+
+        $this->denyAccessUnlessGranted('delete', $vid, 'Ce média est utilisé par une galerie, suppression impossible');
 
         $em->remove($vid);
         $em->flush();
 
-        return $this->redirectToRoute('dailymotion_add');
+        return $this->redirectToRoute('vimeo_add');
     }
 
 }
