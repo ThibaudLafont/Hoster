@@ -124,7 +124,7 @@ class Media
     /**
      * @return ArrayCollection
      */
-    public function getItems(): ArrayCollection
+    public function getItems()
     {
         return $this->items;
     }

@@ -98,6 +98,8 @@ class YoutubeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $vid = $em->getRepository(Youtube::class)->find($id);
 
+//        $this->denyAccessUnlessGranted('delete', $vid, 'Ce média est utilisé par une galerie, suppression impossible');
+
         $em->remove($vid);
         $em->flush();
 

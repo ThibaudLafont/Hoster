@@ -18,7 +18,7 @@
             <tbody>
             {% for gallery in galleries %}
                 <tr>
-                    <td>Main img</td>
+                    <td><img class="ui small image" src="{{ gallery.items.0.media.thumbnail }}" alt=""></td>
                     <td>{{ gallery.title }} - <em>{{ gallery.itemsNbre }} élément(s)</em></td>
                     <td class="collapsing">
                         <a href="/edit/gallery/{{ gallery.id }}" class="ui green icon button"><i class="ui edit icon"></i></a>
