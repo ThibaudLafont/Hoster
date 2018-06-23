@@ -1,20 +1,20 @@
 <?php
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Api\Normalizer\MediaNormalizer;
-use AppBundle\Entity\Media;
+use AppBundle\Api\Normalizer\GalleryNormalizer;
+use AppBundle\Entity\Gallery\Gallery;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class MediaController extends ApiController
+class GalleryController extends ApiController
 {
     /**
-     * @var MediaNormalizer
+     * @var GalleryNormalizer
      */
     private $normalizer;
 
-    public function __construct(MediaNormalizer $normalizer)
+    public function __construct(GalleryNormalizer $normalizer)
     {
         $this->setNormalizer($normalizer);
     }
@@ -22,13 +22,13 @@ class MediaController extends ApiController
     /**
      * @param Request $request
      *
-     * @Route("/api/medias", name="api_get_all_medias")
+     * @Route("/api/galleries", name="api_get_all_galleries")
      * @return Response
      */
-    public function getAllMediasAction(Request $request)
+    public function getAllGalleriesAction(Request $request)
     {
         $medias = $this->getDoctrine()->getManager()
-            ->getRepository(Media::class)
+            ->getRepository(Gallery::class)
             ->findAll();
 
         $normalized = $this->getNormalizer()->normalizeCollection($medias);
@@ -36,15 +36,15 @@ class MediaController extends ApiController
         return new Response(json_encode($normalized), 200, ['Content-Type' => 'application/json']);
     }
 
-    /**     *
-     * @Route("/api/media/{id}", name="api_get_media")
+    /**
+     * @Route("/api/gallery/{id}", name="api_get_gallery")
      * @param $id
      * @return Response
      */
-    public function getMediaAction($id)
+    public function getGalleryAction($id)
     {
         $media = $this->getDoctrine()->getManager()
-            ->getRepository(Media::class)
+            ->getRepository(Gallery::class)
             ->find($id);
 
         $normalized = $this->getNormalizer()->normalize($media);
@@ -53,17 +53,17 @@ class MediaController extends ApiController
     }
 
     /**
-     * @return MediaNormalizer
+     * @return GalleryNormalizer
      */
-    public function getNormalizer(): MediaNormalizer
+    public function getNormalizer(): GalleryNormalizer
     {
         return $this->normalizer;
     }
 
     /**
-     * @param MediaNormalizer $normalizer
+     * @param GalleryNormalizer $normalizer
      */
-    public function setNormalizer(MediaNormalizer $normalizer): void
+    public function setNormalizer(GalleryNormalizer $normalizer): void
     {
         $this->normalizer = $normalizer;
     }

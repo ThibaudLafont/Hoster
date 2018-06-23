@@ -24,5 +24,4 @@ class DailymotionController extends ApiController
 
         return $this->renderAjax($response['code'], $response['content']);
     }
-
 }
